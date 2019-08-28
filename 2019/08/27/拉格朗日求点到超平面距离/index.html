@@ -54,17 +54,19 @@
   };
 </script>
 
-  <meta name="description" content="El Psy Congroo">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Kyoma">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="文文问怎么推导点到超平面的距离, 除了把它想成Least squares问题外, 这也是一个在给定约束条件下求极值的问题, 顺便测试一下hexo数学符号显示怎么样,新博客的第一篇就写下使用Lagrange multiplier来求这个条件极值问题吧.">
+<meta name="keywords" content="mathematics,Lagrange multiplier,Linear Algbra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="拉格朗日求点到超平面距离">
+<meta property="og:url" content="http://yoursite.com/2019/08/27/拉格朗日求点到超平面距离/index.html">
 <meta property="og:site_name" content="Kyoma">
-<meta property="og:description" content="El Psy Congroo">
+<meta property="og:description" content="文文问怎么推导点到超平面的距离, 除了把它想成Least squares问题外, 这也是一个在给定约束条件下求极值的问题, 顺便测试一下hexo数学符号显示怎么样,新博客的第一篇就写下使用Lagrange multiplier来求这个条件极值问题吧.">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-28T04:33:58.936Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kyoma">
-<meta name="twitter:description" content="El Psy Congroo">
-  <link rel="canonical" href="http://yoursite.com/archives/">
+<meta name="twitter:title" content="拉格朗日求点到超平面距离">
+<meta name="twitter:description" content="文文问怎么推导点到超平面的距离, 除了把它想成Least squares问题外, 这也是一个在给定约束条件下求极值的问题, 顺便测试一下hexo数学符号显示怎么样,新博客的第一篇就写下使用Lagrange multiplier来求这个条件极值问题吧.">
+  <link rel="canonical" href="http://yoursite.com/2019/08/27/拉格朗日求点到超平面距离/">
 
 
 <script id="page-configurations">
@@ -72,13 +74,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>Archive | Kyoma</title>
+  <title>拉格朗日求点到超平面距离 | Kyoma</title>
   <meta name="generator" content="Hexo 3.9.0">
   
 
@@ -201,24 +203,6 @@
 
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 </nav>
   <div class="site-search">
     <div class="popup search-popup">
@@ -257,70 +241,157 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        
-        
-        
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/27/拉格朗日求点到超平面距离/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kyoma">
+      <meta itemprop="description" content="El Psy Congroo">
+      <meta itemprop="image" content="https://madkyoma.github.io/uploads/marisa.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kyoma">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">拉格朗日求点到超平面距离
+
           
-        
-        <span class="collection-header">Um..! 1 post. Keep on posting.</span>
-      </div>
-      
+        </h1>
 
-      
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
 
-  
-  
+              
+                
+              
 
+              <time title="Created: 2019-08-27 15:03:56" itemprop="dateCreated datePublished" datetime="2019-08-27T15:03:56+08:00">2019-08-27</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-28 12:33:58" itemprop="dateModified" datetime="2019-08-28T12:33:58+08:00">2019-08-28</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/代码题解/" itemprop="url" rel="index"><span itemprop="name">代码题解</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
   
+  <span class="post-meta-item">
     
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
-    </div>
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2019/08/27/拉格朗日求点到超平面距离/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/27/拉格朗日求点到超平面距离/" itemprop="commentCount"></span></a>
+  </span>
+  
   
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+        </div>
+      </header>
 
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/08/27/拉格朗日求点到超平面距离/" itemprop="url">
-            <span itemprop="name">拉格朗日求点到超平面距离</span>
-          </a>
-        
-      </h2>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-27T15:03:56+08:00"
-              content="2019-08-27">
-          08-27
-        </time>
-      </div>
+      
+        <p>文文问怎么推导点到超平面的距离, 除了把它想成Least squares问题外, 这也是一个在给定约束条件下求极值的问题, 顺便测试一下hexo数学符号显示怎么样,新博客的第一篇就写下使用Lagrange multiplier来求这个条件极值问题吧.</p>
+<a id="more"></a>
 
-    </header>
-  </article>
-
-
-
+<p>先从超平面入手, 超平面的定义是余空间仅为一维的集合, 先设$n$维空间中一点为$\vec x_0=(X_1, X_2,…,X_n)$, 并设超平面的约束条件为$\vec w^T\vec x =b$,其中$\vec w$为$n\times 1$向量.那么我们可以写出Lagrange multiplier:<br>$\mathrm L(\vec x, \lambda)=||\vec x-\vec x_0||^2+\lambda (\vec w^T\vec x-\vec b)$</p>
+<p>求个偏微分:</p>
+<p>$\frac{\partial L}{\partial \vec x} = 2(\vec x - \vec x_0)+\lambda \vec w =\vec 0$<br>$\frac{\partial L}{\partial \lambda} = \vec w^T\vec x-\vec b=0$</p>
+<p>From $\frac{\partial L}{\partial \lambda}$ we obtain:<br>$\vec w^T\vec x-b=0\to\vec w^T\vec x -\vec w^t\vec x_0+\vec w^t\vec x_0-b=0\to \vec w^t(\vec x-\vec x_0)=-\vec w^t\vec x_0+b$<br>将$\frac{\partial L}{\partial \vec x}$左右两边同乘以$\vec w^T:2\vec w^T(\vec x - \vec x_0)+\lambda \vec w^T\vec w =\vec 0$<br>然后把刚刚推出来的式子代入$2(\vec w^T\vec x_0-b)=\lambda||\vec w||^2$<br>得出$\lambda=\frac{2(\vec w^T\vec x_0-b)}{||\vec w||^2}$<br>将$\lambda$回代入$\frac{\partial L}{\partial \vec x}$中:$2(\vec x - \vec x_0)+ \frac{2(\vec w^T\vec x_0-b)}{||\vec w||^2}\vec w =\vec 0$<br>得到$(\vec x - \vec x_0)=-\frac{(\vec w^T\vec x_0-b)}{||\vec w||^2}\vec w$</p>
+<p>求个长度便得到距离:$||\vec x - \vec x_0||=|\frac{(\vec w^T\vec x_0-b)}{||\vec w||}|$</p>
+<p>昨天我不知道超平面的定义,导致和文文讲话不在同一个频道. 我以为给定的约束条件中W是个矩阵, 在这个约束条件下$\vec x$的集合就不一定是超平面了. 那么在约束条件$W\vec x=\vec b$下, 问题会是怎样呢?</p>
+<p>再废话讲一下前提. 设$n$维空间中一点为$\vec x_0=(X_1, X_2,…,X_n)$, 并设集合$S={\vec x\in \mathbb R^n|W\vec x=\vec b}$约束条件为$W\vec x =\vec b$.其中W为一个$n\times n$的矩阵, $\vec x, \vec b$是$n\times 1$的向量.</p>
+<p>那么令$\vec x=(x_1,…,x_n), \vec \lambda=(\lambda_1, …, \lambda_n)$, Lagrange multiplier为:</p>
+<p>$\mathrm L(\vec x, \vec \lambda)=||\vec x-\vec x_0||^2+\vec \lambda^T(W\vec x-\vec b)$</p>
+<p>求个偏微分:<br>$\frac{\partial L}{\partial \vec x}=2(\vec x-\vec x_0)+W^T\vec \lambda=\vec 0$<br>$\frac{\partial L}{\partial \vec \lambda}=W\vec x-\vec b = \vec 0$</p>
+<p>Similarly, from$\frac{\partial L}{\partial \vec \lambda}$we obtain:$W\vec x-W\vec x_0 +W\vec x_0-\vec b=\vec 0\to W(\vec x-\vec x_0)=-W\vec x_0+\vec b$.<br>Both sides of $\frac{\partial L}{\partial \vec x}$ multiply by W:<br>$2W(\vec x-\vec x_0)+WW^T\vec \lambda=\vec 0$<br>Substitute the equation obtained from$\frac{\partial L}{\partial \vec \lambda}$ into $\frac{\partial L}{\partial \vec x}$ we get:<br> $2(W\vec x_0-\vec b)=WW^T\vec \lambda$<br> Since $WW^T$ is symmetrical, so it’s invertiable. So $\vec \lambda$ is:<br> $\vec \lambda=2(WW^T)^{-1}(W\vec x_0-\vec b)$<br>Substitute $\vec \lambda$ into $\frac{\partial L}{\partial \vec x}$:<br>$2(\vec x-\vec x_0)+2W^T(WW^T)^{-1}(W\vec x_0-\vec b)=\vec 0$<br>Finally we obtain $\vec x-\vec x_0=||W^T(WW^T)^{-1}(W\vec x_0-\vec b)||$</p>
+<p>Fuck type too many words.</p>
 
     </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/mathematics/" rel="tag"># mathematics</a>
+            
+              <a href="/tags/Lagrange-multiplier/" rel="tag"># Lagrange multiplier</a>
+            
+              <a href="/tags/Linear-Algbra/" rel="tag"># Linear Algbra</a>
+            
+          </div>
+        
+
+        
+
+      </footer>
+    
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
 
         </div>
           
@@ -335,6 +406,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc" data-target="post-toc-wrap">
@@ -584,6 +660,27 @@
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function disqus_config() {
+    this.page.url = "http://yoursite.com/2019/08/27/拉格朗日求点到超平面距离/";
+    this.page.identifier = "2019/08/27/拉格朗日求点到超平面距离/";
+    this.page.title = '拉格朗日求点到超平面距离';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://disqus_tlGtAx19RI.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
 </script>
 
 </body>
