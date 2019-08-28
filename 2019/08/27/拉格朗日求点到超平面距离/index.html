@@ -62,7 +62,7 @@
 <meta property="og:site_name" content="Kyoma">
 <meta property="og:description" content="文文问怎么推导点到超平面的距离, 除了把它想成Least squares问题外, 这也是一个在给定约束条件下求极值的问题, 顺便测试一下hexo数学符号显示怎么样,新博客的第一篇就写下使用Lagrange multiplier来求这个条件极值问题吧.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-28T04:33:58.936Z">
+<meta property="og:updated_time" content="2019-08-28T05:37:47.363Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="拉格朗日求点到超平面距离">
 <meta name="twitter:description" content="文文问怎么推导点到超平面的距离, 除了把它想成Least squares问题外, 这也是一个在给定约束条件下求极值的问题, 顺便测试一下hexo数学符号显示怎么样,新博客的第一篇就写下使用Lagrange multiplier来求这个条件极值问题吧.">
@@ -286,7 +286,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-28 12:33:58" itemprop="dateModified" datetime="2019-08-28T12:33:58+08:00">2019-08-28</time>
+                <time title="Modified: 2019-08-28 13:37:47" itemprop="dateModified" datetime="2019-08-28T13:37:47+08:00">2019-08-28</time>
               </span>
             
           
@@ -335,8 +335,8 @@
 <p>先从超平面入手, 超平面的定义是余空间仅为一维的集合, 先设$n$维空间中一点为$\vec x_0=(X_1, X_2,…,X_n)$, 并设超平面的约束条件为$\vec w^T\vec x =b$,其中$\vec w$为$n\times 1$向量.那么我们可以写出Lagrange multiplier:<br>$\mathrm L(\vec x, \lambda)=||\vec x-\vec x_0||^2+\lambda (\vec w^T\vec x-\vec b)$</p>
 <p>求个偏微分:</p>
 <p>$\frac{\partial L}{\partial \vec x} = 2(\vec x - \vec x_0)+\lambda \vec w =\vec 0$<br>$\frac{\partial L}{\partial \lambda} = \vec w^T\vec x-\vec b=0$</p>
-<p>From $\frac{\partial L}{\partial \lambda}$ we obtain:<br>$\vec w^T\vec x-b=0\to\vec w^T\vec x -\vec w^t\vec x_0+\vec w^t\vec x_0-b=0\to \vec w^t(\vec x-\vec x_0)=-\vec w^t\vec x_0+b$<br>将$\frac{\partial L}{\partial \vec x}$左右两边同乘以$\vec w^T:2\vec w^T(\vec x - \vec x_0)+\lambda \vec w^T\vec w =\vec 0$<br>然后把刚刚推出来的式子代入$2(\vec w^T\vec x_0-b)=\lambda||\vec w||^2$<br>得出$\lambda=\frac{2(\vec w^T\vec x_0-b)}{||\vec w||^2}$<br>将$\lambda$回代入$\frac{\partial L}{\partial \vec x}$中:$2(\vec x - \vec x_0)+ \frac{2(\vec w^T\vec x_0-b)}{||\vec w||^2}\vec w =\vec 0$<br>得到$(\vec x - \vec x_0)=-\frac{(\vec w^T\vec x_0-b)}{||\vec w||^2}\vec w$</p>
-<p>求个长度便得到距离:$||\vec x - \vec x_0||=|\frac{(\vec w^T\vec x_0-b)}{||\vec w||}|$</p>
+<p>From $\frac{\partial L}{\partial \lambda}$ we obtain:<br>$\vec w^T\vec x-b=0\to\vec w^T\vec x -\vec w^t\vec x_0+\vec w^t\vec x_0-b=0\to \vec w^t(\vec x-\vec x_0)=-\vec w^t\vec x_0+b$<br>将$\frac{\partial L}{\partial \vec x}$左右两边同乘以$\vec w^T:$<br>$2\vec w^T(\vec x - \vec x_0)+\lambda \vec w^T\vec w =\vec 0$<br>然后把刚刚推出来的式子代入$2(\vec w^T\vec x_0-b)=\lambda||\vec w||^2$<br>得出$\lambda=\frac{2(\vec w^T\vec x_0-b)}{||\vec w||^2}$<br>将$\lambda$回代入$\frac{\partial L}{\partial \vec x}$中:<br>$2(\vec x - \vec x_0)+ \frac{2(\vec w^T\vec x_0-b)}{||\vec w||^2}\vec w =\vec 0$<br>得到$(\vec x - \vec x_0)=-\frac{(\vec w^T\vec x_0-b)}{||\vec w||^2}\vec w$</p>
+<p>求个长度便得到距离:<br>$||\vec x - \vec x_0||=|\frac{(\vec w^T\vec x_0-b)}{||\vec w||}|$</p>
 <p>昨天我不知道超平面的定义,导致和文文讲话不在同一个频道. 我以为给定的约束条件中W是个矩阵, 在这个约束条件下$\vec x$的集合就不一定是超平面了. 那么在约束条件$W\vec x=\vec b$下, 问题会是怎样呢?</p>
 <p>再废话讲一下前提. 设$n$维空间中一点为$\vec x_0=(X_1, X_2,…,X_n)$, 并设集合$S={\vec x\in \mathbb R^n|W\vec x=\vec b}$约束条件为$W\vec x =\vec b$.其中W为一个$n\times n$的矩阵, $\vec x, \vec b$是$n\times 1$的向量.</p>
 <p>那么令$\vec x=(x_1,…,x_n), \vec \lambda=(\lambda_1, …, \lambda_n)$, Lagrange multiplier为:</p>
@@ -654,7 +654,7 @@
 <script>
   function loadCount() {
     var d = document, s = d.createElement('script');
-    s.src = 'https://disqus_tlGtAx19RI.disqus.com/count.js';
+    s.src = 'https://https-elephantzhang-github-io.disqus.com/count.js';
     s.id = 'dsq-count-scr';
     (d.head || d.body).appendChild(s);
   }
@@ -674,7 +674,7 @@
       });
     } else {
       var d = document, s = d.createElement('script');
-      s.src = 'https://disqus_tlGtAx19RI.disqus.com/embed.js';
+      s.src = 'https://https-elephantzhang-github-io.disqus.com/embed.js';
       s.setAttribute('data-timestamp', '' + +new Date());
       (d.head || d.body).appendChild(s);
     }
