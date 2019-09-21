@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[再一次的刘汝佳紫书]]></title>
+    <url>%2F2019%2F09%2F21%2F%E5%86%8D%E4%B8%80%E6%AC%A1%E7%9A%84%E5%88%98%E6%B1%9D%E4%BD%B3%E7%B4%AB%E4%B9%A6%2F</url>
+    <content type="text"><![CDATA[重新捡起紫书…为了kickstart冲哇 [test] [++]1234567891011#include &lt;iostream&gt;#include &lt;cstring&gt;#include &lt;cstdio&gt;using namespace std;int main()&#123; return 0;&#125;]]></content>
+      <categories>
+        <category>代码题解</category>
+      </categories>
+      <tags>
+        <tag>算法竞赛</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[拉格朗日求点到超平面距离]]></title>
     <url>%2F2019%2F08%2F27%2F%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E6%B1%82%E7%82%B9%E5%88%B0%E8%B6%85%E5%B9%B3%E9%9D%A2%E8%B7%9D%E7%A6%BB%2F</url>
     <content type="text"><![CDATA[文文问怎么推导点到超平面的距离, 除了把它想成Least squares问题外, 这也是一个在给定约束条件下求极值的问题, 顺便测试一下hexo数学符号显示怎么样,新博客的第一篇就写下使用Lagrange multiplier来求这个条件极值问题吧. 先从超平面入手, 超平面的定义是余空间仅为一维的集合, 先设$n$维空间中一点为$\vec x_0=(X_1, X_2,…,X_n)$, 并设超平面的约束条件为$\vec w^T\vec x =b$,其中$\vec w$为$n\times 1$向量.那么我们可以写出Lagrange multiplier:$\mathrm L(\vec x, \lambda)=||\vec x-\vec x_0||^2+\lambda (\vec w^T\vec x-\vec b)$ 求个偏微分: $\frac{\partial L}{\partial \vec x} = 2(\vec x - \vec x_0)+\lambda \vec w =\vec 0$$\frac{\partial L}{\partial \lambda} = \vec w^T\vec x-\vec b=0$ From $\frac{\partial L}{\partial \lambda}$ we obtain:$\vec w^T\vec x-b=0\to\vec w^T\vec x -\vec w^t\vec x_0+\vec w^t\vec x_0-b=0\to \vec w^t(\vec x-\vec x_0)=-\vec w^t\vec x_0+b$将$\frac{\partial L}{\partial \vec x}$左右两边同乘以$\vec w^T:$$2\vec w^T(\vec x - \vec x_0)+\lambda \vec w^T\vec w =\vec 0$然后把刚刚推出来的式子代入$2(\vec w^T\vec x_0-b)=\lambda||\vec w||^2$得出$\lambda=\frac{2(\vec w^T\vec x_0-b)}{||\vec w||^2}$将$\lambda$回代入$\frac{\partial L}{\partial \vec x}$中:$2(\vec x - \vec x_0)+ \frac{2(\vec w^T\vec x_0-b)}{||\vec w||^2}\vec w =\vec 0$得到$(\vec x - \vec x_0)=-\frac{(\vec w^T\vec x_0-b)}{||\vec w||^2}\vec w$ 求个长度便得到距离:$||\vec x - \vec x_0||=|\frac{(\vec w^T\vec x_0-b)}{||\vec w||}|$ 昨天我不知道超平面的定义,导致和文文讲话不在同一个频道. 我以为给定的约束条件中W是个矩阵, 在这个约束条件下$\vec x$的集合就不一定是超平面了. 那么在约束条件$W\vec x=\vec b$下, 问题会是怎样呢? 再废话讲一下前提. 设$n$维空间中一点为$\vec x_0=(X_1, X_2,…,X_n)$, 并设集合$S={\vec x\in \mathbb R^n|W\vec x=\vec b}$约束条件为$W\vec x =\vec b$.其中W为一个$n\times n$的矩阵, $\vec x, \vec b$是$n\times 1$的向量. 那么令$\vec x=(x_1,…,x_n), \vec \lambda=(\lambda_1, …, \lambda_n)$, Lagrange multiplier为: $\mathrm L(\vec x, \vec \lambda)=||\vec x-\vec x_0||^2+\vec \lambda^T(W\vec x-\vec b)$ 求个偏微分:$\frac{\partial L}{\partial \vec x}=2(\vec x-\vec x_0)+W^T\vec \lambda=\vec 0$$\frac{\partial L}{\partial \vec \lambda}=W\vec x-\vec b = \vec 0$ Similarly, from$\frac{\partial L}{\partial \vec \lambda}$we obtain:$W\vec x-W\vec x_0 +W\vec x_0-\vec b=\vec 0\to W(\vec x-\vec x_0)=-W\vec x_0+\vec b$.Both sides of $\frac{\partial L}{\partial \vec x}$ multiply by W:$2W(\vec x-\vec x_0)+WW^T\vec \lambda=\vec 0$Substitute the equation obtained from$\frac{\partial L}{\partial \vec \lambda}$ into $\frac{\partial L}{\partial \vec x}$ we get: $2(W\vec x_0-\vec b)=WW^T\vec \lambda$ Since $WW^T$ is symmetrical, so it’s invertiable. So $\vec \lambda$ is: $\vec \lambda=2(WW^T)^{-1}(W\vec x_0-\vec b)$Substitute $\vec \lambda$ into $\frac{\partial L}{\partial \vec x}$:$2(\vec x-\vec x_0)+2W^T(WW^T)^{-1}(W\vec x_0-\vec b)=\vec 0$Finally we obtain $\vec x-\vec x_0=||W^T(WW^T)^{-1}(W\vec x_0-\vec b)||$ Fuck type too many words.]]></content>
       <categories>
-        <category>代码题解</category>
+        <category>数学</category>
       </categories>
       <tags>
         <tag>mathematics</tag>
