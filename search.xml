@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[自用git使用手册]]></title>
+    <url>%2F2020%2F05%2F08%2F%E8%87%AA%E7%94%A8git%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C%2F</url>
+    <content type="text"><![CDATA[不知道干啥时的快速便签 想要从原仓库将更新的commit更新到本地的场合比如想将更新merge到master主分支上, 那么首先保证我们在主分支上: 看看我们在哪个分支上git branch 切回主分支git checkout master 接下来先将远端的代码先载到本地git fetch upstream_pcp(以我自己的pcp项目为例, 最后这个远程仓库名可通过git remote -v查看) 此时可能会出现需要手动merge代码的情况, 我用vsCode所以在source control里可以可视化地merge代码. merge完毕之后需要commit一下, 并在文件里描述这次merge. 好, 完成以上操作后可以进行merge了git merge upstream_pcp/master 此时便将fetch的代码,以及我们手动merge的代码merge进当前的branch.]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[Google Summer of Code: Timeseries query language extension for PCP]]></title>
     <url>%2F2020%2F05%2F08%2FGoogle-Summer-of-Code-Timeseries-query-language-extension-for-PCP%2F</url>
-    <content type="text"><![CDATA[This blog is just a sumple note for the project Timeseries query language extension during this summer.]]></content>
+    <content type="text"><![CDATA[This blog is just a sumple note for the project Timeseries query language extension during this summer. GrammarThe grammar description file is located on src/libpcp_web/src/query_parser.y. It’s a yacc file. The exsisting grammars are followed:]]></content>
   </entry>
   <entry>
     <title><![CDATA[Compiler for language tiger]]></title>
