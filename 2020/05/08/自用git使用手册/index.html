@@ -56,14 +56,14 @@
 
   <meta name="description" content="不知道干啥时的快速便签">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自用git使用手册">
+<meta property="og:title" content="自用快速手册">
 <meta property="og:url" content="http://yoursite.com/2020/05/08/自用git使用手册/index.html">
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="不知道干啥时的快速便签">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-08T12:10:51.371Z">
+<meta property="og:updated_time" content="2020-05-25T16:43:22.579Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自用git使用手册">
+<meta name="twitter:title" content="自用快速手册">
 <meta name="twitter:description" content="不知道干啥时的快速便签">
   <link rel="canonical" href="http://yoursite.com/2020/05/08/自用git使用手册/">
 
@@ -79,7 +79,7 @@
   };
 </script>
 
-  <title>自用git使用手册 | Future Gadget Laboratory</title>
+  <title>自用快速手册 | Future Gadget Laboratory</title>
   <meta name="generator" content="Hexo 3.9.0">
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146590972-1"></script>
@@ -277,7 +277,7 @@
       <meta itemprop="name" content="Future Gadget Laboratory">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">自用git使用手册
+        <h1 class="post-title" itemprop="name headline">自用快速手册
 
           
         </h1>
@@ -293,11 +293,19 @@
                 
               
 
-              <time title="Created: 2020-05-08 20:04:51 / Modified: 20:10:51" itemprop="dateCreated datePublished" datetime="2020-05-08T20:04:51+08:00">2020-05-08</time>
+              <time title="Created: 2020-05-08 20:04:51" itemprop="dateCreated datePublished" datetime="2020-05-08T20:04:51+08:00">2020-05-08</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-26 00:43:22" itemprop="dateModified" datetime="2020-05-26T00:43:22+08:00">2020-05-26</time>
+              </span>
             
           
 
@@ -329,12 +337,42 @@
         <p>不知道干啥时的快速便签</p>
 <a id="more"></a>
 
-<h2 id="想要从原仓库将更新的commit更新到本地的场合"><a href="#想要从原仓库将更新的commit更新到本地的场合" class="headerlink" title="想要从原仓库将更新的commit更新到本地的场合"></a>想要从原仓库将更新的commit更新到本地的场合</h2><p>比如想将更新merge到master主分支上, 那么首先保证我们在主分支上:</p>
+<h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h2 id="想要从原仓库将更新的commit更新到本地的场合"><a href="#想要从原仓库将更新的commit更新到本地的场合" class="headerlink" title="想要从原仓库将更新的commit更新到本地的场合"></a>想要从原仓库将更新的commit更新到本地的场合</h2><p>比如想将更新merge到master主分支上, 那么首先保证我们在主分支上:</p>
 <p>看看我们在哪个分支上<code>git branch</code></p>
 <p>切回主分支<code>git checkout master</code></p>
 <p>接下来先将远端的代码先载到本地<code>git fetch upstream_pcp</code>(以我自己的pcp项目为例, 最后这个远程仓库名可通过<code>git remote -v</code>查看)</p>
 <p>此时可能会出现需要手动merge代码的情况, 我用vsCode所以在source control里可以可视化地merge代码. merge完毕之后需要commit一下, 并在文件里描述这次merge. </p>
 <p>好, 完成以上操作后可以进行merge了<code>git merge upstream_pcp/master</code> 此时便将fetch的代码,以及我们手动merge的代码merge进当前的branch.</p>
+<h2 id="撤销commit"><a href="#撤销commit" class="headerlink" title="撤销commit"></a>撤销commit</h2><p>只是撤销commit而已哦<code>git reset --soft HEAD~1</code></p>
+<h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><h2 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h2><p>动态库编译install后, 可能由于缓存没有更新导致程序还在使用旧的库. 此时<code>ldconfig</code></p>
+<h1 id="GDB"><a href="#GDB" class="headerlink" title="GDB"></a>GDB</h1><p>自己编译的时候使用<code>gcc -g xxx.c</code>, -g会创建符号表/关闭优化(诶大丈夫?)程序将按照代码来执行.</p>
+<p>对于需要args参数的程序调试示例<code>gdb --args pmseries &#39;kernel.all.load[count:5]&#39;</code></p>
+<p>打开gdb后, 使用<code>layout next</code>来看代码.</p>
+<p>使用<code>break function_name</code>来对某个函数设定断点</p>
+<p>运行<code>run</code>开始运行程序</p>
+<p>使用<code>next</code>或<code>step</code>来使程序进入下一步, 区别在于<code>next</code>不会进入函数,而<code>step</code>在执行函数时会跳到那个函数内部.</p>
+<p>使用<code>print xx</code>来打印想看的变量</p>
+<p>有时会出现“Cannot find bounds of current function”提示, 这时候适当地使用<code>ni [number]</code> number大小实操来取吧, 好像这个是调libuv库的时候会发生的事情.</p>
+<p>有时画面会一团糟, 使用<code>refresh</code></p>
+<p><code>set print pretty on/off(默认)</code> 是否以换行缩进的方式打印结构体，或者类。</p>
+<h1 id="PCP"><a href="#PCP" class="headerlink" title="PCP"></a>PCP</h1><ul>
+<li>有时pmlogger会自己消失, 为啥呢? 难道pmlogger有自己的生命期, 时间一到就kill自己?</li>
+<li>似乎只有在pmproxy, pmlogger同时运行时才能使用pmseries查询time series, 每个metric的采集时间不一样. 而且似乎并不是pmlogger一开启pmproxy就进行转发到redis. 因此启动后若使用pmseries没有反应请耐心等待个几分钟.</li>
+<li>log文件储存在/var/log/pcp/下各文件夹中</li>
+<li>一些启动脚本在/etc/init.d/中</li>
+<li><code>./pmcd stop</code>不了的时候试试<code>./pcp stop</code></li>
+<li>使用<code>redis-cli</code>直接向redis查询, 根据series identifier来查询value的语句参考<code>XRANGE pcp:values:series:7d0a5094fa4ffe7aecfa4287ca25855b0c34816f - + count 2</code></li>
+</ul>
+<h1 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h1><ul>
+<li>在remote host上启动notebook后, 本地使用<code>ssh -N -f -L 127.0.0.1:25252:127.0.0.1:25252 username@ip_address</code>来使本地与远端建立连接</li>
+</ul>
+<h1 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h1><ul>
+<li><code>ERROR: Could not install packages due to an EnvironmentError: [Errno 28] No space left on device</code>. 此时修改一下temp文件夹目录, 使用<code>export TMPDIR=~/zys/temp/</code></li>
+<li>换源install使用<code>pip install torchvision -i https://mirrors.nju.edu.cn/pypi/web/simple</code></li>
+</ul>
+<h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><ul>
+<li>修改/etc/resolv.conf 内的nameserver 8.8.8.8</li>
+</ul>
 
     </div>
 
@@ -417,7 +455,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#想要从原仓库将更新的commit更新到本地的场合"><span class="nav-number">1.</span> <span class="nav-text">想要从原仓库将更新的commit更新到本地的场合</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git"><span class="nav-number">1.</span> <span class="nav-text">Git</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#想要从原仓库将更新的commit更新到本地的场合"><span class="nav-number">1.1.</span> <span class="nav-text">想要从原仓库将更新的commit更新到本地的场合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#撤销commit"><span class="nav-number">1.2.</span> <span class="nav-text">撤销commit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译"><span class="nav-number">2.</span> <span class="nav-text">编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#动态库"><span class="nav-number">2.1.</span> <span class="nav-text">动态库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GDB"><span class="nav-number">3.</span> <span class="nav-text">GDB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PCP"><span class="nav-number">4.</span> <span class="nav-text">PCP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Notebook"><span class="nav-number">5.</span> <span class="nav-text">Notebook</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pip"><span class="nav-number">6.</span> <span class="nav-text">pip</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS"><span class="nav-number">7.</span> <span class="nav-text">DNS</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -665,7 +703,7 @@
   function disqus_config() {
     this.page.url = "http://yoursite.com/2020/05/08/自用git使用手册/";
     this.page.identifier = "2020/05/08/自用git使用手册/";
-    this.page.title = '自用git使用手册';};
+    this.page.title = '自用快速手册';};
   function loadComments() {
     if (window.DISQUS) {
       DISQUS.reset({
