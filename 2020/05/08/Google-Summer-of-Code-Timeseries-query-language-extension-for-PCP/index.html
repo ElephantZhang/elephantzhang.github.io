@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-25T16:54:37.753Z">
+<meta property="og:updated_time" content="2020-05-25T16:56:30.688Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Summer of Code: Timeseries query language extension for PCP">
 <meta name="twitter:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-26 00:54:37" itemprop="dateModified" datetime="2020-05-26T00:54:37+08:00">2020-05-26</time>
+                <time title="Modified: 2020-05-26 00:56:30" itemprop="dateModified" datetime="2020-05-26T00:56:30+08:00">2020-05-26</time>
               </span>
             
           
@@ -344,7 +344,8 @@
 <li>$vector\to func[timelist]$</li>
 <li>$func\to {\bf rate}(name)$</li>
 </ul>
-<h1 id="Status"><a href="#Status" class="headerlink" title="Status"></a>Status</h1><h2 id="Storing-time-series-values-into-paser-tree’s-nodes"><a href="#Storing-time-series-values-into-paser-tree’s-nodes" class="headerlink" title="Storing time series values into paser tree’s nodes"></a>Storing time series values into paser tree’s nodes</h2><p><a href="https://github.com/performancecopilot/pcp/compare/master...ElephantZhang:demo_add_rate" target="_blank" rel="noopener">Git branch link</a><br>In src/libpcp_web/src/query.c</p>
+<h1 id="Status"><a href="#Status" class="headerlink" title="Status"></a>Status</h1><h2 id="Storing-time-series-values-into-paser-tree’s-nodes"><a href="#Storing-time-series-values-into-paser-tree’s-nodes" class="headerlink" title="Storing time series values into paser tree’s nodes"></a>Storing time series values into paser tree’s nodes</h2><p><a href="https://github.com/performancecopilot/pcp/compare/master...ElephantZhang:demo_add_rate" target="_blank" rel="noopener">Git branch link</a></p>
+<p>In src/libpcp_web/src/query.c</p>
 <h3 id="new-functions"><a href="#new-functions" class="headerlink" title="new functions:"></a>new functions:</h3><ul>
 <li><code>static int series_process_func(seriesQueryBaton *baton, node_t *np, int  level)</code>: Called by <code>series_query_report_values</code>, process funtion-type nodes in this function. Traverse the parser tree and once a node is an function-type node and its children nodes need to query to Redis to gather actual series values, do querying and store the values into the corresponding children node.</li>
 <li><code>static void series_node_prepare_time(seriesQueryBaton *baton, series_set_t *query_series_set, node_t *np)</code>: Called by <code>series_process_func</code> when a child of a function-type node need to query to Redis. For each series-id stored in the child node, first store the <code>SID</code> into this node’s <code>value_set.SID</code>, then query to Redis with every SID together with a timewindow. </li>
