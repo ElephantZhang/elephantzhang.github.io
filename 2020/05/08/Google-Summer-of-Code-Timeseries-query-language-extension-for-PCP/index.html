@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-25T16:43:35.444Z">
+<meta property="og:updated_time" content="2020-05-25T16:54:37.753Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Summer of Code: Timeseries query language extension for PCP">
 <meta name="twitter:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-26 00:43:35" itemprop="dateModified" datetime="2020-05-26T00:43:35+08:00">2020-05-26</time>
+                <time title="Modified: 2020-05-26 00:54:37" itemprop="dateModified" datetime="2020-05-26T00:54:37+08:00">2020-05-26</time>
               </span>
             
           
@@ -344,12 +344,12 @@
 <li>$vector\to func[timelist]$</li>
 <li>$func\to {\bf rate}(name)$</li>
 </ul>
-<h1 id="Status"><a href="#Status" class="headerlink" title="Status"></a>Status</h1><h2 id="Storing-time-series-values-into-paser-tree’s-nodes"><a href="#Storing-time-series-values-into-paser-tree’s-nodes" class="headerlink" title="Storing time series values into paser tree’s nodes"></a>Storing time series values into paser tree’s nodes</h2><p>In src/libpcp_web/src/query.c</p>
+<h1 id="Status"><a href="#Status" class="headerlink" title="Status"></a>Status</h1><h2 id="Storing-time-series-values-into-paser-tree’s-nodes"><a href="#Storing-time-series-values-into-paser-tree’s-nodes" class="headerlink" title="Storing time series values into paser tree’s nodes"></a>Storing time series values into paser tree’s nodes</h2><p><a href="https://github.com/performancecopilot/pcp/compare/master...ElephantZhang:demo_add_rate" target="_blank" rel="noopener">Git branch link</a><br>In src/libpcp_web/src/query.c</p>
 <h3 id="new-functions"><a href="#new-functions" class="headerlink" title="new functions:"></a>new functions:</h3><ul>
 <li><code>static int series_process_func(seriesQueryBaton *baton, node_t *np, int  level)</code>: Called by <code>series_query_report_values</code>, process funtion-type nodes in this function. Traverse the parser tree and once a node is an function-type node and its children nodes need to query to Redis to gather actual series values, do querying and store the values into the corresponding children node.</li>
 <li><code>static void series_node_prepare_time(seriesQueryBaton *baton, series_set_t *query_series_set, node_t *np)</code>: Called by <code>series_process_func</code> when a child of a function-type node need to query to Redis. For each series-id stored in the child node, first store the <code>SID</code> into this node’s <code>value_set.SID</code>, then query to Redis with every SID together with a timewindow. </li>
 <li><code>static void series_node_prepare_time_reply(redisAsyncContext *c, redisReply *reply, const sds cmd, void *arg)</code>: Called by <code>series_node_prepare_time</code>. After Redis giving back a reply to a specific SID with a timewindow, count how many sample are in this reply. Check if this reply is correct and call <code>series_values_store_to_node</code> to store these samples into the correspoding node. Then update <code>np-&gt;value_set.num_series</code>, this variable is to record how many series’ values have been stored for this node.</li>
-<li><code>static void series_values_store_to_node(seriesQueryBaton *baton, sds series, int  nsamples, redisReply **samples, void *arg, node_t *np)</code>: Called by <code>series_node_prepare_time_reply</code>. Check through a specific series’ samples replied from Redis and extract the instances’ values then call <code>series_instance_store_to_node</code> to store the instances’ values into these node.</li>
+<li><code>static void series_values_store_to_node(seriesQueryBaton *baton, sds series, int  nsamples, redisReply **samples, void *arg, node_t *np)</code>: Called by <code>series_node_prepare_time_reply</code>. Check through a specific series’ samples replied from Redis and extract the instances’ values then call <code>series_instance_store_to_node</code> to store the instances’ values into these node. This function is roughly same as <code>series_values_reply</code>.</li>
 <li><code>static int series_instance_store_to_node(seriesQueryBaton *baton, sds series, pmSeriesValue *value, int  nelements, redisReply **elements, node_t *np, int  idx_sample)</code>: Called by <code>series_values_store_to_node</code>. The instance’ value store in the variable <code>value</code>. Store this value into <code>np-&gt;value_set.series_values</code>.<h3 id="Changes-in-data-structures"><a href="#Changes-in-data-structures" class="headerlink" title="Changes in data structures"></a>Changes in data structures</h3>In src/libpcp_web/src/query.h</li>
 <li>Add a new structure <code>struct series_value_set</code> in order to store time series values. And add this struct into <code>struct node</code>.</li>
 </ul>
@@ -360,7 +360,7 @@
 <li>Run    <code>gdb --args pmseries &#39;rate(kernel.all.load)[count:2]&#39;</code>, we can see error occurs during calling <code>void freeReplyObject(void *r)</code>. Seems that I free a Redies reply twice. (But where?)</li>
 </ul>
 <h1 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h1><ul>
-<li>Sometime the deamon pmlogger will be killed by unknown reason. Or each pmlogger has a life peirod?</li>
+<li>Sometime the daemon pmlogger will be killed by unknown reason. Or each pmlogger has a life period?</li>
 </ul>
 
     </div>
@@ -388,7 +388,7 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2020/05/08/自用git使用手册/" rel="prev" title="自用快速手册">
+                <a href="/2020/05/08/自用快速手册/" rel="prev" title="自用快速手册">
                   自用快速手册 <i class="fa fa-chevron-right"></i>
                 </a>
               
