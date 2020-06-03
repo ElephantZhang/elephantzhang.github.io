@@ -54,17 +54,17 @@
   };
 </script>
 
-  <meta name="description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
+  <meta name="description" content="title: ‘Google Summer of Code: Timeseries query language extension for PCP’date: 2020-05-08 10:53:41 tags:This blog is just a simple note for the project Timeseries query language extension during th">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Google Summer of Code: Timeseries query language extension for PCP">
+<meta property="og:title" content="Future Gadget Laboratory">
 <meta property="og:url" content="http://yoursite.com/2020/05/08/Google-Summer-of-Code-Timeseries-query-language-extension-for-PCP/index.html">
 <meta property="og:site_name" content="Future Gadget Laboratory">
-<meta property="og:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
+<meta property="og:description" content="title: ‘Google Summer of Code: Timeseries query language extension for PCP’date: 2020-05-08 10:53:41 tags:This blog is just a simple note for the project Timeseries query language extension during th">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-25T16:58:58.828Z">
+<meta property="og:updated_time" content="2020-06-03T15:51:57.384Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Google Summer of Code: Timeseries query language extension for PCP">
-<meta name="twitter:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
+<meta name="twitter:title" content="Future Gadget Laboratory">
+<meta name="twitter:description" content="title: ‘Google Summer of Code: Timeseries query language extension for PCP’date: 2020-05-08 10:53:41 tags:This blog is just a simple note for the project Timeseries query language extension during th">
   <link rel="canonical" href="http://yoursite.com/2020/05/08/Google-Summer-of-Code-Timeseries-query-language-extension-for-PCP/">
 
 
@@ -79,7 +79,7 @@
   };
 </script>
 
-  <title>Google Summer of Code: Timeseries query language extension for PCP | Future Gadget Laboratory</title>
+  <title> | Future Gadget Laboratory</title>
   <meta name="generator" content="Hexo 3.9.0">
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146590972-1"></script>
@@ -277,7 +277,7 @@
       <meta itemprop="name" content="Future Gadget Laboratory">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">Google Summer of Code: Timeseries query language extension for PCP
+        <h1 class="post-title" itemprop="name headline">
 
           
         </h1>
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-26 00:58:58" itemprop="dateModified" datetime="2020-05-26T00:58:58+08:00">2020-05-26</time>
+                <time title="Modified: 2020-06-03 23:51:57" itemprop="dateModified" datetime="2020-06-03T23:51:57+08:00">2020-06-03</time>
               </span>
             
           
@@ -334,7 +334,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>This blog is just a simple note for the project Timeseries query language extension during this summer.</p>
+        <hr>
+<p>title: ‘Google Summer of Code: Timeseries query language extension for PCP’<br>date: 2020-05-08 10:53:41</p>
+<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2><p>This blog is just a simple note for the project Timeseries query language extension during this summer.</p>
 <a id="more"></a>
 
 <h1 id="Grammar"><a href="#Grammar" class="headerlink" title="Grammar"></a>Grammar</h1><p>The grammar description file is located on src/libpcp_web/src/query_parser.y. It’s a yacc file. </p>
@@ -358,10 +360,10 @@
 <li><code>series_solve</code> in query.c: An overview of the phases of processing a time series query statement.</li>
 </ul>
 <h1 id="Bugs"><a href="#Bugs" class="headerlink" title="Bugs"></a>Bugs</h1><ul>
-<li>Run    <code>gdb --args pmseries &#39;rate(kernel.all.load)[count:2]&#39;</code>, we can see error occurs during calling <code>void freeReplyObject(void *r)</code>. Seems that I free a Redies reply twice. (But where?)</li>
+<li><del>Run    <code>gdb --args pmseries &#39;rate(kernel.all.load)[count:2]&#39;</code>, we can see error occurs during calling <code>void freeReplyObject(void *r)</code>. Seems that I free a Redies reply twice. (But where?)</del></li>
 </ul>
 <h1 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h1><ul>
-<li>Sometime the daemon pmlogger will be killed by unknown reason. Or each pmlogger has a life period?</li>
+<li><del>Sometime the daemon pmlogger will be killed by unknown reason. Or each pmlogger has a life period?</del> Answered by Nathans:”yes, we do start pmlogger with a fixed life-span by default (~24hrs)”</li>
 </ul>
 
     </div>
@@ -389,7 +391,7 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2020/05/08/自用快速手册/" rel="prev" title="自用快速手册">
+                <a href="/2020/05/08/自用git使用手册/" rel="prev" title="自用快速手册">
                   自用快速手册 <i class="fa fa-chevron-right"></i>
                 </a>
               
@@ -449,7 +451,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Grammar"><span class="nav-number">1.</span> <span class="nav-text">Grammar</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Existing-related-grammar"><span class="nav-number">1.1.</span> <span class="nav-text">Existing related grammar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extended-grammar"><span class="nav-number">1.2.</span> <span class="nav-text">Extended grammar</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Status"><span class="nav-number">2.</span> <span class="nav-text">Status</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Storing-time-series-values-into-paser-tree’s-nodes"><span class="nav-number">2.1.</span> <span class="nav-text">Storing time series values into paser tree’s nodes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#new-functions"><span class="nav-number">2.1.1.</span> <span class="nav-text">new functions:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Changes-in-data-structures"><span class="nav-number">2.1.2.</span> <span class="nav-text">Changes in data structures</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Some-notes"><span class="nav-number">3.</span> <span class="nav-text">Some notes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bugs"><span class="nav-number">4.</span> <span class="nav-text">Bugs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Issues"><span class="nav-number">5.</span> <span class="nav-text">Issues</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tags"><span class="nav-number">1.</span> <span class="nav-text">tags:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Grammar"><span class="nav-number"></span> <span class="nav-text">Grammar</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Existing-related-grammar"><span class="nav-number">1.</span> <span class="nav-text">Existing related grammar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extended-grammar"><span class="nav-number">2.</span> <span class="nav-text">Extended grammar</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Status"><span class="nav-number"></span> <span class="nav-text">Status</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Storing-time-series-values-into-paser-tree’s-nodes"><span class="nav-number">1.</span> <span class="nav-text">Storing time series values into paser tree’s nodes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#new-functions"><span class="nav-number">1.1.</span> <span class="nav-text">new functions:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Changes-in-data-structures"><span class="nav-number">1.2.</span> <span class="nav-text">Changes in data structures</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Some-notes"><span class="nav-number"></span> <span class="nav-text">Some notes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bugs"><span class="nav-number"></span> <span class="nav-text">Bugs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Issues"><span class="nav-number"></span> <span class="nav-text">Issues</span></a></div>
         
       </div>
       <!--/noindex-->
@@ -467,7 +469,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -697,7 +699,7 @@
   function disqus_config() {
     this.page.url = "http://yoursite.com/2020/05/08/Google-Summer-of-Code-Timeseries-query-language-extension-for-PCP/";
     this.page.identifier = "2020/05/08/Google-Summer-of-Code-Timeseries-query-language-extension-for-PCP/";
-    this.page.title = 'Google Summer of Code: Timeseries query language extension for PCP';};
+    this.page.title = '';};
   function loadComments() {
     if (window.DISQUS) {
       DISQUS.reset({
