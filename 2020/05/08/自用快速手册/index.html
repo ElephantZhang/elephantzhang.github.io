@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="不知道干啥时的快速便签">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-25T16:43:22.579Z">
+<meta property="og:updated_time" content="2020-06-03T15:54:25.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自用快速手册">
 <meta name="twitter:description" content="不知道干啥时的快速便签">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-26 00:43:22" itemprop="dateModified" datetime="2020-05-26T00:43:22+08:00">2020-05-26</time>
+                <time title="Modified: 2020-06-03 23:54:25" itemprop="dateModified" datetime="2020-06-03T23:54:25+08:00">2020-06-03</time>
               </span>
             
           
@@ -365,14 +365,30 @@
 </ul>
 <h1 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h1><ul>
 <li>在remote host上启动notebook后, 本地使用<code>ssh -N -f -L 127.0.0.1:25252:127.0.0.1:25252 username@ip_address</code>来使本地与远端建立连接</li>
+<li>Pytorch PermissionError: [Errno 13] Permission denied: ‘/.torch’时, 改变下载的路径<code>export TORCH_HOME=./torch</code></li>
+<li>启用ipywidgets, <code>jupyter nbextension enable --py widgetsnbextension --sys-prefix</code></li>
 </ul>
 <h1 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h1><ul>
 <li><code>ERROR: Could not install packages due to an EnvironmentError: [Errno 28] No space left on device</code>. 此时修改一下temp文件夹目录, 使用<code>export TMPDIR=~/zys/temp/</code></li>
 <li>换源install使用<code>pip install torchvision -i https://mirrors.nju.edu.cn/pypi/web/simple</code></li>
 </ul>
 <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><ul>
-<li>修改/etc/resolv.conf 内的nameserver 8.8.8.8</li>
+<li>修改/etc/resolv.conf 内的nameserver 8.8.8.8以访问外网</li>
 </ul>
+<h1 id="CUDA-cuDNN"><a href="#CUDA-cuDNN" class="headerlink" title="CUDA/cuDNN"></a>CUDA/cuDNN</h1><ul>
+<li>使用tensorflow前, <code>export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH</code>. 因为系统默认的cnDNN版本不太对…</li>
+</ul>
+<h1 id="Virtual-environemnt"><a href="#Virtual-environemnt" class="headerlink" title="Virtual environemnt"></a>Virtual environemnt</h1><p>Note: this folder is also a virtual environment folder</p>
+<p>Since this server does not support conda…</p>
+<p>To creat a vitual environment:</p>
+<p>virtualenv project_name</p>
+<p>to active a environment:</p>
+<p>source project_name/bin/activate</p>
+<p>now we are in a new python environment. We can see the python we using is within this environment:</p>
+<p>which python/pip</p>
+<p>pip list</p>
+<p>all pip install package will by installed into this environment</p>
+<p>To get out and return to the global environment, use deactivate</p>
 
     </div>
 
@@ -389,8 +405,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2020/05/08/自用git使用手册/" rel="next" title="自用快速手册">
-                  <i class="fa fa-chevron-left"></i> 自用快速手册
+                <a href="/2020/05/08/Google-Summer-of-Code-Timeseries-query-language-extension-for-PCP/" rel="next" title="Google Summer of Code: Timeseries query language extension for PCP">
+                  <i class="fa fa-chevron-left"></i> Google Summer of Code: Timeseries query language extension for PCP
                 </a>
               
             </div>
@@ -455,7 +471,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git"><span class="nav-number">1.</span> <span class="nav-text">Git</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#想要从原仓库将更新的commit更新到本地的场合"><span class="nav-number">1.1.</span> <span class="nav-text">想要从原仓库将更新的commit更新到本地的场合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#撤销commit"><span class="nav-number">1.2.</span> <span class="nav-text">撤销commit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译"><span class="nav-number">2.</span> <span class="nav-text">编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#动态库"><span class="nav-number">2.1.</span> <span class="nav-text">动态库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GDB"><span class="nav-number">3.</span> <span class="nav-text">GDB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PCP"><span class="nav-number">4.</span> <span class="nav-text">PCP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Notebook"><span class="nav-number">5.</span> <span class="nav-text">Notebook</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pip"><span class="nav-number">6.</span> <span class="nav-text">pip</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS"><span class="nav-number">7.</span> <span class="nav-text">DNS</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git"><span class="nav-number">1.</span> <span class="nav-text">Git</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#想要从原仓库将更新的commit更新到本地的场合"><span class="nav-number">1.1.</span> <span class="nav-text">想要从原仓库将更新的commit更新到本地的场合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#撤销commit"><span class="nav-number">1.2.</span> <span class="nav-text">撤销commit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译"><span class="nav-number">2.</span> <span class="nav-text">编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#动态库"><span class="nav-number">2.1.</span> <span class="nav-text">动态库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GDB"><span class="nav-number">3.</span> <span class="nav-text">GDB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PCP"><span class="nav-number">4.</span> <span class="nav-text">PCP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Notebook"><span class="nav-number">5.</span> <span class="nav-text">Notebook</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pip"><span class="nav-number">6.</span> <span class="nav-text">pip</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS"><span class="nav-number">7.</span> <span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CUDA-cuDNN"><span class="nav-number">8.</span> <span class="nav-text">CUDA/cuDNN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Virtual-environemnt"><span class="nav-number">9.</span> <span class="nav-text">Virtual environemnt</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -473,7 +489,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
