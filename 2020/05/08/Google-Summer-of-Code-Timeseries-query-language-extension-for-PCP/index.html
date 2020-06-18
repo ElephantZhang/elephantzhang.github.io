@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-06-18T10:59:41.798Z">
+<meta property="og:updated_time" content="2020-06-18T11:04:29.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Summer of Code: Timeseries query language extension for PCP">
 <meta name="twitter:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-18 18:59:41" itemprop="dateModified" datetime="2020-06-18T18:59:41+08:00">2020-06-18</time>
+                <time title="Modified: 2020-06-18 19:04:29" itemprop="dateModified" datetime="2020-06-18T19:04:29+08:00">2020-06-18</time>
               </span>
             
           
@@ -377,7 +377,7 @@
 </ul>
 <h1 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h1><ul>
 <li><del>Sometime the daemon pmlogger will be killed by unknown reason. Or each pmlogger has a life period?</del> Answered by Nathans:”yes, we do start pmlogger with a fixed life-span by default (~24hrs)”</li>
-<li>what does <code>series_query_end_phase</code> do?</li>
+<li><del>what does <code>series_query_end_phase</code> do?</del> Answered by mgoodwin:“It decrements the ref count and if zero, moves onto the next phase of the query, see seriesPassBaton. ”</li>
 </ul>
 
     </div>
