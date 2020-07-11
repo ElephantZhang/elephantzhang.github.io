@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-07-11T17:41:18.175Z">
+<meta property="og:updated_time" content="2020-07-11T17:44:08.416Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Summer of Code: Timeseries query language extension for PCP">
 <meta name="twitter:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-12 01:41:18" itemprop="dateModified" datetime="2020-07-12T01:41:18+08:00">2020-07-12</time>
+                <time title="Modified: 2020-07-12 01:44:08" itemprop="dateModified" datetime="2020-07-12T01:44:08+08:00">2020-07-12</time>
               </span>
             
           
@@ -352,8 +352,8 @@
 <li>$func\to {\bf max}(func)$</li>
 <li>$func\to {\bf min}(val$_$vec)$</li>
 <li>$func\to {\bf min}(func)$</li>
-<li>$func\to(val$_$vec, {\bf string})$, where string is a units string</li>
-<li>$func\to(func, {\bf string})$, where string is a units string</li>
+<li>$func\to {\bf rescale}(val$_$vec, {\bf string})$, where string is a units string</li>
+<li>$func\to {\bf rescale}(func, {\bf string})$, where string is a units string</li>
 </ul>
 <h1 id="Status"><a href="#Status" class="headerlink" title="Status"></a>Status</h1><h2 id="Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes"><a href="#Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes" class="headerlink" title="Storing time series values&amp;pmDesc into paser tree’s nodes"></a><del>Storing time series values&amp;pmDesc into paser tree’s nodes</del></h2><h2 id="Writing-functions"><a href="#Writing-functions" class="headerlink" title="Writing functions"></a>Writing functions</h2><h2 id="Meta-data-updation-part"><a href="#Meta-data-updation-part" class="headerlink" title="Meta-data updation part"></a>Meta-data updation part</h2><p><a href="https://github.com/performancecopilot/pcp/compare/master...ElephantZhang:demo_add_rate" target="_blank" rel="noopener">Git branch link</a></p>
 <h3 id="Changes-in-data-structures"><a href="#Changes-in-data-structures" class="headerlink" title="Changes in data structures"></a>Changes in data structures</h3><p>In src/libpcp_web/src/query.c</p>
