@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="不知道干啥时的快速便签">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-07-01T14:20:39.698Z">
+<meta property="og:updated_time" content="2020-07-11T17:34:27.210Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自用快速手册">
 <meta name="twitter:description" content="不知道干啥时的快速便签">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-01 22:20:39" itemprop="dateModified" datetime="2020-07-01T22:20:39+08:00">2020-07-01</time>
+                <time title="Modified: 2020-07-12 01:34:27" itemprop="dateModified" datetime="2020-07-12T01:34:27+08:00">2020-07-12</time>
               </span>
             
           
@@ -363,7 +363,13 @@
 <li><code>./pmcd stop</code>不了的时候试试<code>./pcp stop</code></li>
 <li>使用<code>redis-cli</code>直接向redis查询, 根据series identifier来查询value的语句参考<code>XRANGE pcp:values:series:7d0a5094fa4ffe7aecfa4287ca25855b0c34816f - + count 2</code></li>
 <li>pmseries我的debug option <code>pmseries -Dquery</code></li>
+<li>测试rescale, 现在发现的semantic为instant的有kernel.all.uptime, 样例:<br><code>rescale(kernel.all.uptime[count:2], &quot;min&quot;)</code></li>
 </ul>
+<p><code>rescale(kernel.all.uptime[count:2], &quot;sec&quot;)</code></p>
+<ul>
+<li>一些时间换算..<br>1 nanoseconds = 0.001 microseconds</li>
+</ul>
+<p>1 microseconds = 0.001 milliseconds</p>
 <h1 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h1><ul>
 <li>在remote host上启动notebook后, 本地使用<code>ssh -N -f -L 127.0.0.1:25252:127.0.0.1:25252 username@ip_address</code>来使本地与远端建立连接</li>
 <li>Pytorch PermissionError: [Errno 13] Permission denied: ‘/.torch’时, 改变下载的路径<code>export TORCH_HOME=./torch</code></li>

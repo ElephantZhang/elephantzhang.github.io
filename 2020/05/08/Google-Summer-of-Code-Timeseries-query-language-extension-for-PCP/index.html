@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-07-01T14:20:27.242Z">
+<meta property="og:updated_time" content="2020-07-11T17:41:18.175Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Summer of Code: Timeseries query language extension for PCP">
 <meta name="twitter:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-01 22:20:27" itemprop="dateModified" datetime="2020-07-01T22:20:27+08:00">2020-07-01</time>
+                <time title="Modified: 2020-07-12 01:41:18" itemprop="dateModified" datetime="2020-07-12T01:41:18+08:00">2020-07-12</time>
               </span>
             
           
@@ -342,17 +342,20 @@
 <h2 id="Extended-grammar"><a href="#Extended-grammar" class="headerlink" title="Extended grammar"></a>Extended grammar</h2><p>$non-terminal\ symbol, {\bf terminal\ symbol}$</p>
 <ul>
 <li>$vector\to func\ {\bf EOS}$</li>
-<li>$val_vec \to {\bf name} \{exprlist\}[timelist]$</li>
-<li>$func\to {\bf rate}(val_vec)$</li>
+<li>$val$_$vec \to {\bf name} \{exprlist\}[timelist]$</li>
+<li>$val$_$vec \to {\bf name}[timelist]$</li>
+<li>$func\to {\bf rate}(val$_$vec)$</li>
 <li>$func\to {\bf rate}(func)$</li>
-<li>$func\to {\bf noop}(val_vec)$</li>
+<li>$func\to {\bf noop}(val$_$vec)$</li>
 <li>$func\to {\bf noop}(func)$</li>
-<li>$func\to {\bf max}(val_vec)$</li>
+<li>$func\to {\bf max}(val$_$vec)$</li>
 <li>$func\to {\bf max}(func)$</li>
-<li>$func\to {\bf min}(val_vec)$</li>
+<li>$func\to {\bf min}(val$_$vec)$</li>
 <li>$func\to {\bf min}(func)$</li>
+<li>$func\to(val$_$vec, {\bf string})$, where string is a units string</li>
+<li>$func\to(func, {\bf string})$, where string is a units string</li>
 </ul>
-<h1 id="Status"><a href="#Status" class="headerlink" title="Status"></a>Status</h1><h2 id="Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes"><a href="#Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes" class="headerlink" title="Storing time series values&amp;pmDesc into paser tree’s nodes"></a>Storing time series values&amp;pmDesc into paser tree’s nodes</h2><p><a href="https://github.com/performancecopilot/pcp/compare/master...ElephantZhang:demo_add_rate" target="_blank" rel="noopener">Git branch link</a></p>
+<h1 id="Status"><a href="#Status" class="headerlink" title="Status"></a>Status</h1><h2 id="Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes"><a href="#Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes" class="headerlink" title="Storing time series values&amp;pmDesc into paser tree’s nodes"></a><del>Storing time series values&amp;pmDesc into paser tree’s nodes</del></h2><h2 id="Writing-functions"><a href="#Writing-functions" class="headerlink" title="Writing functions"></a>Writing functions</h2><h2 id="Meta-data-updation-part"><a href="#Meta-data-updation-part" class="headerlink" title="Meta-data updation part"></a>Meta-data updation part</h2><p><a href="https://github.com/performancecopilot/pcp/compare/master...ElephantZhang:demo_add_rate" target="_blank" rel="noopener">Git branch link</a></p>
 <h3 id="Changes-in-data-structures"><a href="#Changes-in-data-structures" class="headerlink" title="Changes in data structures"></a>Changes in data structures</h3><p>In src/libpcp_web/src/query.c</p>
 <ul>
 <li>Modify constant QUERY_PHASES from 6 to 7.</li>
@@ -375,9 +378,16 @@
 <li><code>static int series_calculate(seriesQueryBaton *baton, node_t *np, int  level)</code> called by <code>series_query_report_values</code>, in this function all time series values have been stored into nodes. Therefore we can directly calculate values of a node accroding to the semantics of this node.</li>
 </ul>
 <h2 id="Late-June"><a href="#Late-June" class="headerlink" title="Late June"></a>Late June</h2><ul>
-<li><code>series_calculate_max</code>: Please check the rate() in the Functions part below.</li>
+<li><code>series_calculate_rate</code>: Please check the rate() in the Functions part below.</li>
 <li><code>series_calculate_max</code>: Please check the min/max() in the Functions part below.</li>
 <li><code>series_calculate_min</code>: Please check the min/max() in the Functions part below.</li>
+</ul>
+<h2 id="Early-July"><a href="#Early-July" class="headerlink" title="Early July"></a>Early July</h2><ul>
+<li><code>series_calculate_rescale(node_t *np)</code>: Call this for each L_RESCALE type node. The left child node of L_RESCALE-type node should contains a set of time series values. And the right child node should be L_SCALE, which contains the target units information. rescale() should only accept metrics with semantics instant. Compare the consistencies of 3 time/space/count dimantions between the pmUnits of input and metrics to be modified.</li>
+<li><code>series_pmAtomValue_conv_str(int type, char *str, pmAtomValue *val)</code>: Called by <code>series_calculate_rescale</code></li>
+<li><code>compare_pmUnits(pmUnits *a, pmUnits *b)</code>: Compare whether three dimantions of two units are the same.</li>
+<li><code>series_extract_type(char *typeStr)</code>: Convert a type string to constant value in code e.g. “u32” to PM_TYPE_U32.</li>
+<li><code>series_extract_value(int type, sds str, pmAtomValue *oval)</code>: Convert string to value accroding to the type e.g. int, unsigned int, double etc. </li>
 </ul>
 <h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><h3 id="noop"><a href="#noop" class="headerlink" title="noop():"></a>noop():</h3><p>To check if the functions have been parsed well. Type $pmseries -Dquery ….$ can check the debug infromations.</p>
 <h3 id="rate"><a href="#rate" class="headerlink" title="rate()"></a>rate()</h3><p>Compute rate between samples for each metric. The number of samples in result is one less than the original samples. Only the metric with semantic counter can apply rate(). </p>
@@ -385,20 +395,27 @@
 <h3 id="min-max"><a href="#min-max" class="headerlink" title="min/max()"></a>min/max()</h3><p>Compare and pick the maximal/minimal instance value(s) among samples for each metric.</p>
 <p>TODO: Type checking and erorr report. Metadata updation. </p>
 <p>Be careful that the results of min/max can ${\bf not}$ be computed by rate(). How to achieve this? Maybe after min/max the semantic in metadate of this metric should be updated to None. But in the other hand, the number of samples is just one and if we apply rate() the number of samples will become zero, even rate(max()) is meaningless but it will not cause problems…. But it’s better to forbid rate(max())</p>
-<p>##</p>
+<h3 id="rescale"><a href="#rescale" class="headerlink" title="rescale()"></a>rescale()</h3><p>Rescale the units for the input metric values. Only support metric with semantic instant.</p>
+<p>Sample:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rescale(kernel.all.uptime[count:2], &quot;min&quot;)</span><br><span class="line">rescale(kernel.all.uptime[count:2], &quot;sec&quot;)</span><br></pre></td></tr></table></figure>
+
+
+
+
 <h1 id="Some-notes"><a href="#Some-notes" class="headerlink" title="Some notes"></a>Some notes</h1><ul>
 <li><code>series_solve</code> in query.c: An overview of the phases of processing a time series query statement.</li>
 </ul>
-<h1 id="Bugs"><a href="#Bugs" class="headerlink" title="Bugs"></a>Bugs</h1><ul>
+<h1 id="Bugs"><a href="#Bugs" class="headerlink" title="Bugs"></a>Bugs</h1><ol>
 <li><del>Run    <code>gdb --args pmseries &#39;rate(kernel.all.load)[count:2]&#39;</code>, we can see error occurs during calling <code>void freeReplyObject(void *r)</code>. Seems that I free a Redies reply twice. (But where?)</del></li>
-</ul>
-<h1 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h1><ul>
+<li>Not supoort {metadata qualifiers} in my remote host. See also point 3 in Issues.</li>
+</ol>
+<h1 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h1><ol>
 <li><del>Sometime the daemon pmlogger will be killed by unknown reason. Or each pmlogger has a life period?</del> Answered by Nathans:”yes, we do start pmlogger with a fixed life-span by default (~24hrs)”</li>
 <li><del>what does <code>series_query_end_phase</code> do?</del> Answered by mgoodwin:“It decrements the ref count and if zero, moves onto the next phase of the query, see seriesPassBaton. ”</li>
 <li>Query statements in the format as <code>pmseries -Dquery &#39;rate(kernel.all.load{hostname==&quot;VM-0-4-ubuntu&quot;}[count:2])&#39;</code> (add the <code>{metadata qualifiers}</code>)does not work on my remote host… It only returns <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pmseries: [Error] no descriptor for series identifier 7d94835a09744d4cea95f06c7feb45c33ada9168</span><br><span class="line">pmseries: [Error] no descriptor for series identifier 5a835a09744d4cea95f06c7feb45c33ada91685a</span><br></pre></td></tr></table></figure>
 
 </li>
-</ul>
+</ol>
 <p>The code tries to query 2 SID which do not exist. But this works on mgoodwin’s host.(Why?) I guess this error may occur in the phase <code>series_query_eval</code>? Not sure….</p>
 <h1 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h1><ol>
 <li>About the sum(), should we take sum between samples OR between instances? And mentors suggest that we can have a sum_label() function e.g. if we like to sum all values among different hosts we can apply <code>sum_label(average(kernel.all.pswitch[count:30]), &quot;hostname&quot;)</code>. Not very clear how this going…</li>
@@ -490,7 +507,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Grammar"><span class="nav-number">1.</span> <span class="nav-text">Grammar</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Existing-related-grammar"><span class="nav-number">1.1.</span> <span class="nav-text">Existing related grammar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extended-grammar"><span class="nav-number">1.2.</span> <span class="nav-text">Extended grammar</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Status"><span class="nav-number">2.</span> <span class="nav-text">Status</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes"><span class="nav-number">2.1.</span> <span class="nav-text">Storing time series values&amp;pmDesc into paser tree’s nodes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Changes-in-data-structures"><span class="nav-number">2.1.1.</span> <span class="nav-text">Changes in data structures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-functions-in-C-files"><span class="nav-number">2.1.2.</span> <span class="nav-text">new functions in C files:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Early-June"><span class="nav-number">2.2.</span> <span class="nav-text">Early June</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Late-June"><span class="nav-number">2.3.</span> <span class="nav-text">Late June</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functions"><span class="nav-number">2.4.</span> <span class="nav-text">Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#noop"><span class="nav-number">2.4.1.</span> <span class="nav-text">noop():</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rate"><span class="nav-number">2.4.2.</span> <span class="nav-text">rate()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#min-max"><span class="nav-number">2.4.3.</span> <span class="nav-text">min/max()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Some-notes"><span class="nav-number">3.</span> <span class="nav-text">Some notes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bugs"><span class="nav-number">4.</span> <span class="nav-text">Bugs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Issues"><span class="nav-number">5.</span> <span class="nav-text">Issues</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Discussion"><span class="nav-number">6.</span> <span class="nav-text">Discussion</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Grammar"><span class="nav-number">1.</span> <span class="nav-text">Grammar</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Existing-related-grammar"><span class="nav-number">1.1.</span> <span class="nav-text">Existing related grammar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extended-grammar"><span class="nav-number">1.2.</span> <span class="nav-text">Extended grammar</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Status"><span class="nav-number">2.</span> <span class="nav-text">Status</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes"><span class="nav-number">2.1.</span> <span class="nav-text">Storing time series values&amp;pmDesc into paser tree’s nodes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-functions"><span class="nav-number">2.2.</span> <span class="nav-text">Writing functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Meta-data-updation-part"><span class="nav-number">2.3.</span> <span class="nav-text">Meta-data updation part</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Changes-in-data-structures"><span class="nav-number">2.3.1.</span> <span class="nav-text">Changes in data structures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-functions-in-C-files"><span class="nav-number">2.3.2.</span> <span class="nav-text">new functions in C files:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Early-June"><span class="nav-number">2.4.</span> <span class="nav-text">Early June</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Late-June"><span class="nav-number">2.5.</span> <span class="nav-text">Late June</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Early-July"><span class="nav-number">2.6.</span> <span class="nav-text">Early July</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functions"><span class="nav-number">2.7.</span> <span class="nav-text">Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#noop"><span class="nav-number">2.7.1.</span> <span class="nav-text">noop():</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rate"><span class="nav-number">2.7.2.</span> <span class="nav-text">rate()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#min-max"><span class="nav-number">2.7.3.</span> <span class="nav-text">min/max()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rescale"><span class="nav-number">2.7.4.</span> <span class="nav-text">rescale()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Some-notes"><span class="nav-number">3.</span> <span class="nav-text">Some notes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bugs"><span class="nav-number">4.</span> <span class="nav-text">Bugs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Issues"><span class="nav-number">5.</span> <span class="nav-text">Issues</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Discussion"><span class="nav-number">6.</span> <span class="nav-text">Discussion</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
