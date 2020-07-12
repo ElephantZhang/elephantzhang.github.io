@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-07-11T17:44:08.416Z">
+<meta property="og:updated_time" content="2020-07-12T15:48:46.054Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Summer of Code: Timeseries query language extension for PCP">
 <meta name="twitter:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-12 01:44:08" itemprop="dateModified" datetime="2020-07-12T01:44:08+08:00">2020-07-12</time>
+                <time title="Modified: 2020-07-12 23:48:46" itemprop="dateModified" datetime="2020-07-12T23:48:46+08:00">2020-07-12</time>
               </span>
             
           
@@ -354,6 +354,18 @@
 <li>$func\to {\bf min}(func)$</li>
 <li>$func\to {\bf rescale}(val$_$vec, {\bf string})$, where string is a units string</li>
 <li>$func\to {\bf rescale}(func, {\bf string})$, where string is a units string</li>
+<li>$func\to {\bf abs}(val$_$vec)$</li>
+<li>$func\to {\bf abs}(func)$</li>
+<li>$func\to {\bf floor}(val$_$vec)$</li>
+<li>$func\to {\bf floor}(func)$</li>
+<li>$func\to {\bf log}(val$_$vec)$</li>
+<li>$func\to {\bf log}(func)$</li>
+<li>$func\to {\bf log}(val$_$vec, {\bf number})$</li>
+<li>$func\to {\bf log}(func, {\bf number})$</li>
+<li>$func\to {\bf sqrt}(val$_$vec)$</li>
+<li>$func\to {\bf sqrt}(func)$</li>
+<li>$func\to {\bf round}(val$_$vec)$</li>
+<li>$func\to {\bf round}(func)$</li>
 </ul>
 <h1 id="Status"><a href="#Status" class="headerlink" title="Status"></a>Status</h1><h2 id="Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes"><a href="#Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes" class="headerlink" title="Storing time series values&amp;pmDesc into paser tree’s nodes"></a><del>Storing time series values&amp;pmDesc into paser tree’s nodes</del></h2><h2 id="Writing-functions"><a href="#Writing-functions" class="headerlink" title="Writing functions"></a>Writing functions</h2><h2 id="Meta-data-updation-part"><a href="#Meta-data-updation-part" class="headerlink" title="Meta-data updation part"></a>Meta-data updation part</h2><p><a href="https://github.com/performancecopilot/pcp/compare/master...ElephantZhang:demo_add_rate" target="_blank" rel="noopener">Git branch link</a></p>
 <h3 id="Changes-in-data-structures"><a href="#Changes-in-data-structures" class="headerlink" title="Changes in data structures"></a>Changes in data structures</h3><p>In src/libpcp_web/src/query.c</p>
@@ -383,9 +395,9 @@
 <li><code>series_calculate_min</code>: Please check the min/max() in the Functions part below.</li>
 </ul>
 <h2 id="Early-July"><a href="#Early-July" class="headerlink" title="Early July"></a>Early July</h2><ul>
-<li><code>series_calculate_rescale(node_t *np)</code>: Call this for each L_RESCALE type node. The left child node of L_RESCALE-type node should contains a set of time series values. And the right child node should be L_SCALE, which contains the target units information. rescale() should only accept metrics with semantics instant. Compare the consistencies of 3 time/space/count dimantions between the pmUnits of input and metrics to be modified.</li>
+<li><code>series_calculate_rescale(node_t *np)</code>: Call this for each N_RESCALE type node. The left child node of L_RESCALE-type node should contains a set of time series values. And the right child node should be L_SCALE, which contains the target units information. rescale() should only accept metrics with semantics instant. Compare the consistencies of 3 time/space/count dimensions between the pmUnits of input and metrics to be modified.</li>
 <li><code>series_pmAtomValue_conv_str(int type, char *str, pmAtomValue *val)</code>: Called by <code>series_calculate_rescale</code></li>
-<li><code>compare_pmUnits(pmUnits *a, pmUnits *b)</code>: Compare whether three dimantions of two units are the same.</li>
+<li><code>compare_pmUnits(pmUnits *a, pmUnits *b)</code>: Compare whether three dimentions of two units are the same.</li>
 <li><code>series_extract_type(char *typeStr)</code>: Convert a type string to constant value in code e.g. “u32” to PM_TYPE_U32.</li>
 <li><code>series_extract_value(int type, sds str, pmAtomValue *oval)</code>: Convert string to value accroding to the type e.g. int, unsigned int, double etc. </li>
 </ul>
