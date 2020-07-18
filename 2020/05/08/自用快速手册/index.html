@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="不知道干啥时的快速便签">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-07-11T17:34:27.210Z">
+<meta property="og:updated_time" content="2020-07-18T16:51:35.550Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自用快速手册">
 <meta name="twitter:description" content="不知道干啥时的快速便签">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-12 01:34:27" itemprop="dateModified" datetime="2020-07-12T01:34:27+08:00">2020-07-12</time>
+                <time title="Modified: 2020-07-19 00:51:35" itemprop="dateModified" datetime="2020-07-19T00:51:35+08:00">2020-07-19</time>
               </span>
             
           
@@ -356,18 +356,25 @@
 <p>有时画面会一团糟, 使用<code>refresh</code></p>
 <p><code>set print pretty on/off(默认)</code> 是否以换行缩进的方式打印结构体，或者类。</p>
 <h1 id="PCP"><a href="#PCP" class="headerlink" title="PCP"></a>PCP</h1><ul>
-<li><del>有时pmlogger会自己消失, 为啥呢? 难道pmlogger有自己的生命期, 时间一到就kill自己?</del> nathans回答了“就是有生命周期的噻24h”, 不过升级到5.x后好像就没了 </li>
-<li>似乎只有在pmproxy, pmlogger同时运行时才能使用pmseries查询time series, 每个metric的采集时间不一样. 而且似乎并不是pmlogger一开启pmproxy就进行转发到redis. 因此启动后若使用pmseries没有反应请耐心等待个几分钟.</li>
-<li>log文件储存在/var/log/pcp/下各文件夹中</li>
-<li>一些启动脚本在/etc/init.d/中</li>
-<li><code>./pmcd stop</code>不了的时候试试<code>./pcp stop</code></li>
-<li>使用<code>redis-cli</code>直接向redis查询, 根据series identifier来查询value的语句参考<code>XRANGE pcp:values:series:7d0a5094fa4ffe7aecfa4287ca25855b0c34816f - + count 2</code></li>
-<li>pmseries我的debug option <code>pmseries -Dquery</code></li>
-<li>测试rescale, 现在发现的semantic为instant的有kernel.all.uptime, 样例:<br><code>rescale(kernel.all.uptime[count:2], &quot;min&quot;)</code></li>
-</ul>
-<p><code>rescale(kernel.all.uptime[count:2], &quot;sec&quot;)</code></p>
-<ul>
-<li>一些时间换算..<br>1 nanoseconds = 0.001 microseconds</li>
+<li><p><del>有时pmlogger会自己消失, 为啥呢? 难道pmlogger有自己的生命期, 时间一到就kill自己?</del> nathans回答了“就是有生命周期的噻24h”, 不过升级到5.x后好像就没了 </p>
+</li>
+<li><p>似乎只有在pmproxy, pmlogger同时运行时才能使用pmseries查询time series, 每个metric的采集时间不一样. 而且似乎并不是pmlogger一开启pmproxy就进行转发到redis. 因此启动后若使用pmseries没有反应请耐心等待个几分钟.</p>
+</li>
+<li><p>log文件储存在/var/log/pcp/下各文件夹中</p>
+</li>
+<li><p>一些启动脚本在/etc/init.d/中</p>
+</li>
+<li><p><code>./pmcd stop</code>不了的时候试试<code>./pcp stop</code></p>
+</li>
+<li><p>使用<code>redis-cli</code>直接向redis查询, 根据series identifier来查询value的语句参考<code>XRANGE pcp:values:series:7d0a5094fa4ffe7aecfa4287ca25855b0c34816f - + count 2</code></p>
+</li>
+<li><p>pmseries我的debug option <code>pmseries -Dquery</code></p>
+</li>
+<li><p>测试rescale, 现在发现的semantic为instant的有kernel.all.uptime, 样例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pmseries &apos;rescale(kernel.all.uptime[count:2], &quot;min&quot;)&apos;</span><br><span class="line">pmseries &apos;rescale(kernel.all.uptime[count:2], &quot;sec&quot;)&apos;</span><br><span class="line">pmseries &apos;rescale(rescale(kernel.all.uptime[count:2], &quot;min&quot;), &quot;hour&quot;)&apos;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一些时间换算..<br>1 nanoseconds = 0.001 microseconds</p>
+</li>
 </ul>
 <p>1 microseconds = 0.001 milliseconds</p>
 <h1 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h1><ul>
