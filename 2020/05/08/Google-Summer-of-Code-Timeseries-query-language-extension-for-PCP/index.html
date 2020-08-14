@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-07-27T12:56:01.919Z">
+<meta property="og:updated_time" content="2020-08-14T07:11:42.276Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Summer of Code: Timeseries query language extension for PCP">
 <meta name="twitter:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-27 20:56:01" itemprop="dateModified" datetime="2020-07-27T20:56:01+08:00">2020-07-27</time>
+                <time title="Modified: 2020-08-14 15:11:42" itemprop="dateModified" datetime="2020-08-14T15:11:42+08:00">2020-08-14</time>
               </span>
             
           
@@ -366,6 +366,19 @@
 <li>$func\to {\bf sqrt}(func)$</li>
 <li>$func\to {\bf round}(val$_$vec)$</li>
 <li>$func\to {\bf round}(func)$</li>
+<li>$func\to arithmetic$_$expression$</li>
+<li>$arithmetic$ _ $expression\to val$ _ $vec+val$ _ $vec$</li>
+<li>$arithmetic$ _ $expression\to val$ _ $vec+func$</li>
+<li>$arithmetic$ _ $expression\to func+val$ _ $vec$</li>
+<li>$arithmetic$ _ $expression\to val$ _ $vec-val$ _ $vec$</li>
+<li>$arithmetic$ _ $expression\to val$ _ $vec-func$</li>
+<li>$arithmetic$_$expression\to func-val$ _ $vec$</li>
+<li>$arithmetic$ _ $expression\to val$ _ $vec*val$ _ $vec$</li>
+<li>$arithmetic$ _ $expression\to val$ _ $vec*func$</li>
+<li>$arithmetic$ _ $expression\to func*val$ _ $vec$ </li>
+<li>$arithmetic$ _ $expression\to val$_$vec/val$ _ $vec$</li>
+<li>$arithmetic$ _ $expression\to val$ _ $vec/func$</li>
+<li>$arithmetic$ _ $expression\to func/val$ _ $vec$</li>
 </ul>
 <h1 id="Status"><a href="#Status" class="headerlink" title="Status"></a>Status</h1><h2 id="Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes"><a href="#Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes" class="headerlink" title="Storing time series values&amp;pmDesc into paser tree’s nodes"></a><del>Storing time series values&amp;pmDesc into paser tree’s nodes</del></h2><h2 id="Writing-functions"><a href="#Writing-functions" class="headerlink" title="Writing functions"></a>Writing functions</h2><h2 id="Meta-data-updation-part"><a href="#Meta-data-updation-part" class="headerlink" title="Meta-data updation part"></a>Meta-data updation part</h2><p><a href="https://github.com/performancecopilot/pcp/compare/master...ElephantZhang:demo_add_rate" target="_blank" rel="noopener">Git branch link</a></p>
 <h3 id="Changes-in-data-structures"><a href="#Changes-in-data-structures" class="headerlink" title="Changes in data structures"></a>Changes in data structures</h3><p>In src/libpcp_web/src/query.c</p>
@@ -402,7 +415,11 @@
 <li><code>series_extract_value(int type, sds str, pmAtomValue *oval)</code>: Convert string to value accroding to the type e.g. int, unsigned int, double etc. </li>
 </ul>
 <h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><h3 id="noop"><a href="#noop" class="headerlink" title="noop():"></a>noop():</h3><p>To check if the functions have been parsed well. Type $pmseries -Dquery ….$ can check the debug infromations.</p>
-<h3 id="rate"><a href="#rate" class="headerlink" title="rate()"></a>rate()</h3><p>Compute rate between samples for each metric. The number of samples in result is one less than the original samples. Only the metric with semantic counter can apply rate().<br>Sample:</p>
+<h3 id="rate"><a href="#rate" class="headerlink" title="rate()"></a>rate()</h3><p>Compute rate between samples for each metric. The number of samples in result is one less than the original samples. Only the metric with semantic counter can apply rate(). </p>
+<ul>
+<li>After rate(), reduce the dimension of Time by one. The type remains unchanged and the semantic become PM_SEM_INSTANT.</li>
+</ul>
+<p>Sample:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pmseries &apos;rate(kernel.all.pswitch[count:5])&apos;</span><br></pre></td></tr></table></figure>
 
 <p>TODO: type checking errors report. metadata updation.</p>
@@ -410,28 +427,125 @@
 <p>TODO: Type checking and erorr report. Metadata updation. </p>
 <p>Be careful that the results of min/max can ${\bf not}$ be computed by rate(). How to achieve this? Maybe after min/max the semantic in metadate of this metric should be updated to None. But in the other hand, the number of samples is just one and if we apply rate() the number of samples will become zero, even rate(max()) is meaningless but it will not cause problems…. But it’s better to forbid rate(max())</p>
 <h3 id="rescale"><a href="#rescale" class="headerlink" title="rescale()"></a>rescale()</h3><p>Rescale the units for the input metric values. Only support metric with semantic instant.</p>
+<ul>
+<li>After rescale, the units of each metric will be updated and the type will be updated to PM_TYPE_DOUBLE.</li>
+</ul>
 <p>Sample:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pmseries &apos;rescale(kernel.all.uptime[count:2], &quot;min&quot;)&apos;</span><br><span class="line">pmseries &apos;rescale(kernel.all.uptime[count:2], &quot;sec&quot;)&apos;</span><br><span class="line">pmseries &apos;rescale(rescale(kernel.all.uptime[count:2], &quot;min&quot;), &quot;hour&quot;)&apos;</span><br></pre></td></tr></table></figure>
 
 <h3 id="mathematical-functions"><a href="#mathematical-functions" class="headerlink" title="mathematical functions"></a>mathematical functions</h3><p><del>TODO: for each node update the series_desc after taking math funcitons!</del></p>
+<ul>
+<li>The types and units of results remain the same.</li>
+<li>The semantics of mathematical functions will become PM_TYPE_DOUBLE.</li>
+</ul>
 <p>Are there some series values they are negtive numbers? for testing abs()</p>
 <p>Sample:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pmseries &apos;abs(kernel.all.load[count:2])&apos;</span><br><span class="line">pmseries &apos;log(log(kernel.all.pswitch[count:2],3),2)&apos;</span><br><span class="line">pmseries &apos;log(kernel.all.load[count:2], 77)&apos;</span><br><span class="line">pmseries &apos;floor(kernel.all.load[count:2])&apos;</span><br><span class="line">pmseries &apos;round(kernel.all.load[count:2])&apos;</span><br></pre></td></tr></table></figure>
 
+<h3 id="arithmetic-expression"><a href="#arithmetic-expression" class="headerlink" title="arithmetic expression"></a>arithmetic expression</h3><p>The semantic checks and rules of arithmetic expression follow the description in pmregisterderived(3). </p>
+<ul>
+<li>Two operands each has only one metric series can take arithmetic expression.</li>
+<li>The number of series, samples and instances of two operands should be identical.</li>
+<li>If both operands have the semantics of a counter, then only addition or subraction is allowed</li>
+<li>If one of operands is a counter and the other one is not, then only multiplication or division are allowed.</li>
+<li>If the semantics of both operands is not a counter then the result will have semantics PM_SEM_INSTANT unless both operands are PM_SEM_DISCRETE in which case the result is also PM_SEM_DISCRETE. Otherwise, the result will have semantics PM_SEM_COUNTER.</li>
+<li>If both operands have a dimension of Count/Time/Space and the scales are not the same, use the larger scale and convert the values of the operand with the smaller scale. The result is promoted to type PM_TYPE_DOUBLE.</li>
+<li>For addition and subtraction all dimensions for each of the operands and result are identical.</li>
+<li>For multiplication, the dimensions of the result are the sum of the dimensions of the operands.</li>
+<li>For division, the dimensions of the result are the difference of the dimensions of the operands.</li>
+<li>If the operand has not been rescaled, the type of the result is determined by the types of the operands, as per the following table which is evaluated from top to bottom until a match is found.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Operand Types</th>
+<th>Operator</th>
+<th>Result Type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>either is PM_TYPE_DOUBLE</td>
+<td>any</td>
+<td>PM_TYPE_DOUBLE</td>
+</tr>
+<tr>
+<td>any</td>
+<td>division</td>
+<td>PM_TYPE_DOUBLE</td>
+</tr>
+<tr>
+<td>either is PM_TYPE_FLOAT</td>
+<td>any</td>
+<td>PM_TYPE_FLOAT</td>
+</tr>
+<tr>
+<td>either is PM_TYPE_U64</td>
+<td>any</td>
+<td>PM_TYPE_U64</td>
+</tr>
+<tr>
+<td>either is PM_TYPE_64</td>
+<td>any</td>
+<td>PM_TYPE_64</td>
+</tr>
+<tr>
+<td>either is PM_TYPE_U32</td>
+<td>any</td>
+<td>PM_TYPE_U32</td>
+</tr>
+<tr>
+<td>otherwise (both are PM_TYPE_32)</td>
+<td>any</td>
+<td>PM_TYPE_32</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Specifically, for subtraction, if both operands are unsigned types and the results may lead to negative number, the reusults will become ‘no value’</li>
+</ul>
+<p>Sample: (Lack testing)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;kernel.all.uptime[count:2] + kernel.all.uptime[count:2]&apos;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Fabricated-SID"><a href="#Fabricated-SID" class="headerlink" title="Fabricated SID"></a>Fabricated SID</h2><h3 id="Canonical-expression-generation"><a href="#Canonical-expression-generation" class="headerlink" title="Canonical expression generation"></a>Canonical expression generation</h3><p>For a query statement we will generate a ‘canonical’ expression: discard whitespace, metadata qualifiers, and time specification in the query statement. Since the expression is for reevaluating the metadata of the result of function’s expression, and the only factor that affects metadata changes is what the metric is, we can access this by the metric name.</p>
+<p>Sample:</p>
+<table>
+<thead>
+<tr>
+<th>query statement</th>
+<th>canonical expression</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rate(kernel.all.load{hostname!~”prefix*”&amp;&amp;instance.name==”1 minute”}[count:10])</td>
+<td>rate(metric.name==”kernel.all.load”)</td>
+</tr>
+<tr>
+<td>(multiple metrics case)   rate(disk.dev.*[count:10])</td>
+<td>rate(metric.name==”disk.dev.write_bytes”)</td>
+</tr>
+<tr>
+<td></td>
+<td>rate(metric.name==”disk.dev.write_merge”)</td>
+</tr>
+<tr>
+<td></td>
+<td>rate(metric.name==”disk.dev.write”)</td>
+</tr>
+<tr>
+<td></td>
+<td>…</td>
+</tr>
+</tbody></table>
 <h1 id="Some-notes"><a href="#Some-notes" class="headerlink" title="Some notes"></a>Some notes</h1><ul>
 <li><code>series_solve</code> in query.c: An overview of the phases of processing a time series query statement.</li>
 <li>SHA1 computation related function <code>pmwebapi_metric_hash</code></li>
-<li>Now in local Redis I have: {key: “pcp:expr:cda2a05246fb78f2cd277b4eb345c79a6b493168”,<br>valie: “noop(metric.name==kernel.all.load&amp;&amp;hostname!~VM-0-4-ubuntu&amp;&amp;instance.name!=1 minute)”}, {key: “pcp:expr:9366fd9ff80dde99d9aaafbcc0b7e8f4d07e532e”, value:”rate(rescale(metric.name==disk.dev.read_bytes,mbytes))”}, {key:”pcp:expr:53569bdece5e39c49a58c4d170999f7735ee34de”, value:”log(metric.name==kernel.all.load,77)”}, {key: “pcp:expr:a1cf47586a424c1bc091ecd6db18f34926cc17f4”, value: “rescale(metric.name==disk.dev.read_bytes,mbytes)”}</li>
 </ul>
 <h1 id="Bugs"><a href="#Bugs" class="headerlink" title="Bugs"></a>Bugs</h1><ol>
 <li><del>Run    <code>gdb --args pmseries &#39;rate(kernel.all.load)[count:2]&#39;</code>, we can see error occurs during calling <code>void freeReplyObject(void *r)</code>. Seems that I free a Redies reply twice. (But where?)</del></li>
 <li><del>Not supoort {metadata qualifiers} in my remote host. See also point 3 in Issues.</del></li>
-<li>Reported by mgoodwin:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pcp-kyoma[demo_add_rate]$ pmseries -a c3d11a94d2475f002c9279a50e3a884de8b96f3e</span><br><span class="line">c3d11a94d2475f002c9279a50e3a884de8b96f3e</span><br><span class="line">pmseries: [Error] no descriptor for series identifier c3d11a94d2475f002c9279a50e3a884de8b96f3e</span><br><span class="line">Segmentation fault (core dumped)</span><br></pre></td></tr></table></figure>
+<li><del>Reported by mgoodwin:</del><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pcp-kyoma[demo_add_rate]$ pmseries -a c3d11a94d2475f002c9279a50e3a884de8b96f3e</span><br><span class="line">c3d11a94d2475f002c9279a50e3a884de8b96f3e</span><br><span class="line">pmseries: [Error] no descriptor for series identifier c3d11a94d2475f002c9279a50e3a884de8b96f3e</span><br><span class="line">Segmentation fault (core dumped)</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">7ae71e7f50 (ElephantZhang 2020-06-10 16:27:43 +0800   96) static void</span><br><span class="line">7ae71e7f50 (ElephantZhang 2020-06-10 16:27:43 +0800   97) freeSeriesQueryNode(node_t *np, int level)</span><br><span class="line">7ae71e7f50 (ElephantZhang 2020-06-10 16:27:43 +0800   98) &#123;</span><br><span class="line">7ae71e7f50 (ElephantZhang 2020-06-10 16:27:43 +0800   99)     if (np == NULL)</span><br><span class="line">7ae71e7f50 (ElephantZhang 2020-06-10 16:27:43 +0800  100)       return;</span><br><span class="line">173b3ddae4 (ElephantZhang 2020-06-26 01:52:05 +0800  101)     if (skip_free_value_set(np) != 0) &#123;</span><br><span class="line">173b3ddae4 (ElephantZhang 2020-06-26 01:52:05 +0800  102)       int i, j, k;</span><br><span class="line">173b3ddae4 (ElephantZhang 2020-06-26 01:52:05 +0800  103)       for (i = 0; i &lt; np-&gt;value_set.num_series; i++) &#123;</span><br><span class="line">173b3ddae4 (ElephantZhang 2020-06-26 01:52:05 +0800  104)           for (j = 0; j &lt; np-&gt;value_set.series_values[i].num_samples; j++) &#123;</span><br><span class="line">173b3ddae4 (ElephantZhang 2020-06-26 01:52:05 +0800  105)               for (k=0; k &lt; np-&gt;value_set.series_values[i].series_sample[j].num_instances; k++) &#123;</span><br><span class="line">173b3ddae4 (ElephantZhang 2020-06-26 01:52:05 +0800  106)                   sdsfree(np-&gt;value_set.series_values[i].series_sample[j].series_instance[k].timestamp);</span><br><span class="line">173b3ddae4 (ElephantZhang 2020-06-26 01:52:05 +0800  107)                   sdsfree(np-&gt;value_set.series_values[i].series_sample[j].series_instance[k].series);</span><br><span class="line">173b3ddae4 (ElephantZhang 2020-06-26 01:52:05 +0800  108)                   sdsfree(np-&gt;value_set.series_values[i].series_sample[j].series_instance[k].data);</span><br><span class="line">173b3ddae4 (ElephantZhang 2020-06-26 01:52:05 +0800  109)               &#125;</span><br><span class="line">173b3ddae4 (ElephantZhang 2020-06-26 01:52:05 +0800  110)               free(np-&gt;value_set.series_values[i].series_sample[j].series_instance);</span><br><span class="line">7ae71e7f50 (ElephantZhang 2020-06-10 16:27:43 +0800  111)           &#125;</span><br><span class="line">173b3ddae4 (ElephantZhang 2020-06-26 01:52:05 +0800  112)           sdsfree(np-&gt;value_set.series_values[i].sid-&gt;name);</span><br><span class="line">173b3ddae4 (ElephantZhang 2020-06-26 01:52:05 +0800  113)           free(np-&gt;value_set.series_values[i].sid);</span><br><span class="line">173b3ddae4 (ElephantZhang 2020-06-26 01:52:05 +0800  114)           free(np-&gt;value_set.series_values[i].series_sample);</span><br><span class="line">7ae71e7f50 (ElephantZhang 2020-06-10 16:27:43 +0800  115)       &#125;</span><br><span class="line">173b3ddae4 (ElephantZhang 2020-06-26 01:52:05 +0800  116)       free(np-&gt;value_set.series_values);</span><br><span class="line">7ae71e7f50 (ElephantZhang 2020-06-10 16:27:43 +0800  117)     &#125;</span><br><span class="line">7ae71e7f50 (ElephantZhang 2020-06-10 16:27:43 +0800  118)     freeSeriesQueryNode(np-&gt;left, level+1);</span><br><span class="line">7ae71e7f50 (ElephantZhang 2020-06-10 16:27:43 +0800  119)     freeSeriesQueryNode(np-&gt;right, level+1);</span><br><span class="line">7ae71e7f50 (ElephantZhang 2020-06-10 16:27:43 +0800  120)     if (level != 0) free(np);</span><br><span class="line">7ae71e7f50 (ElephantZhang 2020-06-10 16:27:43 +0800  121) &#125;</span><br></pre></td></tr></table></figure>
-
 <h1 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h1><ol>
 <li><del>Sometime the daemon pmlogger will be killed by unknown reason. Or each pmlogger has a life period?</del> [May 28th] Answered by Nathans:”yes, we do start pmlogger with a fixed life-span by default (~24hrs)”</li>
 <li><del>what does <code>series_query_end_phase</code> do?</del> [June 8th] Answered by mgoodwin:“It decrements the ref count and if zero, moves onto the next phase of the query, see seriesPassBaton. ”</li>
@@ -548,7 +662,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Grammar"><span class="nav-number">1.</span> <span class="nav-text">Grammar</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Existing-related-grammar"><span class="nav-number">1.1.</span> <span class="nav-text">Existing related grammar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extended-grammar"><span class="nav-number">1.2.</span> <span class="nav-text">Extended grammar</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Status"><span class="nav-number">2.</span> <span class="nav-text">Status</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes"><span class="nav-number">2.1.</span> <span class="nav-text">Storing time series values&amp;pmDesc into paser tree’s nodes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-functions"><span class="nav-number">2.2.</span> <span class="nav-text">Writing functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Meta-data-updation-part"><span class="nav-number">2.3.</span> <span class="nav-text">Meta-data updation part</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Changes-in-data-structures"><span class="nav-number">2.3.1.</span> <span class="nav-text">Changes in data structures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-functions-in-C-files"><span class="nav-number">2.3.2.</span> <span class="nav-text">new functions in C files:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Early-June"><span class="nav-number">2.4.</span> <span class="nav-text">Early June</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Late-June"><span class="nav-number">2.5.</span> <span class="nav-text">Late June</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Early-July"><span class="nav-number">2.6.</span> <span class="nav-text">Early July</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functions"><span class="nav-number">2.7.</span> <span class="nav-text">Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#noop"><span class="nav-number">2.7.1.</span> <span class="nav-text">noop():</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rate"><span class="nav-number">2.7.2.</span> <span class="nav-text">rate()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#min-max"><span class="nav-number">2.7.3.</span> <span class="nav-text">min/max()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rescale"><span class="nav-number">2.7.4.</span> <span class="nav-text">rescale()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mathematical-functions"><span class="nav-number">2.7.5.</span> <span class="nav-text">mathematical functions</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Some-notes"><span class="nav-number">3.</span> <span class="nav-text">Some notes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bugs"><span class="nav-number">4.</span> <span class="nav-text">Bugs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Issues"><span class="nav-number">5.</span> <span class="nav-text">Issues</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Discussion"><span class="nav-number">6.</span> <span class="nav-text">Discussion</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Grammar"><span class="nav-number">1.</span> <span class="nav-text">Grammar</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Existing-related-grammar"><span class="nav-number">1.1.</span> <span class="nav-text">Existing related grammar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extended-grammar"><span class="nav-number">1.2.</span> <span class="nav-text">Extended grammar</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Status"><span class="nav-number">2.</span> <span class="nav-text">Status</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes"><span class="nav-number">2.1.</span> <span class="nav-text">Storing time series values&amp;pmDesc into paser tree’s nodes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-functions"><span class="nav-number">2.2.</span> <span class="nav-text">Writing functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Meta-data-updation-part"><span class="nav-number">2.3.</span> <span class="nav-text">Meta-data updation part</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Changes-in-data-structures"><span class="nav-number">2.3.1.</span> <span class="nav-text">Changes in data structures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-functions-in-C-files"><span class="nav-number">2.3.2.</span> <span class="nav-text">new functions in C files:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Early-June"><span class="nav-number">2.4.</span> <span class="nav-text">Early June</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Late-June"><span class="nav-number">2.5.</span> <span class="nav-text">Late June</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Early-July"><span class="nav-number">2.6.</span> <span class="nav-text">Early July</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functions"><span class="nav-number">2.7.</span> <span class="nav-text">Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#noop"><span class="nav-number">2.7.1.</span> <span class="nav-text">noop():</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rate"><span class="nav-number">2.7.2.</span> <span class="nav-text">rate()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#min-max"><span class="nav-number">2.7.3.</span> <span class="nav-text">min/max()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rescale"><span class="nav-number">2.7.4.</span> <span class="nav-text">rescale()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mathematical-functions"><span class="nav-number">2.7.5.</span> <span class="nav-text">mathematical functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arithmetic-expression"><span class="nav-number">2.7.6.</span> <span class="nav-text">arithmetic expression</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fabricated-SID"><span class="nav-number">2.8.</span> <span class="nav-text">Fabricated SID</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Canonical-expression-generation"><span class="nav-number">2.8.1.</span> <span class="nav-text">Canonical expression generation</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Some-notes"><span class="nav-number">3.</span> <span class="nav-text">Some notes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bugs"><span class="nav-number">4.</span> <span class="nav-text">Bugs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Issues"><span class="nav-number">5.</span> <span class="nav-text">Issues</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Discussion"><span class="nav-number">6.</span> <span class="nav-text">Discussion</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
