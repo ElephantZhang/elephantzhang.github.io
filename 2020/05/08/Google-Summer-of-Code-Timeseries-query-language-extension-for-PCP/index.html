@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-08-29T18:03:37.349Z">
+<meta property="og:updated_time" content="2020-08-29T18:06:59.765Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Summer of Code: Timeseries query language extension for PCP">
 <meta name="twitter:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-30 02:03:37" itemprop="dateModified" datetime="2020-08-30T02:03:37+08:00">2020-08-30</time>
+                <time title="Modified: 2020-08-30 02:06:59" itemprop="dateModified" datetime="2020-08-30T02:06:59+08:00">2020-08-30</time>
               </span>
             
           
@@ -594,7 +594,7 @@
 <p>is acceptable but</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pmseries &apos;log(log(kernel.all.pswitch[count:2], 3))&apos;</span><br></pre></td></tr></table></figure>
 
-<p>will raise error. Because the parser take part <code>log(log(kernel.all.pswitch[count:2]</code> in the query statement as a series identifier. This may be fixed by rewriting grammars.</p>
+<p>will raise error. Because the parser take part <code>log(log(kernel.all.pswitch[count:2]</code> in the query statement as a series identifier. Anyway, add options -q will always take the right action.</p>
 <h1 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h1><ol>
 <li>About the sum(), should we take sum between samples OR between instances? And mentors suggest that we can have a sum_label() function e.g. if we like to sum all values among different hosts we can apply <code>sum_label(average(kernel.all.pswitch[count:30]), &quot;hostname&quot;)</code>. Not very clear how this going…</li>
 <li>About the meta-data updation after functions has been executed. We can not update the original SID of metrics (Since the metadata of this metric has been changed e.g. rate(kernel.all.pswitch_rate))but maybe we need to fabricate a SID for this new metric with new metadata e.g. rate() should cause metric with counter semantics to become ‘instant’. And the units should go from ‘count’ to count/second, i.e. the time dimension needs to be decremented.</li>
