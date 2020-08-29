@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-08-14T07:11:42.276Z">
+<meta property="og:updated_time" content="2020-08-29T18:03:37.349Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Summer of Code: Timeseries query language extension for PCP">
 <meta name="twitter:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-14 15:11:42" itemprop="dateModified" datetime="2020-08-14T15:11:42+08:00">2020-08-14</time>
+                <time title="Modified: 2020-08-30 02:03:37" itemprop="dateModified" datetime="2020-08-30T02:03:37+08:00">2020-08-30</time>
               </span>
             
           
@@ -336,7 +336,18 @@
       
         <p>This blog is just a simple note for the project Timeseries query language extension during this summer.</p>
 <a id="more"></a>
-
+<p>Brief introduce to this project. (by <a href="https://github.com/goodwinos" target="_blank" rel="noopener">@mgoodwin</a> and <a href="https://github.com/natoscott" target="_blank" rel="noopener">@nathans</a>)</p>
+<blockquote>
+<p>Performance Co-Pilot timeseries are series of time-stamped values gathered centrally from hosts making performance data available. This data could be gathered for many metrics, at high frequency, and from many hosts. It is potentially high volume data, and searching it efficiently (querying) at speed is a non-trivial problem.<br>The Performance Co-Pilot timeseries query language is designed to allow fast querying based on metric names and labels. A command line utility and a REST API are available from pmseries and the pmproxy daemon.<br>Internally, the PCP query language makes use of the Redis distributed data store and its native timeseries features. The pmseries command line utility provides low-level access to the language.  </p>
+<p>This project will extend the existing query language with:  </p>
+<ol>
+<li>statistical functions (sum, mean, average, standard deviation, histogram binning, top-N, N-th percentile)  </li>
+<li>rate conversion function for counter metrics  </li>
+<li>scale and unit conversion functions  </li>
+<li>mathematical functions (abs, floor, log, sqrt, round)  </li>
+<li>binary operators for numeric metrics (addition, subtraction, division, multiplication, exponentiation)</li>
+</ol>
+</blockquote>
 <h1 id="Grammar"><a href="#Grammar" class="headerlink" title="Grammar"></a>Grammar</h1><p>The grammar description file is located on src/libpcp_web/src/query_parser.y. It’s a yacc file. </p>
 <h2 id="Existing-related-grammar"><a href="#Existing-related-grammar" class="headerlink" title="Existing related grammar"></a>Existing related grammar</h2><p>$query\to vector$</p>
 <h2 id="Extended-grammar"><a href="#Extended-grammar" class="headerlink" title="Extended grammar"></a>Extended grammar</h2><p>$non-terminal\ symbol, {\bf terminal\ symbol}$</p>
@@ -380,17 +391,23 @@
 <li>$arithmetic$ _ $expression\to val$ _ $vec/func$</li>
 <li>$arithmetic$ _ $expression\to func/val$ _ $vec$</li>
 </ul>
-<h1 id="Status"><a href="#Status" class="headerlink" title="Status"></a>Status</h1><h2 id="Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes"><a href="#Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes" class="headerlink" title="Storing time series values&amp;pmDesc into paser tree’s nodes"></a><del>Storing time series values&amp;pmDesc into paser tree’s nodes</del></h2><h2 id="Writing-functions"><a href="#Writing-functions" class="headerlink" title="Writing functions"></a>Writing functions</h2><h2 id="Meta-data-updation-part"><a href="#Meta-data-updation-part" class="headerlink" title="Meta-data updation part"></a>Meta-data updation part</h2><p><a href="https://github.com/performancecopilot/pcp/compare/master...ElephantZhang:demo_add_rate" target="_blank" rel="noopener">Git branch link</a></p>
+<h1 id="Status"><a href="#Status" class="headerlink" title="Status"></a>Status</h1><h2 id="Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes"><a href="#Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes" class="headerlink" title="Storing time series values&amp;pmDesc into paser tree’s nodes"></a><del>Storing time series values&amp;pmDesc into paser tree’s nodes</del></h2><p>Store the series values returned by Redis into the corresponding node in node_t tree, for the further functions’ computation.</p>
 <h3 id="Changes-in-data-structures"><a href="#Changes-in-data-structures" class="headerlink" title="Changes in data structures"></a>Changes in data structures</h3><p>In src/libpcp_web/src/query.c</p>
 <ul>
-<li>Modify constant QUERY_PHASES from 6 to 7.</li>
+<li>Modify constant QUERY_PHASES from 6 to 7.<br>The new phase series_query_funcs() is for storing timeseries values into the corresponding node. And the 7th phase series_query_funcs_report_values() is for functions’ computation and reporting.</li>
 </ul>
 <p>In src/libpcp_web/src/query.h</p>
 <ul>
 <li>Add a new structure <code>struct series_value_set</code> in order to store time series values. And add this struct into <code>struct node</code>. In <code>series_value_set</code>:  A <code>value_set</code> has a <code>series_values</code> array. Each element in <code>series_values</code> array is a timeseries with its samples and SID. A timeseries may has more than one samples stored in array <code>series_sample</code>. Each element in array <code>series_sample</code> is a set of instances’ values.</li>
 </ul>
-<p>In src/libpcp_web/src/query.c</p>
-<h3 id="new-functions-in-C-files"><a href="#new-functions-in-C-files" class="headerlink" title="new functions in C files:"></a>new functions in C files:</h3><h2 id="Early-June"><a href="#Early-June" class="headerlink" title="Early June"></a>Early June</h2><ul>
+<h2 id="Writing-functions"><a href="#Writing-functions" class="headerlink" title="Writing functions"></a>Writing functions</h2><p><a href="https://github.com/performancecopilot/pcp/compare/master...ElephantZhang:demo_add_rate" target="_blank" rel="noopener">Git branch link</a><br>This branch has been <strong>merged</strong>. But need a large amount of tests!<br>Still, there are a large part in statistical functions is unfinieshed. (sum, mean, average, standard deviation, histogram binning, top-N, N-th percentile)</p>
+<h2 id="Meta-data-updation-part"><a href="#Meta-data-updation-part" class="headerlink" title="Meta-data updation part"></a><del>Meta-data updation part</del></h2><p><a href="https://github.com/performancecopilot/pcp/compare/master...ElephantZhang:hmset_descriptor" target="_blank" rel="noopener">Git branch link</a><br>Still under processing.</p>
+<h3 id="Changes-in-data-structures-1"><a href="#Changes-in-data-structures-1" class="headerlink" title="Changes in data structures"></a>Changes in data structures</h3><p>In src/libpcp_web/src/query.c</p>
+<ul>
+<li>Modify constant QUERY_PHASES from 7 to 8.<br>The new added phase is for querying metric names by SIDs, this situation will happend when the [metric.name] in the query statment is GLOB i.e. kernel.all.*</li>
+</ul>
+<h2 id="Timeline"><a href="#Timeline" class="headerlink" title="Timeline"></a>Timeline</h2><h3 id="Early-June"><a href="#Early-June" class="headerlink" title="Early June"></a>Early June</h3><hr>
+<ul>
 <li>In function <code>series_solve</code>, add a new phase <code>series_query_funcs</code> before phase <code>series_query_report_values</code>.  Querying to Redis and storing timeseries values are all done in function <code>series_query_funcs</code>. <code>series_query_report_values</code> only to only to report the result value from root node.</li>
 <li><code>static int series_process_func</code>: Called by <code>series_query_funcs</code>. Traverse the parser tree and once a node is an values-type node which need to query to Redis to gather actual series values, do querying and store the values into this node.</li>
 <li><code>static void series_node_prepare_time</code>: Called by <code>series_process_func</code> when a child of a function-type node need to query to Redis. For each series-id stored in the child node, first store the <code>SID</code> into this node’s <code>np-&gt;value_set.series_values[i].sid = sid</code>, then query to Redis with every SID together with a timewindow. </li>
@@ -402,19 +419,22 @@
 <li><code>static void freeSeriesQueryNode</code>, called by <code>freeSeriesGetQuery</code>, just to free.</li>
 <li><code>static int series_calculate</code> called by <code>series_query_report_values</code>, in this function all time series values have been stored into nodes. Therefore we can directly calculate values of a node accroding to the semantics of this node.</li>
 </ul>
-<h2 id="Late-June"><a href="#Late-June" class="headerlink" title="Late June"></a>Late June</h2><ul>
+<h3 id="Late-June"><a href="#Late-June" class="headerlink" title="Late June"></a>Late June</h3><hr>
+<ul>
 <li><code>series_calculate_rate</code>: Please check the rate() in the Functions part below.</li>
 <li><code>series_calculate_max</code>: Please check the min/max() in the Functions part below.</li>
 <li><code>series_calculate_min</code>: Please check the min/max() in the Functions part below.</li>
 </ul>
-<h2 id="Early-July"><a href="#Early-July" class="headerlink" title="Early July"></a>Early July</h2><ul>
+<h3 id="Early-July"><a href="#Early-July" class="headerlink" title="Early July"></a>Early July</h3><hr>
+<ul>
 <li><code>series_calculate_rescale(node_t *np)</code>: Call this for each N_RESCALE type node. The left child node of L_RESCALE-type node should contains a set of time series values. And the right child node should be L_SCALE, which contains the target units information. rescale() should only accept metrics with semantics instant. Compare the consistencies of 3 time/space/count dimensions between the pmUnits of input and metrics to be modified.</li>
 <li><code>series_pmAtomValue_conv_str(int type, char *str, pmAtomValue *val)</code>: Called by <code>series_calculate_rescale</code></li>
 <li><code>compare_pmUnits(pmUnits *a, pmUnits *b)</code>: Compare whether three dimentions of two units are the same.</li>
 <li><code>series_extract_type(char *typeStr)</code>: Convert a type string to constant value in code e.g. “u32” to PM_TYPE_U32.</li>
 <li><code>series_extract_value(int type, sds str, pmAtomValue *oval)</code>: Convert string to value accroding to the type e.g. int, unsigned int, double etc. </li>
 </ul>
-<h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><h3 id="noop"><a href="#noop" class="headerlink" title="noop():"></a>noop():</h3><p>To check if the functions have been parsed well. Type $pmseries -Dquery ….$ can check the debug infromations.</p>
+<p>### </p>
+<h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><h3 id="noop"><a href="#noop" class="headerlink" title="noop():"></a>noop():</h3><p>To check if the functions have been parsed well. </p>
 <h3 id="rate"><a href="#rate" class="headerlink" title="rate()"></a>rate()</h3><p>Compute rate between samples for each metric. The number of samples in result is one less than the original samples. Only the metric with semantic counter can apply rate(). </p>
 <ul>
 <li>After rate(), reduce the dimension of Time by one. The type remains unchanged and the semantic become PM_SEM_INSTANT.</li>
@@ -422,9 +442,9 @@
 <p>Sample:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pmseries &apos;rate(kernel.all.pswitch[count:5])&apos;</span><br></pre></td></tr></table></figure>
 
-<p>TODO: type checking errors report. metadata updation.</p>
+<p>TODO: type checking errors report. <del>metadata updation.</del></p>
 <h3 id="min-max"><a href="#min-max" class="headerlink" title="min/max()"></a>min/max()</h3><p>Compare and pick the maximal/minimal instance value(s) among samples for each metric.</p>
-<p>TODO: Type checking and erorr report. Metadata updation. </p>
+<p>TODO: Type checking and erorr report. <del>Metadata updation. ~</del></p>
 <p>Be careful that the results of min/max can ${\bf not}$ be computed by rate(). How to achieve this? Maybe after min/max the semantic in metadate of this metric should be updated to None. But in the other hand, the number of samples is just one and if we apply rate() the number of samples will become zero, even rate(max()) is meaningless but it will not cause problems…. But it’s better to forbid rate(max())</p>
 <h3 id="rescale"><a href="#rescale" class="headerlink" title="rescale()"></a>rescale()</h3><p>Rescale the units for the input metric values. Only support metric with semantic instant.</p>
 <ul>
@@ -447,7 +467,7 @@
 <li>Two operands each has only one metric series can take arithmetic expression.</li>
 <li>The number of series, samples and instances of two operands should be identical.</li>
 <li>If both operands have the semantics of a counter, then only addition or subraction is allowed</li>
-<li>If one of operands is a counter and the other one is not, then only multiplication or division are allowed.</li>
+<li>If the left operand is a counter and the right operand is not, then only multiplication or division are allowed, or if the left operand is not a counter and the right operand is a counter, then only multiplication is allowed.</li>
 <li>If the semantics of both operands is not a counter then the result will have semantics PM_SEM_INSTANT unless both operands are PM_SEM_DISCRETE in which case the result is also PM_SEM_DISCRETE. Otherwise, the result will have semantics PM_SEM_COUNTER.</li>
 <li>If both operands have a dimension of Count/Time/Space and the scales are not the same, use the larger scale and convert the values of the operand with the smaller scale. The result is promoted to type PM_TYPE_DOUBLE.</li>
 <li>For addition and subtraction all dimensions for each of the operands and result are identical.</li>
@@ -539,17 +559,20 @@
 <li><code>series_solve</code> in query.c: An overview of the phases of processing a time series query statement.</li>
 <li>SHA1 computation related function <code>pmwebapi_metric_hash</code></li>
 </ul>
-<h1 id="Bugs"><a href="#Bugs" class="headerlink" title="Bugs"></a>Bugs</h1><ol>
-<li><del>Run    <code>gdb --args pmseries &#39;rate(kernel.all.load)[count:2]&#39;</code>, we can see error occurs during calling <code>void freeReplyObject(void *r)</code>. Seems that I free a Redies reply twice. (But where?)</del></li>
-<li><del>Not supoort {metadata qualifiers} in my remote host. See also point 3 in Issues.</del></li>
-<li><del>Reported by mgoodwin:</del><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pcp-kyoma[demo_add_rate]$ pmseries -a c3d11a94d2475f002c9279a50e3a884de8b96f3e</span><br><span class="line">c3d11a94d2475f002c9279a50e3a884de8b96f3e</span><br><span class="line">pmseries: [Error] no descriptor for series identifier c3d11a94d2475f002c9279a50e3a884de8b96f3e</span><br><span class="line">Segmentation fault (core dumped)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
 <h1 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h1><ol>
-<li><del>Sometime the daemon pmlogger will be killed by unknown reason. Or each pmlogger has a life period?</del> [May 28th] Answered by Nathans:”yes, we do start pmlogger with a fixed life-span by default (~24hrs)”</li>
-<li><del>what does <code>series_query_end_phase</code> do?</del> [June 8th] Answered by mgoodwin:“It decrements the ref count and if zero, moves onto the next phase of the query, see seriesPassBaton. ”</li>
-<li><del>Query statements in the format as <code>pmseries -Dquery &#39;rate(kernel.all.load{hostname==&quot;VM-0-4-ubuntu&quot;}[count:2])&#39;</code> (add the <code>{metadata qualifiers}</code>)does not work on my remote host… It only returns</del> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pmseries: [Error] no descriptor for series identifier 7d94835a09744d4cea95f06c7feb45c33ada9168</span><br><span class="line">pmseries: [Error] no descriptor for series identifier 5a835a09744d4cea95f06c7feb45c33ada91685a</span><br></pre></td></tr></table></figure>
+<li><p><del>Run    <code>gdb --args pmseries &#39;rate(kernel.all.load)[count:2]&#39;</code>, we can see error occurs during calling <code>void freeReplyObject(void *r)</code>. Seems that I free a Redies reply twice. (But where?)</del></p>
+</li>
+<li><p><del>Not supoort {metadata qualifiers} in my remote host. See also point 3 in Issues.</del></p>
+</li>
+<li><p><del>Reported by mgoodwin:</del></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pcp-kyoma[demo_add_rate]$ pmseries -a c3d11a94d2475f002c9279a50e3a884de8b96f3e</span><br><span class="line">c3d11a94d2475f002c9279a50e3a884de8b96f3e</span><br><span class="line">pmseries: [Error] no descriptor for series identifier c3d11a94d2475f002c9279a50e3a884de8b96f3e</span><br><span class="line">Segmentation fault (core dumped)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><del>Sometime the daemon pmlogger will be killed by unknown reason. Or each pmlogger has a life period?</del> [May 28th] Answered by Nathans:”yes, we do start pmlogger with a fixed life-span by default (~24hrs)”</p>
+</li>
+<li><p><del>what does <code>series_query_end_phase</code> do?</del> [June 8th] Answered by mgoodwin:“It decrements the ref count and if zero, moves onto the next phase of the query, see seriesPassBaton. ”</p>
+</li>
+<li><p><del>Query statements in the format as <code>pmseries -Dquery &#39;rate(kernel.all.load{hostname==&quot;VM-0-4-ubuntu&quot;}[count:2])&#39;</code> (add the <code>{metadata qualifiers}</code>)does not work on my remote host… It only returns</del> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pmseries: [Error] no descriptor for series identifier 7d94835a09744d4cea95f06c7feb45c33ada9168</span><br><span class="line">pmseries: [Error] no descriptor for series identifier 5a835a09744d4cea95f06c7feb45c33ada91685a</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -558,12 +581,12 @@
 <p>sudo systemctl stop pmlogger pmproxy pmcd</p>
 <p>sudo redis-cli flushall</p>
 <p>sudo systemctl start pmcd pmproxy pmlogger</p>
-<ol start="4">
+<ol start="7">
 <li><del>The following warnings appear when applying float types variables to <code>double floor(double x)</code> and <code>double sqrt(double x)</code>. Keep these warning here to remind me thinking about will them cause problems or not.</del></li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">query.c:2331:15: warning: implicit declaration of function ‘floor’ [-Wimplicit-function-declaration]</span><br><span class="line">      val-&gt;f = floor(val-&gt;f);</span><br><span class="line">               ^</span><br><span class="line">query.c:2331:15: warning: incompatible implicit declaration of built-in function ‘floor’</span><br><span class="line">query.c:2331:15: note: include ‘&lt;math.h&gt;’ or provide a declaration of ‘floor’</span><br><span class="line">query.c: In function ‘series_sqrt_pmAtomValue’:</span><br><span class="line">query.c:2397:15: warning: implicit declaration of function ‘sqrt’ [-Wimplicit-function-declaration]</span><br><span class="line">      val-&gt;d = sqrt(res);</span><br><span class="line">               ^</span><br><span class="line">query.c:2397:15: warning: incompatible implicit declaration of built-in function ‘sqrt’</span><br><span class="line">query.c:2397:15: note: include ‘&lt;math.h&gt;’ or provide a declaration of ‘sqrt’</span><br></pre></td></tr></table></figure>
 
-<ol start="5">
+<ol start="8">
 <li>The function log(), it can not support some whitespace insertion, like:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pmseries &apos;log(log(kernel.all.pswitch[count:2],3))&apos;</span><br></pre></td></tr></table></figure>
 
 </li>
@@ -662,7 +685,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Grammar"><span class="nav-number">1.</span> <span class="nav-text">Grammar</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Existing-related-grammar"><span class="nav-number">1.1.</span> <span class="nav-text">Existing related grammar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extended-grammar"><span class="nav-number">1.2.</span> <span class="nav-text">Extended grammar</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Status"><span class="nav-number">2.</span> <span class="nav-text">Status</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes"><span class="nav-number">2.1.</span> <span class="nav-text">Storing time series values&amp;pmDesc into paser tree’s nodes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-functions"><span class="nav-number">2.2.</span> <span class="nav-text">Writing functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Meta-data-updation-part"><span class="nav-number">2.3.</span> <span class="nav-text">Meta-data updation part</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Changes-in-data-structures"><span class="nav-number">2.3.1.</span> <span class="nav-text">Changes in data structures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-functions-in-C-files"><span class="nav-number">2.3.2.</span> <span class="nav-text">new functions in C files:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Early-June"><span class="nav-number">2.4.</span> <span class="nav-text">Early June</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Late-June"><span class="nav-number">2.5.</span> <span class="nav-text">Late June</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Early-July"><span class="nav-number">2.6.</span> <span class="nav-text">Early July</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functions"><span class="nav-number">2.7.</span> <span class="nav-text">Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#noop"><span class="nav-number">2.7.1.</span> <span class="nav-text">noop():</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rate"><span class="nav-number">2.7.2.</span> <span class="nav-text">rate()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#min-max"><span class="nav-number">2.7.3.</span> <span class="nav-text">min/max()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rescale"><span class="nav-number">2.7.4.</span> <span class="nav-text">rescale()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mathematical-functions"><span class="nav-number">2.7.5.</span> <span class="nav-text">mathematical functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arithmetic-expression"><span class="nav-number">2.7.6.</span> <span class="nav-text">arithmetic expression</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fabricated-SID"><span class="nav-number">2.8.</span> <span class="nav-text">Fabricated SID</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Canonical-expression-generation"><span class="nav-number">2.8.1.</span> <span class="nav-text">Canonical expression generation</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Some-notes"><span class="nav-number">3.</span> <span class="nav-text">Some notes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bugs"><span class="nav-number">4.</span> <span class="nav-text">Bugs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Issues"><span class="nav-number">5.</span> <span class="nav-text">Issues</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Discussion"><span class="nav-number">6.</span> <span class="nav-text">Discussion</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Grammar"><span class="nav-number">1.</span> <span class="nav-text">Grammar</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Existing-related-grammar"><span class="nav-number">1.1.</span> <span class="nav-text">Existing related grammar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extended-grammar"><span class="nav-number">1.2.</span> <span class="nav-text">Extended grammar</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Status"><span class="nav-number">2.</span> <span class="nav-text">Status</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Storing-time-series-values-amp-pmDesc-into-paser-tree’s-nodes"><span class="nav-number">2.1.</span> <span class="nav-text">Storing time series values&amp;pmDesc into paser tree’s nodes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Changes-in-data-structures"><span class="nav-number">2.1.1.</span> <span class="nav-text">Changes in data structures</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-functions"><span class="nav-number">2.2.</span> <span class="nav-text">Writing functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Meta-data-updation-part"><span class="nav-number">2.3.</span> <span class="nav-text">Meta-data updation part</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Changes-in-data-structures-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">Changes in data structures</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Timeline"><span class="nav-number">2.4.</span> <span class="nav-text">Timeline</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Early-June"><span class="nav-number">2.4.1.</span> <span class="nav-text">Early June</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Late-June"><span class="nav-number">2.4.2.</span> <span class="nav-text">Late June</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Early-July"><span class="nav-number">2.4.3.</span> <span class="nav-text">Early July</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functions"><span class="nav-number">2.5.</span> <span class="nav-text">Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#noop"><span class="nav-number">2.5.1.</span> <span class="nav-text">noop():</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rate"><span class="nav-number">2.5.2.</span> <span class="nav-text">rate()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#min-max"><span class="nav-number">2.5.3.</span> <span class="nav-text">min/max()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rescale"><span class="nav-number">2.5.4.</span> <span class="nav-text">rescale()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mathematical-functions"><span class="nav-number">2.5.5.</span> <span class="nav-text">mathematical functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arithmetic-expression"><span class="nav-number">2.5.6.</span> <span class="nav-text">arithmetic expression</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fabricated-SID"><span class="nav-number">2.6.</span> <span class="nav-text">Fabricated SID</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Canonical-expression-generation"><span class="nav-number">2.6.1.</span> <span class="nav-text">Canonical expression generation</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Some-notes"><span class="nav-number">3.</span> <span class="nav-text">Some notes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Issues"><span class="nav-number">4.</span> <span class="nav-text">Issues</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Discussion"><span class="nav-number">5.</span> <span class="nav-text">Discussion</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
