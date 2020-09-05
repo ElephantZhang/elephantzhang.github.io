@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-08-31T08:18:22.744Z">
+<meta property="og:updated_time" content="2020-09-05T03:42:53.395Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Summer of Code: Timeseries query language extension for PCP">
 <meta name="twitter:description" content="This blog is just a simple note for the project Timeseries query language extension during this summer.">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-31 16:18:22" itemprop="dateModified" datetime="2020-08-31T16:18:22+08:00">2020-08-31</time>
+                <time title="Modified: 2020-09-05 11:42:53" itemprop="dateModified" datetime="2020-09-05T11:42:53+08:00">2020-09-05</time>
               </span>
             
           
@@ -336,7 +336,11 @@
       
         <p>This blog is just a simple note for the project Timeseries query language extension during this summer.</p>
 <a id="more"></a>
-<p><a href="https://docs.google.com/document/d/1NbdBWKcdKQCvT7mKHEch7TiGWDjNiUJg9JYQNOsgJbA/edit?usp=sharing" target="_blank" rel="noopener">My proposal link</a><br>Brief introduce to this project. (by <a href="https://github.com/goodwinos" target="_blank" rel="noopener">@mgoodwin</a> and <a href="https://github.com/natoscott" target="_blank" rel="noopener">@nathans</a>)</p>
+<p>PR links(Introcued below, both have been <strong>merged</strong>)</p>
+<p><a href="https://github.com/performancecopilot/pcp/pull/1005" target="_blank" rel="noopener">https://github.com/performancecopilot/pcp/pull/1005</a></p>
+<p><a href="https://github.com/performancecopilot/pcp/pull/1018" target="_blank" rel="noopener">https://github.com/performancecopilot/pcp/pull/1018</a></p>
+<p><a href="https://docs.google.com/document/d/1NbdBWKcdKQCvT7mKHEch7TiGWDjNiUJg9JYQNOsgJbA/edit?usp=sharing" target="_blank" rel="noopener">My proposal link</a></p>
+<p>Brief introduce to this project. (by <a href="https://github.com/goodwinos" target="_blank" rel="noopener">@mgoodwin</a> and <a href="https://github.com/natoscott" target="_blank" rel="noopener">@nathans</a>)</p>
 <blockquote>
 <p>Performance Co-Pilot timeseries are series of time-stamped values gathered centrally from hosts making performance data available. This data could be gathered for many metrics, at high frequency, and from many hosts. It is potentially high volume data, and searching it efficiently (querying) at speed is a non-trivial problem.<br>The Performance Co-Pilot timeseries query language is designed to allow fast querying based on metric names and labels. A command line utility and a REST API are available from pmseries and the pmproxy daemon.<br>Internally, the PCP query language makes use of the Redis distributed data store and its native timeseries features. The pmseries command line utility provides low-level access to the language.  </p>
 <p>This project will extend the existing query language with:  </p>
@@ -405,7 +409,7 @@
 <ul>
 <li>Add a new structure <code>typedef  struct timing</code> to <code>struct node</code> for storing timing information of arithmetic expressions.</li>
 </ul>
-<h2 id="Meta-data-updation-part"><a href="#Meta-data-updation-part" class="headerlink" title="Meta-data updation part"></a><del>Meta-data updation part</del></h2><p><a href="https://github.com/performancecopilot/pcp/compare/master...ElephantZhang:hmset_descriptor" target="_blank" rel="noopener">Git branch link</a><br>Still under processing.</p>
+<h2 id="Meta-data-updation-part"><a href="#Meta-data-updation-part" class="headerlink" title="Meta-data updation part"></a><del>Meta-data updation part</del></h2><p><a href="https://github.com/performancecopilot/pcp/compare/master...ElephantZhang:hmset_descriptor" target="_blank" rel="noopener">Git branch link</a><br>This branch has been <strong>merged</strong>.</p>
 <h3 id="Changes-in-data-structures-2"><a href="#Changes-in-data-structures-2" class="headerlink" title="Changes in data structures"></a>Changes in data structures</h3><p>In src/libpcp_web/src/query.c</p>
 <ul>
 <li>Modify constant QUERY_PHASES from 7 to 8.<br>The new added phase is for querying metric names by SIDs, this situation will happend when the [metric.name] in the query statment is GLOB i.e. kernel.all.*</li>
