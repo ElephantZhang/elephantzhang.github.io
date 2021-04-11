@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="不知道干啥时的快速便签">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-04-08T07:18:44.405Z">
+<meta property="og:updated_time" content="2021-04-09T10:29:17.971Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自用快速手册">
 <meta name="twitter:description" content="不知道干啥时的快速便签">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-08 15:18:44" itemprop="dateModified" datetime="2021-04-08T15:18:44+08:00">2021-04-08</time>
+                <time title="Modified: 2021-04-09 18:29:17" itemprop="dateModified" datetime="2021-04-09T18:29:17+08:00">2021-04-09</time>
               </span>
             
           
@@ -345,6 +345,9 @@
 <p>此时可能会出现需要手动merge代码的情况, 我用vsCode所以在source control里可以可视化地merge代码. merge完毕之后需要commit一下, 并在文件里描述这次merge. </p>
 <p>好, 完成以上操作后可以进行merge了<code>git merge up[][]stream/master</code> 此时便将fetch的代码,以及我们手动merge的代码merge进当前的branch.</p>
 <h2 id="撤销commit"><a href="#撤销commit" class="headerlink" title="撤销commit"></a>撤销commit</h2><p>只是撤销commit而已哦<code>git reset --soft HEAD~1</code></p>
+<h2 id="git-clone包含外部链接库"><a href="#git-clone包含外部链接库" class="headerlink" title="git clone包含外部链接库"></a>git clone包含外部链接库</h2><p>一个项目的某些子模块是外部链接到别的项目上的，此时在git clone后执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule update --init --recursive</span><br></pre></td></tr></table></figure>
+
 <h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><h2 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h2><p>动态库编译install后, 可能由于缓存没有更新导致程序还在使用旧的库. 此时<code>ldconfig</code></p>
 <h1 id="GDB"><a href="#GDB" class="headerlink" title="GDB"></a>GDB</h1><p>自己编译的时候使用<code>gcc -g xxx.c</code>, -g会创建符号表/关闭优化(诶大丈夫?)程序将按照代码来执行.</p>
 <p>对于需要args参数的程序调试示例<code>gdb --args pmseries &#39;kernel.all.load[count:5]&#39;</code></p>
@@ -378,20 +381,23 @@
 </li>
 </ul>
 <p>1 microseconds = 0.001 milliseconds</p>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><ul>
+<li><code>redis-cli</code>开始查询</li>
+<li>查询Desc <code>HMGET pcp:desc:series:94835a09744d4cea95f06c7feb45c33ada91685a semantics</code></li>
+<li>使用<code>redis-cli</code>直接向redis查询, 根据series identifier来查询value的语句参考<code>XRANGE pcp:values:series:7d0a5094fa4ffe7aecfa4287ca25855b0c34816f - + count 2</code></li>
+</ul>
 <h1 id="Notebook"><a href="#Notebook" class="headerlink" title="Notebook"></a>Notebook</h1><ul>
 <li>在remote host上启动notebook后, 本地使用<code>ssh -N -f -L 127.0.0.1:25252:127.0.0.1:25252 username@ip_address</code>来使本地与远端建立连接</li>
 <li>Pytorch PermissionError: [Errno 13] Permission denied: ‘/.torch’时, 改变下载的路径<code>export TORCH_HOME=./torch</code></li>
 <li>启用ipywidgets, <code>jupyter nbextension enable --py widgetsnbextension --sys-prefix</code></li>
 </ul>
-<h1 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h1><ul>
+<h1 id="Python相关"><a href="#Python相关" class="headerlink" title="Python相关"></a>Python相关</h1><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>环境多python很烦恼, 可以先看看pyhton用的优先级    <code>which -a python</code>. 这是依照$PATH中的顺序的, 靠前的优先</li>
+</ul>
+<h2 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h2><ul>
 <li><code>ERROR: Could not install packages due to an EnvironmentError: [Errno 28] No space left on device</code>. 此时修改一下temp文件夹目录, 使用<code>export TMPDIR=~/zys/temp/</code></li>
 <li>换源install使用<code>pip install torchvision -i https://mirrors.nju.edu.cn/pypi/web/simple</code></li>
 <li><code>sds</code> 要使用<code>sdsfree()</code>来free</li>
-</ul>
-<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><ul>
-<li><code>redis-cli</code>开始查询</li>
-<li>查询Desc <code>HMGET pcp:desc:series:94835a09744d4cea95f06c7feb45c33ada91685a semantics</code></li>
-<li>使用<code>redis-cli</code>直接向redis查询, 根据series identifier来查询value的语句参考<code>XRANGE pcp:values:series:7d0a5094fa4ffe7aecfa4287ca25855b0c34816f - + count 2</code></li>
 </ul>
 <h1 id="valgrind"><a href="#valgrind" class="headerlink" title="valgrind"></a>valgrind</h1><ul>
 <li>入门使用去看<a href="https://www.valgrind.org/docs/manual/quick-start.html#quick-start.prepare" target="_blank" rel="noopener">官网介绍</a>valgrind pmseries ‘rate(kernel.all.load)[count:2]’</li>
@@ -415,11 +421,10 @@
 <p>all pip install package will by installed into this environment</p>
 <p>To get out and return to the global environment, use deactivate</p>
 <h1 id="Cartoon-Gan"><a href="#Cartoon-Gan" class="headerlink" title="Cartoon Gan"></a>Cartoon Gan</h1><p>偷偷摸摸使用自装conda: source /home/usertwo/.bashrc<br>conda activate cartoongan</p>
-<h1 id="环境-杂症"><a href="#环境-杂症" class="headerlink" title="环境/杂症"></a>环境/杂症</h1><ul>
-<li>环境多python很烦恼, 可以先看看pyhton用的优先级    <code>which -a python</code>. 这是依照$PATH中的顺序的, 靠前的优先</li>
-</ul>
 <h1 id="命令行输出重定向"><a href="#命令行输出重定向" class="headerlink" title="命令行输出重定向"></a>命令行输出重定向</h1><pre><code>        ||    visible in terminal    ||    visible in file        ||    existing
 Syntax    ||    Stdout    |    Stderr    ||    Stdout    |    Stderr    ||    file</code></pre><p>===========================================================================<br>        &gt;    ||    no        |    yes        ||    yes        |    no        ||    overwrite<br>        &gt;&gt;    ||    no        |    yes        ||    yes        |    no        ||    append<br>        2&gt;    ||    yes        |    no        ||    no        |    yes        ||    overwrite<br>        2&gt;&gt;    ||    yes        |    no        ||    no        |    yes        ||    append<br>        &amp;&gt;    ||    no        |    no        ||    yes        |    yes        ||    overwrite<br>        &amp;&gt;&gt;    ||    no        |    no        ||    yes        |    yes        ||    append<br>    | tee    ||    yes        |    yes        ||    yes        |    no        ||    overwrite<br>| tee -a    ||    yes        |    yes        ||    yes        |    no        ||    append<br>|&amp; tee        ||    yes        |    yes        ||    yes        |    yes        ||    overwrite<br>|&amp; tee -a    ||    yes        |    yes        ||    yes        |    yes        ||    append</p>
+<h1 id="一些linux命令"><a href="#一些linux命令" class="headerlink" title="一些linux命令"></a>一些linux命令</h1><h2 id="file"><a href="#file" class="headerlink" title="file"></a>file</h2><p><code>file 文件名</code> 查看文件类型</p>
+<h2 id="hexdump"><a href="#hexdump" class="headerlink" title="hexdump"></a>hexdump</h2><p><code>hexdump file_name |head</code>: 看字节流文件，16进制表示</p>
 
     </div>
 
@@ -506,7 +511,7 @@ Syntax    ||    Stdout    |    Stderr    ||    Stdout    |    Stderr    ||    fi
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git"><span class="nav-number">1.</span> <span class="nav-text">Git</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#保持与原仓库同步"><span class="nav-number">1.1.</span> <span class="nav-text">保持与原仓库同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#想要从原仓库将更新的commit更新到本地的场合"><span class="nav-number">1.2.</span> <span class="nav-text">想要从原仓库将更新的commit更新到本地的场合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#撤销commit"><span class="nav-number">1.3.</span> <span class="nav-text">撤销commit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译"><span class="nav-number">2.</span> <span class="nav-text">编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#动态库"><span class="nav-number">2.1.</span> <span class="nav-text">动态库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GDB"><span class="nav-number">3.</span> <span class="nav-text">GDB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PCP"><span class="nav-number">4.</span> <span class="nav-text">PCP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Notebook"><span class="nav-number">5.</span> <span class="nav-text">Notebook</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pip"><span class="nav-number">6.</span> <span class="nav-text">pip</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-number">7.</span> <span class="nav-text">Redis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#valgrind"><span class="nav-number">8.</span> <span class="nav-text">valgrind</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS"><span class="nav-number">9.</span> <span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CUDA-cuDNN"><span class="nav-number">10.</span> <span class="nav-text">CUDA/cuDNN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Virtual-environemnt"><span class="nav-number">11.</span> <span class="nav-text">Virtual environemnt</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cartoon-Gan"><span class="nav-number">12.</span> <span class="nav-text">Cartoon Gan</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境-杂症"><span class="nav-number">13.</span> <span class="nav-text">环境/杂症</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令行输出重定向"><span class="nav-number">14.</span> <span class="nav-text">命令行输出重定向</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git"><span class="nav-number">1.</span> <span class="nav-text">Git</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#保持与原仓库同步"><span class="nav-number">1.1.</span> <span class="nav-text">保持与原仓库同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#想要从原仓库将更新的commit更新到本地的场合"><span class="nav-number">1.2.</span> <span class="nav-text">想要从原仓库将更新的commit更新到本地的场合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#撤销commit"><span class="nav-number">1.3.</span> <span class="nav-text">撤销commit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-clone包含外部链接库"><span class="nav-number">1.4.</span> <span class="nav-text">git clone包含外部链接库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译"><span class="nav-number">2.</span> <span class="nav-text">编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#动态库"><span class="nav-number">2.1.</span> <span class="nav-text">动态库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GDB"><span class="nav-number">3.</span> <span class="nav-text">GDB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PCP"><span class="nav-number">4.</span> <span class="nav-text">PCP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis"><span class="nav-number">4.1.</span> <span class="nav-text">Redis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Notebook"><span class="nav-number">5.</span> <span class="nav-text">Notebook</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python相关"><span class="nav-number">6.</span> <span class="nav-text">Python相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">6.1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pip"><span class="nav-number">6.2.</span> <span class="nav-text">pip</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#valgrind"><span class="nav-number">7.</span> <span class="nav-text">valgrind</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS"><span class="nav-number">8.</span> <span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CUDA-cuDNN"><span class="nav-number">9.</span> <span class="nav-text">CUDA/cuDNN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Virtual-environemnt"><span class="nav-number">10.</span> <span class="nav-text">Virtual environemnt</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cartoon-Gan"><span class="nav-number">11.</span> <span class="nav-text">Cartoon Gan</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令行输出重定向"><span class="nav-number">12.</span> <span class="nav-text">命令行输出重定向</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些linux命令"><span class="nav-number">13.</span> <span class="nav-text">一些linux命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#file"><span class="nav-number">13.1.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexdump"><span class="nav-number">13.2.</span> <span class="nav-text">hexdump</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -524,7 +529,7 @@ Syntax    ||    Stdout    |    Stderr    ||    Stdout    |    Stderr    ||    fi
         
           <a href="/archives">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
