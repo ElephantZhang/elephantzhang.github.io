@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Future Gadget Laboratory">
 <meta property="og:description" content="2021年春季课程笔记">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-04-11T12:35:38.927Z">
+<meta property="og:updated_time" content="2021-04-11T12:38:15.273Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="课程笔记">
 <meta name="twitter:description" content="2021年春季课程笔记">
@@ -293,7 +293,7 @@
                 
               
 
-              <time title="Created: 2021-04-11 20:28:03 / Modified: 20:35:38" itemprop="dateCreated datePublished" datetime="2021-04-11T20:28:03+08:00">2021-04-11</time>
+              <time title="Created: 2021-04-11 20:28:03 / Modified: 20:38:15" itemprop="dateCreated datePublished" datetime="2021-04-11T20:28:03+08:00">2021-04-11</time>
             </span>
           
             
@@ -336,10 +336,10 @@
 <li>Posterior probability (posterior) : 给定证据$\mathrm{x}$后， 参数$\omega$的概率 $p(\omega|\mathrm{x})$</li>
 <li>Likehood: 在给定了参数$\omega$后， 证据$\mathrm{x}$的概率。<br>“似然性”和“概率”（或然性）有明确的区分：概率，用于在已知一些参数的情况下，预测接下来在观测上所得到的结果；似然性，则是用于在已知某些观测所得到的结果时，对有关事物之性质的参数进行估值，也就是说已观察到某事件后，对相关参数进行猜测<br>e.g. $p(\mathrm{x}|\omega)$</li>
 <li>Bayes formula:<br>$P(\omega|\mathrm x) = \frac{p(\mathrm x|\omega)P(\omega)}{p(\mathrm x)}$<br>$p(\mathrm x) = \sum_\omega p(\mathrm x|\omega)P(\omega)$<h4 id="Bayes-error-rate"><a href="#Bayes-error-rate" class="headerlink" title="Bayes error rate"></a>Bayes error rate</h4></li>
-<li>$P(error|\mathrm x)=min(P(\omega_1|\mathrm x), P(\omega_2|\mathrm x))$<br>Bayes error rate: 应用贝叶斯分类规则的分类器的错误率 $E{P(error|\mathrm x)}$<h4 id="Risk"><a href="#Risk" class="headerlink" title="Risk"></a>Risk</h4></li>
+<li>$P(error|\mathrm x)=min(P(\omega_1|\mathrm x), P(\omega_2|\mathrm x))$<br>Bayes error rate: 应用贝叶斯分类规则的分类器的错误率 $E\{P(error|\mathrm x)\}$<h4 id="Risk"><a href="#Risk" class="headerlink" title="Risk"></a>Risk</h4></li>
 <li>Loss function $\lambda(\alpha_i|\omega_j)$，描述在状态$\omega_j$时采取行动$\alpha_i$的损失</li>
 <li>$R(\alpha_i|\mathrm x)=\sum_j\lambda(\alpha_i|\omega_j)P(\omega_j|\mathrm x)$<br>e.g. $R(\alpha_i|\mathrm x)=\lambda(\alpha_i|\omega_1)P(\omega_1|\mathrm x) + \lambda(\alpha_i|\omega_2)P(\omega_2|\mathrm x)$</li>
-<li>zero-one loss<br>$$<br>\lambda(\alpha_i|\omega_j)=\lambda_{ij}=<br>\left{ \begin{aligned}<br>&amp;0,\ i=j\<br>&amp;1,\ otherwise<br>\end{aligned}\right.<br>$$</li>
+<li>zero-one loss<br>$$<br>\lambda(\alpha_i|\omega_j)=\lambda_{ij}=<br>\left\{ \begin{aligned}<br>&amp;0,\ i=j\\<br>&amp;1,\ otherwise<br>\end{aligned}\right.<br>$$</li>
 </ul>
 
     </div>
