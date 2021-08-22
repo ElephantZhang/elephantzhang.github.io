@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="算法知识点kyoma comment: 难度不分先后, 求补充对应英文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法笔记">
+<meta property="og:url" content="http://yoursite.com/2021/08/22/算法笔记/index.html">
+<meta property="og:site_name" content="Future Gadget Laboratory">
+<meta property="og:description" content="算法知识点kyoma comment: 难度不分先后, 求补充对应英文">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://pic.leetcode-cn.com/1603644245-oFksKK-Picture1.png">
+<meta property="og:updated_time" content="2021-08-22T12:51:15.048Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法笔记">
+<meta name="twitter:description" content="算法知识点kyoma comment: 难度不分先后, 求补充对应英文">
+<meta name="twitter:image" content="https://pic.leetcode-cn.com/1603644245-oFksKK-Picture1.png">
+  <link rel="canonical" href="http://yoursite.com/2021/08/22/算法笔记/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>算法笔记 | Future Gadget Laboratory</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146590972-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-146590972-1');
+    }
+  </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?404fbe87355347a9072b10059e289efd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Future Gadget Laboratory</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Member from Supernatural Psychology Association</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-star-of-david"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-elephant"></i> <br>About</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/22/算法笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kyoma">
+      <meta itemprop="description" content="El Psy Congroo">
+      <meta itemprop="image" content="https://madkyoma.github.io/uploads/marisa.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Future Gadget Laboratory">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">算法笔记
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2021-08-22 20:48:27 / Modified: 20:51:15" itemprop="dateCreated datePublished" datetime="2021-08-22T20:48:27+08:00">2021-08-22</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2021/08/22/算法笔记/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/22/算法笔记/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="算法知识点"><a href="#算法知识点" class="headerlink" title="算法知识点"></a>算法知识点</h1><p>kyoma comment: 难度不分先后, 求补充对应英文</p>
+<a id="more"></a>
+
+<h2 id="1-数据结构-Data-Structure"><a href="#1-数据结构-Data-Structure" class="headerlink" title="1 数据结构 Data Structure"></a>1 数据结构 Data Structure</h2><h3 id="1-1-Stack"><a href="#1-1-Stack" class="headerlink" title="1.1 Stack"></a>1.1 Stack</h3><ul>
+<li><input checked disabled type="checkbox"> <a href="https://www.luogu.com.cn/problem/P1449" target="_blank" rel="noopener">洛谷P1449</a><br>3*(5–2)+7对应的后缀表达式为：3 5 2 - * 7 +. 输入后缀表达式求式子的结果. 经典利用栈来解的题.</li>
+<li><input checked disabled type="checkbox"> <a href="https://leetcode.com/problems/valid-parentheses/" target="_blank" rel="noopener">leetcode-Valid Parentheses</a><br>给出混合括号字符串诸如”([)–&gt;false”, “()[]{}–&gt;true”来判断是否为合法串. 对每一个右括号，找到在它左边最靠近它的左括号匹配, 经典利用栈来解. 遍历,前括号进栈遇到后括号时出栈检查合法性</li>
+</ul>
+<h3 id="1-2-Queue"><a href="#1-2-Queue" class="headerlink" title="1.2 Queue"></a>1.2 Queue</h3><h3 id="1-3-Linked-List"><a href="#1-3-Linked-List" class="headerlink" title="1.3 Linked List"></a>1.3 Linked List</h3><p>参考题单<a href="https://leetcode.com/tag/linked-list/" target="_blank" rel="noopener">Leetcode链表专题</a></p>
+<ul>
+<li><input checked disabled type="checkbox"> <p><a href="https://leetcode.com/problems/add-two-numbers/" target="_blank" rel="noopener">Leetcode-Add Two Numbers</a><br>两个链表,每个节点上有一个10以内的数字, 一个链表代表一个数, 求两数加合结果, 结果同样以链表形式返回.</p>
+<details>
+<summary>code</summary>
+<pre><code>  
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+  ListNode *p1=l1, *p2=l2, *res = new(ListNode);
+  ListNode *p = res, *pre = NULL;
+  int add = 0;
+  while(p1!=NULL || p2!=NULL) {
+      int now = 0;
+      if(p1==NULL) {
+          now = p2->val + add;
+          p2 = p2->next;
+      } else if (p2==NULL) {
+          now = p1->val + add;
+          p1 = p1->next;
+      } else {
+          now = p1->val + p2->val + add;
+          p1 = p1->next;
+          p2 = p2->next;
+      }
+      if(now >= 10){
+          add = 1;
+          now -= 10;
+      } else add = 0;
+      p->val = now;
+      p->next = new(ListNode);
+      pre = p;
+      p = p->next;
+  };
+  if(add){
+      p->val = 1;
+      p->next = NULL;
+  } else pre->next = NULL;
+  return res;
+}
+</code></pre>
+</details>
+</li>
+<li><input checked disabled type="checkbox"> <p><a href="https://leetcode.com/problems/reverse-linked-list/" target="_blank" rel="noopener">leecode-reverse linked list</a><br>链表翻转, 不要慌分分钟写出来.</p>
+<details>
+<summary>code</summary>
+<pre><code> 
+ListNode* reverseList(ListNode* head) {
+  ListNode *pre=NULL, *p=head, *tmp;
+  while(p!=NULL){
+      tmp = p->next;
+      p->next = pre;
+      pre = p;
+      p = tmp;
+  }
+  return pre;
+}
+</code></pre>
+</details>
+</li>
+<li><input checked disabled type="checkbox"> <p><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/" target="_blank" rel="noopener">leetcode-Remove Nth Node From End of List</a><br>删除链表倒数第n个node, 要在一遍内执行完的问题就是指针不能知道当前节点是倒数第几个，所以考虑用快慢指针。快指针比慢指针快n个节点，当快指针的下一个元素为空就说明慢指针的下一个节点应该删除。</p>
+<details>
+<summary>code</summary>
+<pre><code> 
+  ListNode* removeNthFromEnd(ListNode* head, int n) {
+      ListNode *fast=head, *slow=head, *pre = NULL;
+      for(int i=0; i<n; i++) fast="fast-">next;
+      while(fast != NULL){
+          fast = fast->next;
+          pre = slow;
+          slow = slow->next;
+      }
+      if(pre==NULL) return slow->next;
+      else pre->next = slow->next;
+      return head;
+  }
+</n;></code></pre>
+</details>
+</li>
+<li><input checked disabled type="checkbox"> <p><a href="https://leetcode-cn.com/problems/sort-list/" target="_blank" rel="noopener">链表排序</a><br>使用快慢指针来找到链表的中点, 利用归并排序来做会很好写.</p>
+<details>
+<summary>归并版code</summary>
+<pre><code>
+ListNode* merge(ListNode *left, ListNode *right){
+      ListNode *res = new ListNode;
+      ListNode *p = res;
+      while(left!=NULL && right!=NULL){
+          if(left->val < right->val) {
+              p->next = left;
+              p = p->next;
+              left = left->next;
+          } else {
+              p->next = right;
+              p = p->next;
+              right = right->next;
+          }
+      }
+      while(left!=NULL){
+          p->next = left;
+          p = p->next;
+          left = left->next;
+      }
+      while(right!=NULL){
+          p->next = right;
+          p = p->next;
+          right = right->next;
+      }
+      return res->next;
+  }    
+  ListNode* mergeSort(ListNode *head) {
+      if(head == NULL || head->next == NULL) return head;
+      ListNode *p1 = head, *p2 = head, *pre;
+      while(p1 != NULL && p2 != NULL && p2->next != NULL){
+          pre = p1;
+          p1 = p1->next;
+          p2 = p2->next->next;
+      }
+      pre->next = NULL;
+      ListNode *left = mergeSort(head);
+      ListNode *right = mergeSort(p1);
+      return merge(left, right);
+  }
+</code></pre>
+</details>
+
+</li>
+</ul>
+<h3 id="1-4-树-Tree"><a href="#1-4-树-Tree" class="headerlink" title="1.4 树 Tree"></a>1.4 树 Tree</h3><h4 id="二叉搜索树-Binary-serch-Tree"><a href="#二叉搜索树-Binary-serch-Tree" class="headerlink" title="二叉搜索树 Binary serch Tree"></a>二叉搜索树 Binary serch Tree</h4><p>作用：插入删除、查询是否包含某个数<br>所有节点满足左子树上的所有节点都比自己小，右子树上的所有节点都比自己大。<br>插入直接按照树的大小关系插，删除分以下情况：<br>    (1) 需要删除的节点没有左儿子，那么把右儿子提上来<br>    (2) 需要删除的节点的左儿子没有右儿子，把左儿子提上来<br>    (3) 上述情况不满足，把左儿子的子孙中最大的提到需要删除的点上<br>插入查找删除的复杂度都为$O(\log N)$</p>
+<ul>
+<li><input checked disabled type="checkbox"> <p><a href="https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/" target="_blank" rel="noopener">中序遍历+前序遍历重建二叉树</a><br><img src="https://pic.leetcode-cn.com/1603644245-oFksKK-Picture1.png" alt="图解"></p>
+<details>
+<summary>code</summary>
+<pre><code>    
+TreeNode* buildTree(vector<int> pre,vector<int> vin, int l1, int r1, int l2, int r2) {
+  if(l1 >= r1 || l2 >= r2) return NULL;
+  if(l1 + 1 == r1) return new TreeNode(pre[l1]);
+  if(l2 + 1 == r2) return new TreeNode(vin[l2]);
+  int root_val = pre[l1], i;
+  for(i=l2; i<r2 && vin[i]!="root_val;" i++); int root_pos_vin="i;" ltree_size="i" - l2, rtree_size="r2" i 1; treenode *root="new" treenode(root_val); l1="l1" + 1, r1="l1" ltree_size; l2="l2," r2="l2" root->left = buildTree(pre, vin, l1, r1, l2, r2);
+  l1 = r1, r1 = l1 + rTree_size;
+  l2 = root_pos_vin + 1, r2 = l2 + rTree_size;
+  root->right = buildTree(pre, vin, l1, r1, l2, r2);
+  return root;
+}
+TreeNode* reConstructBinaryTree(vector<int> pre,vector<int> vin) {
+  if(pre.size() == 0) return NULL;
+  return buildTree(pre, vin, 0, pre.size(), 0, vin.size());
+}
+</int></int></r2></int></int></code></pre>
+</details>
+</li>
+<li><input checked disabled type="checkbox"> <p><a href="https://www.nowcoder.com/practice/7fe2212963db4790b57431d9ed259701?tpId=13&tqId=11175&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking&tab=answerKey" target="_blank" rel="noopener">打印二叉树</a><br>从上往下打印出二叉树的每个节点，同层节点从左至右打印。显然BFS</p>
+</li>
+<li><input checked disabled type="checkbox"> <p><a href="https://www.nowcoder.com/practice/ff05d44dfdb04e1d83bdbdab320efbcb?tpId=13&tqId=11211&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking&tab=answerKey" target="_blank" rel="noopener">检查二叉树是否对称</a></p>
+</li>
+<li><input checked disabled type="checkbox"> <p><a href="https://leetcode.com/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener">前序遍历二叉树-非递归版</a></p>
+</li>
+</ul>
+<details>
+<summary>code</summary>
+<pre><code>  
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        TreeNode *p = root;
+        stack<treenode *> sta;
+        while(p != nullptr || !sta.empty()) {
+            while(p != nullptr) {
+                res.push_back(p->val);
+                sta.push(p);
+                p = p->left;
+            }
+            if(!sta.empty()) {
+                p = sta.top();
+                sta.pop();
+                p = p->right;
+            }
+        }
+        return res;
+    }
+};
+</treenode></int></int></code></pre>
+</details>
+
+<h4 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h4><p>定义: 二叉查找树基础之上, 根结点的左右子树的高度相差不过1</p>
+<h3 id="1-5-Set-Map-Vector"><a href="#1-5-Set-Map-Vector" class="headerlink" title="1.5 Set, Map, Vector"></a>1.5 Set, Map, Vector</h3><h3 id="1-6-并查集"><a href="#1-6-并查集" class="headerlink" title="1.6 并查集"></a>1.6 并查集</h3><p>查询两个节点是否属于同一个组，沿着树往上走，查询包含这个元素的根是谁。如果两个节点走到同一个根，那么可知它们同属于同一组。</p>
+<ul>
+<li><input checked disabled type="checkbox"> <a href="http://poj.org/problem?id=1182" target="_blank" rel="noopener">POJ1182 食物链</a><br>三种动物ABC，食物链关系为A吃B，B吃C，C吃A，题目给出两种描述：</li>
+</ul>
+<ol>
+<li>x和y同属于一类</li>
+<li>x吃y<br>问给出$k$条描述中有几条是假的（和前面的描述产生冲突即为假）<br>题目给$N$个点，但是我们建立$3N$个点，其中$i\in [0,N)$表示$i$属于种类$A$，$i\in [N,2N)$表示$i$属于种类$B$，$i\in [2N,3N)$表示$i$属于种类$C$.<br>这样当输入$x$和$y$同属一个种类时，对应地合并三个段里的点($(x+A,y+A),(x+B,y+B),(x+C,y+C)$).而输入给出$x$吃$y$时，按照题目给的关系合并点。<br>我自己一直搞不明白的是判断矛盾时为什么不把所有情况都列出来，例如对于$x$和$y$属于同一种类的输入，判断$same(x+A,x+B)||same(x+A,x+C)||same(x+B,x+C)$。这是因为读题的问题，题目要求一出现矛盾即++res，而我这样判断会容忍某些矛盾出现，题目要求的是x，y为任意种类时都无矛盾。<details>
+<summary>code</summary>
+<pre><code> 
+#include <iostream>
+#include <cstring>
+#include <cstdio>
+#include <algorithm>
+#include <cmath>
+#include <queue>
+#include <map>
+using namespace std;
+const int maxn = 50010;
+int father[3*maxn];
+void init(int N){
+ for(int i=0; i<n; i++){ father[i]="i;" } int find(int x){ if(father[x]="=" x) { return x; father[x]="find(father[x]);" void unite(int x, y){ x="find(x);" y="find(y);" if(x="=" y) return; father[y]="x;" main(){ n, k; scanf("%d%d", &n, &k); op, y; res="0;" a="0," b="n," c="2*n;" init(3*n); for(int i="0;" i<k; scanf("%d%d%d", &op, &x, &y); -="1;" if(x<0 ||>= n || y < 0 || y >= n) ++res;
+     else if(op==2 && x == y) ++res;
+     else { // 当x+A和y+B属于同一组，表示x为A时，y一定为B。并且y为B时，x一定为A
+         if(op == 1){
+             if(find(x+A) == find(y+B) ||
+                find(x+A) == find(y+C)
+                ){ // 两个动物为同类时，x只可能与0~N同组，不可能与N~2N/N~3N同组
+                 ++res;
+                 continue;   
+             }
+             unite(x+A, y+A);
+             unite(x+B, y+B);
+             unite(x+C, y+C);
+         } else {
+             // x eat y
+             // A eat B, B eat C, C eat A
+             if(find(x+A) == find(y+A) ||
+                find(x+A) == find(y+C)){ // x吃y时，x不可能与y同组。x只能与x+B同组，不可能与y+C同组
+                 ++res;
+                 continue;
+             }
+             unite(x+A, y+B);
+             unite(x+B, y+C);
+             unite(x+C, y+A);
+         }
+     }
+ }
+ printf("%d\n", res);
+ return 0;
+}
+</n;></map></queue></cmath></algorithm></cstdio></cstring></iostream></code></pre>
+</details>
+
+</li>
+</ol>
+<h3 id="1-7-优先队列、堆-Stack"><a href="#1-7-优先队列、堆-Stack" class="headerlink" title="1.7 优先队列、堆 Stack"></a>1.7 优先队列、堆 Stack</h3><h4 id="1-7-1-堆-优先队列"><a href="#1-7-1-堆-优先队列" class="headerlink" title="1.7.1 堆(优先队列)"></a>1.7.1 堆(优先队列)</h4><p>性质：（小顶堆为例）儿子的值一定不小于父亲的值。堆是一棵完全二叉树<br>插入： 先在堆的末尾（从上到下，从左到右）插入数值，这个数值不断上升（和父节点swap）直到没有大小颠倒为止。仅当父节点大于新插入点时才swap，此时父节点的另一个儿子节点由于一定大等于父节点，因此也大等于新插入点。因此新插入点只需考虑一直向上swap即可，不会破坏堆的有序性<br>删除：删除堆的根节点（最小值）时，先将堆的最后（指从上到下，从左到右的顺序）一个节点拷贝到根节点上，然后删除最后一个节点。接下来把这个新根节点不断向下交换直到没有大小颠倒为止。<br>复杂度：插入和删除都为$O(\log N)$</p>
+<details>
+<summary>堆的数组实现</summary>
+<pre><code> 
+class Heap_kyo {
+public:
+    int max_size;
+    int size;
+    int node[10010];
+    Heap_kyo(){
+        this->size = 0;
+        this->max_size = 0;
+    };
+    ~Heap_kyo(){
+    };
+    void float_up(int index) {
+        int father_index = index/2;
+        while(node[father_index] > node[index]) {
+            swap(node[father_index], node[index]);
+            index /= 2;
+            father_index = index / 2;
+        }
+    }
+    void sink_down() {
+        int index = 0;
+        int l = index*2 + 1;
+        int r = index*2 + 2;
+        while((l<size && node[l]<node[index]) || (r<size node[r]<node[index])) { bool left_condition="l<size" node[l] < node[index]; right_condition="r<size" node[r] if((left_condition&&!right_condition) (left_condition&&right_condition node[r])) swap(node[l], node[index]); index="l;" } else if ((left_condition&&right_condition> node[r]) // 因为是完全二叉树，所以右节点存在的时候左节点一定存在 
+                       || (!left_condition&&right_condition)) { 
+                swap(node[r], node[index]);
+                index = r;
+            } else { // 两个子节点相等
+                swap(node[l], node[index]);
+                index = l;
+            }
+            l = 2*index + 1;
+            r = 2*index + 2; 
+        }
+    }
+    void print_tree(){
+        for(int i=0; i<size; i++) { cout<<node[i]<<" "; } cout<<"\n"; void insert(int val){ if(this->size < max_size) {
+            node[size] = val;
+            float_up(size);
+            ++size;
+        } else {
+            if(val > this->top()){
+                node[0] = val;
+                sink_down();
+            }
+        }
+    }
+    int top(){
+        return node[0];
+    }
+    void pop(){
+        node[0] = node[size-1];
+        --size;
+        sink_down();
+    }
+</size;></size></code></pre>
+</details>
+
+<ul>
+<li><input checked disabled type="checkbox"> <a href="http://poj.org/problem?id=2431" target="_blank" rel="noopener">POJ-2431 Expedition</a><br>一辆车从起点往终点开，起点到终点距离为$l$,一开始车上有$p$单位的油，每走一个单位消耗一个单位的油。路上坐标$a[i]$有加油站可以加油$b[i]$单位，假设车装油箱无限大，问最少加几次油能到终点。<br>每经过一个加油站$a[i]$，可以认为获得了一次在之后任何时候都可以加$b[i]$的权利。在某个时刻车上油耗光时，就利用这个权利认为之前加过了。由于求最小次数，所以每次油耗光取权利时贪心地拿最大的已获得的$b[i]$。所以用一个大顶堆来维护已获得的$b[i]$.<details>
+<summary>code</summary>
+<pre><code> 
+#include <algorithm>
+#include <iostream>
+#include <cstring>
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <cstdlib>
+#include <queue>
+#include <cstdio>
+#include "assert.h"
+#include <queue>
+using namespace std;
+const int maxn = 10010;
+struct unit {
+  int distance;
+  int fuel;
+}save[maxn];
+bool cmp(unit a, unit b) {
+  return a.distance > b.distance;
+}
+int main(){
+  int n, l, p;
+  scanf("%d", &n);
+  for(int i=0; i<n; i++) { scanf("%d%d", &save[i].distance, &save[i].fuel); } &l, &p); sort(save, save+n, cmp); int p_save="0;" priority_queue<int> heap; // 大根堆
+  bool flag = true;
+  int res = 0;
+  for(; l>0; l--, p--) {
+      while(p_save < n && l == save[p_save].distance) {
+          // 将此处的汽油加入堆中，未来油不够的时候就假设在此处加过油了
+          heap.push(save[p_save].fuel);
+          ++p_save;
+      }
+      if(p == 0) {
+          // 油用完的场合，因为希望加油次数最少，贪心地加堆顶
+          if(heap.empty()) {
+              flag = false;
+              break;
+          } else {
+              ++res;
+              p += heap.top();
+              heap.pop();
+          }
+      }
+  }
+  if(flag)
+      printf("%d\n", res);
+  else 
+      printf("-1\n");
+  return 0;
+}
+</n;></queue></cstdio></queue></cstdlib></vector></cstdio></cmath></cstring></iostream></algorithm></code></pre>
+</details>
+## 2 搜索
+参考题单[kuangbin带你飞](https://vjudge.net/article/187)
+### 1.1 Depth-First Search</li>
+<li><input checked disabled type="checkbox"> <a href="https://vjudge.net/problem/POJ-1321" target="_blank" rel="noopener">POJ-1321 棋盘问题</a><br>棋盘上任意两棋子不能处在同一行同一列, 经典dfs</li>
+<li><input disabled type="checkbox"> </li>
+</ul>
+<h3 id="1-2-Breadth-First-Search"><a href="#1-2-Breadth-First-Search" class="headerlink" title="1.2 Breadth-First Search"></a>1.2 Breadth-First Search</h3><ul>
+<li><input checked disabled type="checkbox"> <p><a href="https://vjudge.net/problem/POJ-2251" target="_blank" rel="noopener">POJ-2251 Dungeon Master</a><br>三维地图上求起点至终点最短距离, 经典bfs</p>
+<details>
+<summary>BFS-经典走地图板子</summary>
+<pre><code>
+int bfs(){
+  queue<unit> que;
+  memset(dis, inf, sizeof(dis));
+  que.push(sta);
+  dis[sta.x][sta.y][sta.z] = 0;
+  while(!que.empty()){
+      unit q = que.front();
+      que.pop();
+      if (q == esc) break;
+      for(int i=0; i<6; i++){ int nx="q.x" + dx[i], ny="q.y" dy[i], nz="q.z" dz[i]; if(0<="nx&&nx<l" && 0<="ny&&ny<r" save[nx][ny][nz]!="#" dis[nx][ny][nz]="=inf)" { unit next="{nx," ny, nz}; que.push(next); 1; } return dis[esc.x][esc.y][esc.z]; < code></6;></unit></code></pre>
+</details></li>
+<li><input checked disabled type="checkbox"> <p><a href="https://vjudge.net/problem/POJ-3278" target="_blank" rel="noopener">POJ-3278 Catch That Cow </a><br>一维地图上求起点至终点的最短距离, 一眼bfs题. 旅行者可以左右走一步或者以所处坐标的两倍跳跃, 我觉得跳跃的上界可以设置为终点坐标的两倍.</p>
+</li>
+<li><input checked disabled type="checkbox"> <p>牛客商汤科技2018校招C /算法开发/大数据/后端/运维/测试… 12题</p>
+</li>
+</ul>
+<p>给定四个空杯子，容量分别为S1 S2 S3 S4，允许进行以下操作：</p>
+<ol>
+<li><p>将某个杯子接满水</p>
+</li>
+<li><p>将某个杯子里的水全部倒掉</p>
+</li>
+<li><p>将杯子A中的水倒进杯子B，直到A倒空或者B被倒满</p>
+</li>
+</ol>
+<p>问最少要多少步操作才能使得这四个杯子装的水分别为T1 T2 T3 T4</p>
+<p>样例(0,0,0,0)-&gt;(0,2,0,0)-&gt;(0,2,3,0)-&gt;(0,2,0,3)-&gt;(0,0,2,3)-&gt;(0,2,2,3)-&gt;(0,1,2,4), 共6步. 同样也是非常经典的bfs问题.</p>
+<h3 id="1-3-Binary-Search"><a href="#1-3-Binary-Search" class="headerlink" title="1.3 Binary Search"></a>1.3 Binary Search</h3><p>二分的方法一定是需要找到某种单调性。只要能找到符合条件的单调性，那么在这一个部分一定可以考虑用二分来解决这部分的问题。<br>参考题单<a href="https://www.luogu.com.cn/training/111#problems" target="_blank" rel="noopener">洛谷二分</a></p>
+<h4 id="1-3-1-lower-bound-与-upper-bound"><a href="#1-3-1-lower-bound-与-upper-bound" class="headerlink" title="1.3.1 lower_bound 与 upper_bound"></a>1.3.1 lower_bound 与 upper_bound</h4><p>lower_bound(ForwardIter first, ForwardIter last,const _Tp&amp; val)返回一个非递减序列[first, last)中的第一个大于等于值val的位置<br>upper_bound(ForwardIter first, ForwardIter last, const _Tp&amp; val)返回一个非递减序列[first, last)中第一个大于val的位置</p>
+<ul>
+<li><input checked disabled type="checkbox"> <p><a href="https://leetcode.com/problems/search-insert-position/" target="_blank" rel="noopener">leetcode-Search Insert Position</a></p>
+</li>
+<li><input checked disabled type="checkbox"> <p><a href="https://www.luogu.com.cn/problem/P2249" target="_blank" rel="noopener">洛谷P2299</a><br>在不递减的数组中寻找第一个大等于target的位置.</p>
+</li>
+<li><input checked disabled type="checkbox"> <p><a href="https://www.luogu.com.cn/problem/P1102" target="_blank" rel="noopener">洛谷P1102 A-B 数对</a><br>在一个无序数组中寻找存在多少对A、B, 使得A-B=C. 事实上对数组排序, 枚举A并二分查找B=A+C的上下界即可.</p>
+<details>
+<summary>上界与下界的二分搜索</summary>
+<pre><code>
+vector<int>::iterator k_lower_bound(vector<int> &nums, int target) {
+  vector<int>::iterator left = nums.begin(), right = nums.end();
+  vector<int>::iterator mid;
+  while(left < right){
+      mid = left + (right-left)/2;
+      if (*mid == target) {
+          right = mid;
+      } else if (*mid < target) {
+          left = mid + 1;
+      } else { // nums[mid] > target
+          right = mid;
+      }
+  }
+  return left;
+}
+vector<int>::iterator k_upper_bound(vector<int> &nums, int target) {
+  vector<int>::iterator left = nums.begin(), right = nums.end();
+  vector<int>::iterator mid;
+  while(left < right) {
+      mid = left + (right-left)/2;
+      if(*mid == target) {
+          left = mid + 1;
+      } else if (*mid < target) {
+          left = mid + 1;
+      } else { //nums[mid] >target
+          right = mid;
+      }
+  }
+  return left;
+}
+</int></int></int></int></int></int></int></int></code></pre>
+</details>
+</li>
+<li><input checked disabled type="checkbox"> <p><a href="https://www.luogu.com.cn/problem/P1873" target="_blank" rel="noopener">洛谷P1873 砍树</a><br>二分枚举数值, 寻找该数值可以取到的最小值. 值得注意的是二分的写法不一定只有$mid=(left+right)/2$. 当在二分内部使用$right-1$来缩小范围时, 可以令$mid=(left+right+1)/2$来让二分终止$while(left&lt;right)$循环.</p>
+</li>
+</ul>
+<h3 id="1-4-剪枝-Pruning"><a href="#1-4-剪枝-Pruning" class="headerlink" title="1.4 剪枝 Pruning"></a>1.4 剪枝 Pruning</h3><h3 id="1-5-暴力枚举"><a href="#1-5-暴力枚举" class="headerlink" title="1.5 暴力枚举"></a>1.5 暴力枚举</h3><ul>
+<li><input checked disabled type="checkbox"> <a href="https://vjudge.net/problem/POJ-3279" target="_blank" rel="noopener">POJ-3279 Fliptile</a><br>枚举首状态, 随后步骤贪心可以求得首状态下可行解. 在所有可行解中挑出最优解.</li>
+<li><input disabled type="checkbox"> </li>
+</ul>
+<h2 id="3-排序-Sorting"><a href="#3-排序-Sorting" class="headerlink" title="3 排序 Sorting"></a>3 排序 Sorting</h2><h3 id="3-1-Quick-Sort"><a href="#3-1-Quick-Sort" class="headerlink" title="3.1 Quick Sort"></a>3.1 Quick Sort</h3><h3 id="3-2-Merge-Sort"><a href="#3-2-Merge-Sort" class="headerlink" title="3.2 Merge Sort"></a>3.2 Merge Sort</h3><ul>
+<li><input checked disabled type="checkbox"> <a href="https://www.nowcoder.com/practice/96bd6684e04a44eb80e6a68efc0ec6c5?tpId=13&tqId=11188&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking&tab=answerKey" target="_blank" rel="noopener">数组中的逆序对</a><br>逆序对可以用树状数组做(比较抽象), 形象的做法用归并. 具体来说, 每次对左有序part和右有序part归并的时候, 如果此时是从右边part头取数字, 这就说明左边part的数字都比右边part这个头大, 构成了sizeof(左边part)的逆序对, 那么答案就要加上sizeof(左边part).<br>这里贴一个merge sort模版(无本题逆序对的计数)<details>
+<summary>code</summary>
+<pre><code> 
+void mergeArray(int a[], int left, int mid, int right){ 
+  int i;
+  int p1 = left, p2 = mid+1,p = 0;
+  while(p1<=mid&&p2<=right){ if(a[p1]<a[p2]){ temp[p++]="a[p1++];" }else{ } while (p2<="right)" (p1<="mid)" p="0;" for(i="left;i<=right;i++)" a[i]="temp[p++];" void mergesort(int a[],int left,int right){ int mid; if(left<right){ mid="(left+right)/2;" mergesort(a, left, mid); mid+1, right); mergearray(a,left,mid,right); < code></=mid&&p2<=right){></code></pre>
+</details>
+
+</li>
+</ul>
+<h2 id="4-Dynamic-Programming"><a href="#4-Dynamic-Programming" class="headerlink" title="4 Dynamic Programming"></a>4 Dynamic Programming</h2><ul>
+<li><input checked disabled type="checkbox"> <a href="https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/" target="_blank" rel="noopener">约瑟夫环</a><br>编号1~n个人玩游戏, 报到数字m的人出局. 一直报到最后1个人, 问最后留下的人编号.<br>DP$O(n)$解法, 先定义状态$f[i]$为剩下i人时, 出局者的编号. 其实剩下1人可以将其视为他时最后一个出局的.<br>$i=1$时, 我们把这位天选之子编号记为0. 现在开始倒推0号在初始状态时(剩下n个人时)是几号, $f[2]$时, 可以知道$m-1$出局了, 而0号应该是第$m$人(0 base), 因而$f[2]=(f[1]+m)\mod2$.<br>进而可知$f[i+1] = (f[i]+m)\mod i$</li>
+<li><input checked disabled type="checkbox"> <a href="https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=13&&tqId=11161&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking" target="_blank" rel="noopener">跳台阶</a> 跳1或2层台阶求方案数<br>$step[i] = step[i-1] + step[i-2]$</li>
+<li><input checked disabled type="checkbox"> <a href="https://www.nowcoder.com/practice/72a5a919508a4251859fb2cfb987a0e6?tpId=13&tqId=11163&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking&tab=answerKey" target="_blank" rel="noopener">矩阵覆盖</a></li>
+<li><input checked disabled type="checkbox"> <a href="https://leetcode-cn.com/problems/longest-common-subsequence/" target="_blank" rel="noopener">最长公共子序列</a><br>老经典了，子序列不需要在原串中连续。输入两串$s,t$,$dp[i][j]$表示$s_1…s_i$和$t_1…t_j$两个串对应的LCS，那么当新加入的$s_{i+1}==t_{j+1}$时，$s_1…s_{i+1}$和$t_1…t_{j+1}$可能的LCS是：</li>
+</ul>
+<ol>
+<li>在$s_1…s_i$和$t_1…t_j$的公共子序列末尾追加$s_{i+1}$（同时也是$t_{j+1}$）</li>
+<li>$s_1…s_{i}$和$t_1…t_{j+1}$的LCS</li>
+<li>$s_1…s_{i+1}$和$t_1…t_{j}$的LCS<details>
+<summary>code</summary>
+<pre><code> 
+class Solution {
+public:
+ int dp[1010][1010];
+ int longestCommonSubsequence(string text1, string text2) {
+     for(int i=1; i<=text1.length(); i++){ for(int j="1;" j<="text2.length();" j++) { if(text1[i-1]="=" text2[j-1]) dp[i][j]="max(dp[i-1][j-1]" + 1, max(dp[i-1][j], dp[i][j-1])); } else dp[i][j-1]); return dp[text1.length()][text2.length()]; }; < code></=text1.length();></code></pre>
+</details>
+</li>
+</ol>
+<ul>
+<li><input checked disabled type="checkbox"> Leetcode 221  Maximal Square<br>给出一个由01组成的矩阵，求这个矩阵里最大的全1正方形.定义$dp[i][j]$为全1正方形右下角坐标为$i,j$时，这个正方形最大的边长。<br>那么对于$dp[i][j]$，需要检查它左上角($dp[i-1][j-1]$)，左边($dp[i][j-1]$)，上边($dp[i-1][j]$)的正方形.比如下图为检查左边正方形的情况,其中n的位置为$i,j$,那么图中x的位置不考虑，从n开始啊往上检查有几个o是1。<br>1 1 1 o<br>1 1 1 o<br>x x x n<details>
+<summary>code</summary>
+<pre><code> 
+class Solution {
+public:
+  int maximalSquare(vector<vector<char>>& matrix) {
+      int ans = 0;
+      int dp[310][310];
+      for(int i=0; i<matrix.size(); i++){ for(int j="0;" j<matrix[i].size(); j++) { if(matrix[i][j]="=" '0') dp[i][j]="0;" else if(i-1>=0 && j-1>=0) {//左上的正方形
+                      for(int k=0; k<dp[i-1][j-1] && i-k-1>=0 && j-k-1>=0; k++) {
+                          if(matrix[i-k-1][j] == '0' || matrix[i][j-k-1] == '0' || i-k-1< 0 || j-k-1 < 0) {
+                              break;
+                          } else {
+                              dp[i][j] = k + 2;
+                          }
+                      }
+                  } else if(i-1>=0) { // 上边的正方形
+                      for(int k=0; k<dp[i-1][j] 1 - && j-k-1>= 0; k++) {
+                          if(matrix[i][j-k-1] == '0' || j-k-1 < 0) {
+                              break;
+                          } else {
+                              dp[i][j] = k+2;
+                          }
+                      }
+                  } else if(j-1>=0) { //左边的正方形
+                      for(int k=0; k<dp[i][j-1] 1 - && i-k-1>= 0; k++) {
+                          if(matrix[i-k-1][j] == '0' || i-k-1 < 0) {
+                              break;
+                          } else {
+                              dp[i][j] = k+2;
+                          }
+                      }
+                  } 
+              }
+              ans = max(ans, dp[i][j]);
+          }
+      }
+      return ans*ans;
+  }
+};
+</dp[i][j-1]></dp[i-1][j]></dp[i-1][j-1]></matrix.size();></vector<char></code></pre>
+</details>
+
+</li>
+</ul>
+<h3 id="4-1-01背包"><a href="#4-1-01背包" class="headerlink" title="4.1 01背包"></a>4.1 01背包</h3><ul>
+<li><input checked disabled type="checkbox"> <p><a href="https://leetcode-cn.com/problems/partition-equal-subset-sum/" target="_blank" rel="noopener">Leetcode 416. 分割等和子集</a><br>将一个只包含整数的集合分成两个部分，使两个集合的和相等。经典01背包</p>
+<details>
+<summary>code</summary>
+<pre><code>
+class Solution {
+public:
+  int dp[210][20010];
+  bool canPartition(vector<int>& nums) {
+      int sum = 0;
+      for(int i=0; i<nums.size(); i++) { sum +="nums[i];" } if (sum%2) return false; = 2; memset(dp, 0, sizeof(dp)); for(int i="1;" i<="nums.size();" j="0;" j<="sum;" j++) if(j < nums[i-1]) dp[i][j]="dp[i-1][j];" else dp[i-1][j-nums[i-1]] nums[i-1]); if(dp[nums.size()][sum]="=" sum) true; }; code></nums.size();></int></code></pre>
+</details>
+</li>
+<li><input checked disabled type="checkbox"> <p><a href="https://leetcode-cn.com/problems/ones-and-zeroes/" target="_blank" rel="noopener">Leetcode 474. 一和零</a><br>一个字符串集合，字符串仅包含01. 最多能从中挑出几个串，使它们0的数量小等于m，1的数量小等于n。这也能01背包</p>
+<details>
+<summary>code</summary>
+<pre><code>
+class Solution {
+public:
+  int dp[610][110][110];
+  int one_num[610], zero_num[610];
+  int findMaxForm(vector<string>& strs, int m, int n) {
+      for(int i=0; i<strs.size(); i++) { int zero="0," one="0;" for(int j="0;" j<strs[i].length(); j++) if(strs[i][j]="=" '0') ++zero; else ++one; } one_num[i]="one;" zero_num[i]="zero;" dp[i][j][k]: 挑到第i个物品时，还剩j个0和k个1，最大子集大小 memset(dp, 0, sizeof(dp)); i="1;" i<="strs.size();" j<="m;" k="0;" k<="n;" k++) if(j < zero_num[i-1]) dp[i][j][k]="dp[i-1][j][k];" if (k one_num[i-1]) dp[i-1][j-zero_num[i-1]][k-one_num[i-1]] + 1); return dp[strs.size()][m][n]; }; code></strs.size();></string></code></pre>
+</details>
+
+</li>
+</ul>
+<h3 id="4-2-完全背包"><a href="#4-2-完全背包" class="headerlink" title="4.2 完全背包"></a>4.2 完全背包</h3><ul>
+<li><input checked disabled type="checkbox"> [LeetCode 322. 零钱兑换]<br>给一些硬币数值，每种硬币的数量无限。用这些凑一个给定数字$amount$,求最少硬币数。<br>对于完全背包问题，完全背包的point是当取第$i$件物品时，可以直接采用$dp[i][j-cost[i]]$状态<details>
+<summary>code</summary>
+<pre><code>
+class Solution {
+public:
+  int dp[100010];
+  const int inf = 0x3f3f3f3f;
+  int coinChange(vector<int>& coins, int amount) {
+      memset(dp, inf, sizeof(dp));
+      dp[0] = 0;
+      for (int i=1; i<=coins.size(); i++) { for (int j="0;" j<="amount;" j++) if(j-coins[i-1]>=0 && dp[j-coins[i-1]] != inf) {
+                  dp[j] = min(dp[j], dp[j-coins[i-1]] + 1);
+              }
+          }
+      }
+      if(dp[amount] == inf) return -1;
+      else return dp[amount];
+  }
+};
+</=coins.size();></int></code></pre>
+</details>
+
+</li>
+</ul>
+<h3 id="4-3-多重背包"><a href="#4-3-多重背包" class="headerlink" title="4.3 多重背包"></a>4.3 多重背包</h3><ul>
+<li><input checked disabled type="checkbox"> <a href="http://poj.org/problem?id=1742" target="_blank" rel="noopener">POJ1742 Coins</a><br>多重背包的不同点是所有的物品有数量限制，那么定义状态dp[i][j]: 取到第i个物品时，物品价值凑的总和为j，第i种物品最多能剩下多少个。状态转移方程可以列为<br>$$ dp[i][j]=\left{<br>\begin{aligned}<br>&amp;num[i]， &amp; dp[i-1][j]\geq 0上一种物品的价值已经能凑出j \<br>&amp;dp[i-1][j-val[i]] - 1， &amp;j\geq val[i]\ 且\ dp[i-1][j-val[i]\geq 0]第i种物品再装一个\<br>&amp;-1， &amp; 凑不出来<br>\end{aligned}<br>\right.<br>$$<details>
+<summary>code</summary>
+<pre><code>
+int main() {
+  int n, m;
+  while(~scanf("%d%d", &n, &m)) {
+      if(n==0&&m==0) break;
+      for(int i=1; i<=n; i++) { scanf("%d", val + i); } for(int i="1;" i<="n;" num dp[i][j]: 取到第i个硬币时，硬币凑的总和为j，第i种硬币最多能剩下多少个 dp[i]="-1;" dp[0]="0;" dp[0][0] j="0;" j<="m;" j++) if(dp[j]>= 0) { // 上一种硬币已经能凑出j了
+                  dp[j] = num[i];
+              } else if (j>=val[i] && dp[j-val[i]] >= 0) {
+                  dp[j] = dp[j-val[i]] - 1;
+              } else {
+                  dp[j] = -1;
+              }
+          } 
+      }
+      int ans = 0;
+      for(int i=1; i<=m; i++) { if(dp[i]>= 0) {
+              ++ans;
+          } 
+      }
+      printf("%d\n", ans);
+  }
+  return 0;
+}
+</=m;></=n;></code></pre>
+</details>
+
+</li>
+</ul>
+<h3 id="4-3-最长上升子序列"><a href="#4-3-最长上升子序列" class="headerlink" title="4.3 最长上升子序列"></a>4.3 最长上升子序列</h3><ul>
+<li><input checked disabled type="checkbox"> <a href="https://leetcode.com/problems/longest-increasing-subsequence/submissions/" target="_blank" rel="noopener">LeetCode longest-increasing-subsequence</a><br>$O(N^2)$的做法，<details>
+<summary>code</summary>
+<pre><code>
+class Solution {
+public:
+  int dp[3000];
+  int lengthOfLIS(vector<int>& nums) {
+      // dp[i] 到第i个字符为止的最长上升子序列长度
+      int res = 0;
+      for(int i=0; i<nums.size(); i++) { dp[i]="1;" for(int j="0;" j<i; j++) if(nums[i]> nums[j]) {
+                  dp[i] = max(dp[j]+1, dp[i]);
+              }
+          }
+          res = max(res, dp[i]);
+      }
+      return res;
+  }
+};
+</nums.size();></int></code></pre>
+</details>
+
+</li>
+</ul>
+<p>还可以将状态$dp[i]$定义为：长度为i的上升子序列中末尾元素最小值(不存在则为inf)<br>先将dp初始化为inf，遍历输入的字符串，从左到右每吃一个字符$c$，就去dp[1~N]中寻找第一个大等于$c$的位置$k$，（注意，dp记录的不再是数字，而是字符/值）然后更新$dp[k]$。由于dp[i]中i的意义是有序的，因此可以二分，复杂度$O(N\log N)$</p>
+<details>
+<summary>code</summary>
+<pre><code>
+class Solution {
+public:
+    int dp[3000];
+    const int inf = 0x3f3f3f3f;
+    int lengthOfLIS(vector<int>& nums) {
+        // dp[i]: 长度为i的上升子序列中末尾元素最小值(不存在则为inf)
+        memset(dp, inf, sizeof(dp));
+        for(int i=0; i<nums.size(); i++) { 在dp[1~n]中寻找第一个大等于nums[i]的位置，并更新 *lower_bound(dp+1, dp+1+nums.size(), nums[i])="nums[i];" } int res="1;" for(int i="nums.size()" - 1;>=0; i--) {
+            if(dp[i] != INF) {
+                res = i;
+                break;
+            }
+        }
+        return res; 
+    }
+};
+</nums.size();></int></code></pre>
+</details>
+
+<h3 id="4-4-划分数"><a href="#4-4-划分数" class="headerlink" title="4.4 划分数"></a>4.4 划分数</h3><p>n个无区别的物体，将它们分成不超过m组，求划分方案。<br>将状态定义为$dp[i][j]:j$的$i$划分，把$j$分成$i$份的方案数<br>考虑$n$的$m$划分的一种方案${a_i}(\sum_{k=0}^m a_k=n)$，如果对于所有的$i$都有$a_i&gt;0$，那么${a_i-1}(\sum_{k=0}^m a_k=n-m)$就是$n-m$的$m$划分；另外如果存在$a_i=0$，那么这个方案就对应了$n$的$m-1$划分，所以递推式为$dp[i][j]=dp[i][j-i]+dp[i-1][j]$</p>
+<details>
+<summary>code</summary>
+<pre><code>
+int n, m;
+int dp[MAX_M+10][MAX_M+10];
+int solve(){
+    dp[0][0] = 1;
+    // dp[i][j]: j的i划分，把j分成i份，方案数
+    for(int i=1; i<=m; i++) { for(int j="0;" j<="n;" j++) if(j - i>= 0) {
+                dp[i][j] = dp[i-1][j-i] + dp[i-1][j];
+            } else {
+                dp[i][j] = dp[i-1][j];
+            }
+        }
+    }
+    return dp[m][n];
+}
+</=m;></code></pre>
+</details>
+### 4.5 多重集组合数
+
+<h2 id="5-Graph-Theory"><a href="#5-Graph-Theory" class="headerlink" title="5 Graph Theory"></a>5 Graph Theory</h2><p>没有圈的连通图叫树，一棵树的边数恰好是顶点数$-1$. 反之，边书等于顶点数$-1$的连通图就是树。<br>没有圈的有向图叫做DAG（Directed Acyclic Graph）</p>
+<h3 id="5-1-最短路-Shortest-Path"><a href="#5-1-最短路-Shortest-Path" class="headerlink" title="5.1 最短路 Shortest Path"></a>5.1 最短路 Shortest Path</h3><ul>
+<li>Dijkstra</li>
+<li>Bellman-Ford</li>
+<li>Floyd<h3 id="5-2-拓扑序"><a href="#5-2-拓扑序" class="headerlink" title="5.2 拓扑序"></a>5.2 拓扑序</h3></li>
+</ul>
+<ul>
+<li><input checked disabled type="checkbox"> <a href="https://leetcode-cn.com/problems/course-schedule/" target="_blank" rel="noopener">LeetCode207 课程表</a><br>判断一个有向图拓扑序是否冲突，bfs的方法，先把入度为0的点加入队列中，然后将其指向的点加入队列，并把指向的点的入度-1（即删边)。删到最后所有的点入度应该为0.</li>
+</ul>
+<details>
+<summary>code</summary>
+<pre><code>
+const int maxn = 1e5+10;
+class Solution {
+public:
+    vector<int> path[maxn];
+    int in_num[maxn];
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        for(int i=0; i<prerequisites.size(); i++) { path[prerequisites[i][1]].push_back(prerequisites[i][0]); ++in_num[prerequisites[i][0]]; } queue<int> que;
+        for(int i=0; i<numcourses; i++) { if(in_num[i]="=" 0) que.push(i); } while(!que.empty()) int q="que.front();" que.pop(); for(int i="0;" i<path[q].size(); nxt="path[q][i];" --in_num[nxt]; if(in_num[nxt]="=" que.push(nxt); bool flag="true;" i<numcourses; !="0)" break; return flag; }; < code></numcourses;></prerequisites.size();></vector<int></int></code></pre>
+</details>
+### 5.3 欧拉回路
+### 5.4 最小生成树 Minimum Spanning Tree
+* Kruskal
+
+<h2 id="6-网络流-Network-Flow"><a href="#6-网络流-Network-Flow" class="headerlink" title="6 网络流 Network Flow"></a>6 网络流 Network Flow</h2><h3 id="6-1-最大流"><a href="#6-1-最大流" class="headerlink" title="6.1 最大流"></a>6.1 最大流</h3><h3 id="6-2-最小割"><a href="#6-2-最小割" class="headerlink" title="6.2 最小割"></a>6.2 最小割</h3><h3 id="6-3-二分图"><a href="#6-3-二分图" class="headerlink" title="6.3 二分图"></a>6.3 二分图</h3><ul>
+<li><input checked disabled type="checkbox"> <a href="https://leetcode.com/problems/is-graph-bipartite/" target="_blank" rel="noopener">Leetcode 判断二分图</a><br>直接dfs搜一遍，走一步换个色图，如果相邻点已经涂色那么判一下和自己颜色是不是一样。<details>
+<summary>code</summary>
+<pre><code>
+class Solution {
+public:
+  bool flag;
+  void dfs(int index, int curr_color, vector<vector<int>>& graph, int color[]){
+      if(!flag) return;
+      color[index] = curr_color;
+      for(int i=0; i<graph[index].size(); i++){ if(color[graph[index][i]]="=" 0) { int next_color="curr_color" =="1" ? -1 : 1; dfs(graph[index][i], next_color, graph, color); } else curr_color && graph[index][i] !="index)" flag="false;" return; bool isbipartite(vector<vector<int>>& graph) {
+      int color[graph.size()];
+      memset(color, 0, sizeof(color));
+      flag = true;
+      for(int i=0; i<graph.size(); i++) { if(color[i]="=" 0) dfs(i, 1, graph, color); } if(flag) return true; else false; }; < code></graph.size();></graph[index].size();></vector<int></code></pre>
+</details>
+### 6.4 费用流
+
+</li>
+</ul>
+<h2 id="7-贪心-Greedy"><a href="#7-贪心-Greedy" class="headerlink" title="7 贪心 Greedy"></a>7 贪心 Greedy</h2><p><a href="https://www.luogu.com.cn/training/110#problems" target="_blank" rel="noopener">参考题单：洛谷贪心专题</a></p>
+<ul>
+<li><input checked disabled type="checkbox"> <a href="https://www.luogu.com.cn/problem/P1803" target="_blank" rel="noopener">区间调度/线段覆盖</a><br>给出n个工作，以及每项工作时间上的起点、终点$(s_i,t_i)$，同一时刻只能做一项工作，希望尽可能多做工作，求最大参与的数目。<br>解法是每次取结束时间最早的那一项。</li>
+<li><input checked disabled type="checkbox"> <a href="http://poj.org/problem?id=3617" target="_blank" rel="noopener">字典序最小问题</a></li>
+<li><input checked disabled type="checkbox"> <a href="http://poj.org/problem?id=3069" target="_blank" rel="noopener">标记线段上的点</a><br>线段上有一些点，从中选择若干标记。对于每个点，要求它距离为$R$范围内的区域里必须由带标记的点，（自身为标记点可认为距离为0）。满足此条件求最少标记多少个点。</li>
+</ul>
+<p>1.对于每个点，总是往右找一个最远的在距离R内的点去标记。2.然后从这个点往右找第一个超出距离$R$的点，3.重复第1步</p>
+<ul>
+<li><input checked disabled type="checkbox"> <a href="http://poj.org/problem?id=3253" target="_blank" rel="noopener">切木板</a><br>将木板切成$N$块，长度分别为$L_1,L_2,…,L_N$，原木板的长度为$\sum_i^NL_i$,长度为21的木板切成13和8时，开销为21。求切割最小开销。</li>
+</ul>
+<p>贪心解法：想了一个$O(n^2\log n)$的做法，因为总是想贪心地合并最小的凉快木板所以需要排序，然而其实不需要对整个数组排序，只需要维护最小和次小值就行了，所以复杂度可以到$O(n^2)$,当然这是纯贪心的做法。</p>
+<p>贪心+堆优化解法：贪心不变，就是维护最大最小使用了堆，所以复杂直接到$N\log N$</p>
+<details>
+<summary>code</summary>
+<pre><code>
+const int maxn = 20010;
+int save[maxn];
+int main(){
+    int n,i,j;
+    scanf("%d",&n);
+    priority_queue<int, vector<int>, greater<int> > que;
+    for(i=1;i<=n;i++){ scanf("%d",save+i); que.push(save[i]); } long res="0;" while(que.size()> 1) { // 合并到只剩一块木板
+        int a, b;
+        a = que.top();
+        que.pop();
+        b = que.top();
+        que.pop();
+        res += a+b;
+        que.push(a+b);
+    }
+    printf("%lld\n",res);
+    return 0;
+}
+</=n;i++){></int></int,></code></pre>
+</details>
+
+<h2 id="8-数论"><a href="#8-数论" class="headerlink" title="8 数论"></a>8 数论</h2><h2 id="9-奇技淫巧"><a href="#9-奇技淫巧" class="headerlink" title="9 奇技淫巧"></a>9 奇技淫巧</h2><h3 id="9-1-尺取法"><a href="#9-1-尺取法" class="headerlink" title="9.1 尺取法"></a>9.1 尺取法</h3><h3 id="9-2-倍增"><a href="#9-2-倍增" class="headerlink" title="9.2 倍增"></a>9.2 倍增</h3><h3 id="9-3-快速幂"><a href="#9-3-快速幂" class="headerlink" title="9.3 快速幂"></a>9.3 快速幂</h3><ul>
+<li><input checked disabled type="checkbox"> <a href="https://www.nowcoder.com/practice/1a834e5e3e1a4b7ba251417554e07c00?tpId=13&tqId=11165&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking&tab=answerKey" target="_blank" rel="noopener">数值的整数次方</a><h3 id="9-4-滑动窗口"><a href="#9-4-滑动窗口" class="headerlink" title="9.4 滑动窗口"></a>9.4 滑动窗口</h3></li>
+<li><input checked disabled type="checkbox"> (leetcode 3) Longest Substring Without Repeating Characters<br>求字符串$s$内最长连续子串，使得子串内没有重复的字符<br>定义左指针右指针，并且用$map[s[i]]$记录$s[i]$上次出现的位置。窗口的右边界向右扩张时，如果右边界的字符上一次出现的位置在左边界及其之后，那么把左边界往上次出现的位置后一位调整。这个过程中记录区间的长度最大值。<details>
+<summary>code</summary>
+<pre><code>
+class Solution {
+public:
+  int lengthOfLongestSubstring(string s) {
+      int l = 0, r = 0, ans = 0;
+      map<char, int> mp;
+      // [l, r]这个窗口内没有重复的字符
+      while(r < s.length()) {
+          if(mp.count(s[r]) && mp[s[r]]>=l) { // 假如现在的字符上一次出现在左端点及左端点之后， 那么把左端点往上次出现的位置后挪一位
+              l = mp[s[r]] + 1;
+          }
+          mp[s[r]] = r;
+          ans = max(ans, r - l + 1);
+          ++r;
+      }
+      return ans;
+  }
+};
+</char,></code></pre>
+</details>
+
+</li>
+</ul>
+<h2 id="10-博弈论"><a href="#10-博弈论" class="headerlink" title="10 博弈论"></a>10 博弈论</h2><h3 id="10-1-Nim游戏"><a href="#10-1-Nim游戏" class="headerlink" title="10.1 Nim游戏"></a>10.1 Nim游戏</h3><h2 id="11-脑筋急转弯"><a href="#11-脑筋急转弯" class="headerlink" title="11 脑筋急转弯"></a>11 脑筋急转弯</h2><ul>
+<li><input checked disabled type="checkbox"> <a href="https://www.nowcoder.com/practice/8ee967e43c2c4ec193b040ea7fbb10b8?tpId=13&tqId=11164&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking&tab=answerKey" target="_blank" rel="noopener">反码、补码</a><br>正数的补码 = 原码<br>负数的补码 = 负数的原码取反（符号位保持不变）+ 1<br>eg: [ -7 ]补=11111001（八位二进制） : 原码： 10000111—— 反码（符号位不变）：11111000——加1得补码：11111001<br>原来1一直左移(p=1, p&lt;&lt;1)最后会变成0啊. 最后会这样:-2147483648-&gt;0-&gt;1</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2021/04/11/课程笔记/" rel="next" title="课程笔记">
+                  <i class="fa fa-chevron-left"></i> 课程笔记
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#算法知识点"><span class="nav-number">1.</span> <span class="nav-text">算法知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-数据结构-Data-Structure"><span class="nav-number">1.1.</span> <span class="nav-text">1 数据结构 Data Structure</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Stack"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 Stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Queue"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 Queue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Linked-List"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 Linked List</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-树-Tree"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4 树 Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉搜索树-Binary-serch-Tree"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">二叉搜索树 Binary serch Tree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平衡二叉树"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">平衡二叉树</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-Set-Map-Vector"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.5 Set, Map, Vector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-并查集"><span class="nav-number">1.1.6.</span> <span class="nav-text">1.6 并查集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-优先队列、堆-Stack"><span class="nav-number">1.1.7.</span> <span class="nav-text">1.7 优先队列、堆 Stack</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-7-1-堆-优先队列"><span class="nav-number">1.1.7.1.</span> <span class="nav-text">1.7.1 堆(优先队列)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Breadth-First-Search"><span class="nav-number">1.1.8.</span> <span class="nav-text">1.2 Breadth-First Search</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Binary-Search"><span class="nav-number">1.1.9.</span> <span class="nav-text">1.3 Binary Search</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-lower-bound-与-upper-bound"><span class="nav-number">1.1.9.1.</span> <span class="nav-text">1.3.1 lower_bound 与 upper_bound</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-剪枝-Pruning"><span class="nav-number">1.1.10.</span> <span class="nav-text">1.4 剪枝 Pruning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-暴力枚举"><span class="nav-number">1.1.11.</span> <span class="nav-text">1.5 暴力枚举</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-排序-Sorting"><span class="nav-number">1.2.</span> <span class="nav-text">3 排序 Sorting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Quick-Sort"><span class="nav-number">1.2.1.</span> <span class="nav-text">3.1 Quick Sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Merge-Sort"><span class="nav-number">1.2.2.</span> <span class="nav-text">3.2 Merge Sort</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Dynamic-Programming"><span class="nav-number">1.3.</span> <span class="nav-text">4 Dynamic Programming</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-01背包"><span class="nav-number">1.3.1.</span> <span class="nav-text">4.1 01背包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-完全背包"><span class="nav-number">1.3.2.</span> <span class="nav-text">4.2 完全背包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-多重背包"><span class="nav-number">1.3.3.</span> <span class="nav-text">4.3 多重背包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-最长上升子序列"><span class="nav-number">1.3.4.</span> <span class="nav-text">4.3 最长上升子序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-划分数"><span class="nav-number">1.3.5.</span> <span class="nav-text">4.4 划分数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Graph-Theory"><span class="nav-number">1.4.</span> <span class="nav-text">5 Graph Theory</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-最短路-Shortest-Path"><span class="nav-number">1.4.1.</span> <span class="nav-text">5.1 最短路 Shortest Path</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-拓扑序"><span class="nav-number">1.4.2.</span> <span class="nav-text">5.2 拓扑序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-网络流-Network-Flow"><span class="nav-number">1.5.</span> <span class="nav-text">6 网络流 Network Flow</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-最大流"><span class="nav-number">1.5.1.</span> <span class="nav-text">6.1 最大流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-最小割"><span class="nav-number">1.5.2.</span> <span class="nav-text">6.2 最小割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-二分图"><span class="nav-number">1.5.3.</span> <span class="nav-text">6.3 二分图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-贪心-Greedy"><span class="nav-number">1.6.</span> <span class="nav-text">7 贪心 Greedy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-数论"><span class="nav-number">1.7.</span> <span class="nav-text">8 数论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-奇技淫巧"><span class="nav-number">1.8.</span> <span class="nav-text">9 奇技淫巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-尺取法"><span class="nav-number">1.8.1.</span> <span class="nav-text">9.1 尺取法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-倍增"><span class="nav-number">1.8.2.</span> <span class="nav-text">9.2 倍增</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-快速幂"><span class="nav-number">1.8.3.</span> <span class="nav-text">9.3 快速幂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-4-滑动窗口"><span class="nav-number">1.8.4.</span> <span class="nav-text">9.4 滑动窗口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-博弈论"><span class="nav-number">1.9.</span> <span class="nav-text">10 博弈论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-Nim游戏"><span class="nav-number">1.9.1.</span> <span class="nav-text">10.1 Nim游戏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-脑筋急转弯"><span class="nav-number">1.10.</span> <span class="nav-text">11 脑筋急转弯</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="https://madkyoma.github.io/uploads/marisa.png"
+      alt="Kyoma">
+  <p class="site-author-name" itemprop="name">Kyoma</p>
+  <div class="site-description" itemprop="description">El Psy Congroo</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+        
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/ElephantZhang" title="GitHub &rarr; https://github.com/ElephantZhang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="http://chaoxy.com" title="Association &rarr; http://chaoxy.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-http://chaoxy.com/static/images/icon.png"></i>Association</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.chaoxy.com" title="http://www.chaoxy.com" rel="noopener" target="_blank">Supernatural Psychology Association</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://www.lovelywen.com" title="https://www.lovelywen.com" rel="noopener" target="_blank">WenWen's blog</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kyoma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-elephantzhang-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function disqus_config() {
+    this.page.url = "http://yoursite.com/2021/08/22/算法笔记/";
+    this.page.identifier = "2021/08/22/算法笔记/";
+    this.page.title = '算法笔记';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-elephantzhang-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
